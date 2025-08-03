@@ -5,7 +5,8 @@ import './App.css'
 //layouts
 import AuthLayout from './layouts/AuthLayout/AuthLayout'
 //pages
-import Auth from './pages/Auth/Auth'
+import AuthSignUp from './pages/Auth/AuthSignUp'
+import AuthLogin from './pages/Auth/AuthLogin'
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
   return (
     <Routes>
       <Route path="/auth" element={<AuthLayout/>}>
-        <Route index element={<Auth/>}/>
+        <Route path="login" element={<AuthLogin/>}/>
+        <Route path="signup" element={<AuthSignUp/>}/>
       </Route>
     </Routes>
   )

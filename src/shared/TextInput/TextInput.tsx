@@ -1,0 +1,60 @@
+//CSS
+import { useState, type SetStateAction } from "react"
+import styles from "./TextInput.module.css"
+
+type TextInputProps = {
+    inputDetails: {
+        name: string,
+        legend?: string,
+        type: string,
+        autoComplete: string,
+        controlledInput: string,
+        setControlledInput: (param: string | ((param: string) => string)) => void
+    }
+    isPassword: boolean,
+    
+
+}
+
+export default function TextInput ({ inputDetails, isPassword }: TextInputProps) {
+
+
+    const {name, type, autoComplete, controlledInput, setControlledInput} = inputDetails
+
+    const legend = inputDetails?.legend || name
+    
+    
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const helpertext = ""
+    
+
+    return(
+        <div className={styles["text-input"]}>
+            <div className={styles["input-header"]}>
+                <p className="text-preset-5-bold">{legend}</p>
+            </div>
+            <label htmlFor={name}>
+                <input 
+                    autoComplete={autoComplete}
+                    className="text-preset-4" 
+                    id={name}
+                    name={name}
+                    type={isPassword? (showPassword? "text":"password") :type}
+                    value={controlledInput}
+                    onChange={(e) => setControlledInput(e.target.value)}
+                />
+                {isPassword
+                    ?showPassword
+                        ?<button type="button" onClick={() => setShowPassword(false)}>
+                            <img src="/assets/images/icon-hide-password.svg" alt="icon hide password"/>
+                        </button> 
+                        :<button type="button"  onClick={() => setShowPassword(true)}>
+                            <img src="/assets/images/icon-show-password.svg" alt="icon show password"/>
+                        </button> 
+                    :""
+                }
+            </label>
+            {helpertext}
+        </div>
+    )
+}

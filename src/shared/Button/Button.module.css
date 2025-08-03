@@ -1,0 +1,16 @@
+.button{
+    border-radius: 8px;
+    padding-block: 16px;
+    border: none;
+    background-color: var(--grey-900);
+    text-align: center;
+    color: white;
+    box-shadow: none;
+    transition: box-shadow ease 0.3s, transform ease 0.3s;
+
+    &:hover{
+        cursor: pointer;
+        box-shadow: 0px 4px 0px rgba(32, 31, 36, 0.4);
+        transform: translateY(-4px);
+    }
+}
