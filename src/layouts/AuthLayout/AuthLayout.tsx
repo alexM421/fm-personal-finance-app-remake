@@ -9,7 +9,7 @@ export default function AuthLayout () {
 
     return(
         <div className={styles["auth-layout"]}>
-            <img/>
+            <img src="/assets/images/illustration-authentication.svg" alt="Authentification illustration"/>
             <Outlet/>
         </div>
     )
