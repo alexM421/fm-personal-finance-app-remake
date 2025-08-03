@@ -17,7 +17,7 @@ export default function AuthSignUp ( ) {
 
     return(
         <form className={styles.auth}>
-            <h1 className="text-preset-1">Login</h1>
+            <h1 className="text-preset-1">Sign Up</h1>
             <div>
                 <TextInput
                     inputDetails={{
@@ -27,7 +27,7 @@ export default function AuthSignUp ( ) {
                         controlledInput: nameInput,
                         setControlledInput: setNameInput,
                     }}
-                    isPassword={true}
+                    isPassword={false}
                 />
                 <TextInput 
                     inputDetails={{
