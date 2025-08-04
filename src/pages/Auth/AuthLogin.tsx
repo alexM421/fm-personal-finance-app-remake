@@ -15,8 +15,17 @@ export default function AuthLogin () {
     const [emailInput, setEmailInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const form = e.target as HTMLFormElement
+        const formElements = form.elements
+
+        const emailInput = formElements.namedItem("email")
+        const passwordInput = formElements.namedItem("password")
+    }
+
     return(
-        <form className={styles.auth}>
+        <form className={styles.auth} onSubmit={handleSubmit}>
             <h1 className="text-preset-1">Login</h1>
             <div>
                 <TextInput 
