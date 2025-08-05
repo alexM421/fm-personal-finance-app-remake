@@ -5,18 +5,34 @@ import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 //React
 import { useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
+import { AuthSignUpSubmit } from "./AuthSignUpSubmit"
 
 
+type errorsObj = {
+    nameErr: boolean,
+    emailErr : boolean,
+    passwordErr: boolean,
+    signupErr: boolean
+}
 
 export default function AuthSignUp ( ) {
     
+    const [nameInput, setNameInput] = useState<string>("")
     const [emailInput, setEmailInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
-    const [nameInput, setNameInput] = useState<string>("")
+
+    const navigate = useNavigate()
+
+    const [errors, setErrors] = useState<errorsObj>({
+        nameErr: false,
+        emailErr: false,
+        passwordErr: false,
+        signupErr: false,
+    })
 
     return(
-        <form className={styles.auth}>
+        <form className={styles.auth} onSubmit={(e) => AuthSignUpSubmit(e, setErrors, navigate)} noValidate>
             <h1 className="text-preset-1">Sign Up</h1>
             <div>
                 <TextInput
@@ -28,6 +44,7 @@ export default function AuthSignUp ( ) {
                         setControlledInput: setNameInput,
                     }}
                     isPassword={false}
+                    errorMessage={errors.nameErr? "Please enter a your name":""}
                 />
                 <TextInput 
                     inputDetails={{
@@ -38,6 +55,7 @@ export default function AuthSignUp ( ) {
                         setControlledInput: setEmailInput,
                     }}
                     isPassword={false}
+                    errorMessage={errors.emailErr? "Please enter a valid email":""}
                 />
                 <TextInput
                     inputDetails={{
@@ -47,8 +65,11 @@ export default function AuthSignUp ( ) {
                         type: "password",
                         controlledInput: passwordInput,
                         setControlledInput: setPasswordInput,
+                        minLength: 8,
                     }}
                     isPassword={true}
+                    helperText="Passwords must be at least 8 characters"
+                    errorMessage={errors.passwordErr? "Please enter a valid password":""}
                 />
             </div>
             <Button>Create Account</Button>

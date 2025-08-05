@@ -9,7 +9,17 @@
     max-width: 560px;
     width: 70%;
 
-    &>div{
+    &>.auth-headers{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &>p{
+            color: var(--red);
+        }
+    }
+
+    &>div:last-of-type{
         display: flex;
         flex-direction: column;
         gap: 16px

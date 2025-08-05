@@ -6,7 +6,9 @@ import TextInput from "../../shared/TextInput/TextInput"
 //React
 import { useState } from "react"
 import { Link } from "react-router"
-
+//auth
+import { AuthLoginSubmit } from "./AuthLoginSubmit"
+import type { errorsObj } from "./AuthLoginSubmit"
 
 
 export default function AuthLogin () {
@@ -14,19 +16,20 @@ export default function AuthLogin () {
 
     const [emailInput, setEmailInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
+    const [errors, setErrors] = useState<errorsObj>({
+        emailErr: false,
+        passwordErr: false,
+        loginErr: false,
+    })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const form = e.target as HTMLFormElement
-        const formElements = form.elements
-
-        const emailInput = formElements.namedItem("email")
-        const passwordInput = formElements.namedItem("password")
-    }
 
     return(
-        <form className={styles.auth} onSubmit={handleSubmit}>
-            <h1 className="text-preset-1">Login</h1>
+        <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors)} noValidate>
+            
+            <div className={`${styles["auth-headers"]} ${errors.loginErr? styles.error: ""}`}>
+                <h1 className="text-preset-1">Login</h1>
+                <p className="text-preset-3">{errors.loginErr? "Invalid Credentials":""}</p>
+            </div>
             <div>
                 <TextInput 
                     inputDetails={{
@@ -37,6 +40,8 @@ export default function AuthLogin () {
                         setControlledInput:setEmailInput,
                     }}
                     isPassword={false}
+                    errorMessage={errors.emailErr? "Please enter a valid email":""}
+                
                 />
                 <TextInput
                     inputDetails={{
@@ -47,6 +52,7 @@ export default function AuthLogin () {
                         setControlledInput:setPasswordInput,
                     }}
                     isPassword={true}
+                    errorMessage={errors.passwordErr? "Please enter your password":""}
                 />
             </div>
             <Button>Login</Button>

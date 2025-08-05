@@ -9,29 +9,33 @@ type TextInputProps = {
         type: string,
         autoComplete: string,
         controlledInput: string,
-        setControlledInput: (param: string | ((param: string) => string)) => void
+        setControlledInput: (param: string | ((param: string) => string)) => void,
+        minLength?: number,
     }
     isPassword: boolean,
+    helperText ?: string,
+    errorMessage?: string,
     
 
 }
 
-export default function TextInput ({ inputDetails, isPassword }: TextInputProps) {
+export default function TextInput ({ inputDetails, isPassword, errorMessage, helperText }: TextInputProps) {
 
 
     const {name, type, autoComplete, controlledInput, setControlledInput} = inputDetails
 
     const legend = inputDetails?.legend || name
-    
+    const minLength = inputDetails?.minLength || 1
     
     const [showPassword, setShowPassword] = useState<boolean>(false)
-    const helpertext = ""
+
     
 
     return(
-        <div className={styles["text-input"]}>
+        <div className={`${styles["text-input"]} ${errorMessage? styles["error"]:""}`}>
             <div className={styles["input-header"]}>
                 <p className="text-preset-5-bold">{legend}</p>
+                <p className="text-preset-5-bold">{errorMessage}</p>
             </div>
             <label htmlFor={name}>
                 <input 
@@ -42,6 +46,8 @@ export default function TextInput ({ inputDetails, isPassword }: TextInputProps)
                     type={isPassword? (showPassword? "text":"password") :type}
                     value={controlledInput}
                     onChange={(e) => setControlledInput(e.target.value)}
+                    required
+                    minLength={minLength - 1}
                 />
                 {isPassword
                     ?showPassword
@@ -54,7 +60,7 @@ export default function TextInput ({ inputDetails, isPassword }: TextInputProps)
                     :""
                 }
             </label>
-            {helpertext}
+            <p className="text-preset-5">{helperText}</p>
         </div>
     )
 }
