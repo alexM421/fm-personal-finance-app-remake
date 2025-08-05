@@ -42,3 +42,34 @@
         }
     }
 }
+
+.auth-popup{
+    position: absolute;
+    top:50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0px);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform ease 0.5s;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+
+    &>div:first-of-type{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &>img{
+            width: 40px;
+            color: green;
+        }
+    }
+
+    &.auth-popup-hidden{
+        transform: translateY(-200px) translateX(-50%);
+        
+    }
+}

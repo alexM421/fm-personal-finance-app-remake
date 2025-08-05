@@ -1,5 +1,5 @@
 //supabase
-import type { SetStateAction } from "react"
+import type { Dispatch, SetStateAction } from "react"
 import { supabase } from "../../../supabaseClient"
 import { useNavigate } from "react-router"
 
@@ -16,6 +16,7 @@ export async function AuthSignUpSubmit (
         e: React.FormEvent<HTMLFormElement>,
         setErrors: setStateErrorsObj,
         navigate: ReturnType<typeof useNavigate>,
+        setIsPopUpHidden: Dispatch<SetStateAction<boolean>>,
     ) {
     
     e.preventDefault()
@@ -63,8 +64,8 @@ export async function AuthSignUpSubmit (
     setErrors(tempErrors)
     console.log(Object.values(tempErrors))
     if(Object.values(tempErrors).every(value => !value)){
-        console.log("navigate")
-        navigate("/auth/login")
+        setIsPopUpHidden(false)
+        setTimeout(() => navigate("/auth/login"),  10000)
     }
 
 
