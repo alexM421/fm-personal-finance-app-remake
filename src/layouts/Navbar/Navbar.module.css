@@ -1,0 +1,129 @@
+.navbar{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 300px;
+    transition: width ease 1s;
+    background-color: var(--grey-900);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+    &>img{
+        width: 121px;
+        height: 22px;
+        margin-left: 32px;
+        margin-block: 40px;   
+    }
+
+    &>.navbar-items{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding-right: 24px;
+        transition: padding-right ease 1s;
+    }
+}
+
+.navbar-item{
+    padding: 16px 32px 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    border-left: 1px solid transparent;
+    transition: background-color ease 0.3s;
+    
+    
+    &>*{
+        transition: color ease 0.3s, opacity ease 0.8s;
+    }
+    
+    &>svg{
+        width: 24px;
+        flex-shrink: 0;
+        color: var(--grey-300);
+    }
+    
+    &>p{
+        opacity: 1;
+        color: var(--grey-300);
+        white-space: nowrap;
+    }
+
+    &:hover{
+        cursor: pointer;
+        
+
+        &>svg{
+            color: var(--grey-100);
+        }
+
+        &>p{
+            color: var(--grey-100);
+        }
+    }
+}
+
+.active-navbar-item{
+    background-color: var(--beige-100);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-left: 4px solid var(--green);
+
+    &>svg{
+        color: var(--green);
+    }
+
+    &>p{
+        color: var(--grey-900);
+    }
+
+    &:hover{
+        
+        &>svg{
+            color: var(--green);
+        }
+
+        &>p{
+            color: var(--grey-900);
+        }
+    }
+}
+
+.navbar-toggle{
+    margin-top: auto;
+    margin-bottom: 60px;
+    transition: transform ease 0.6s;
+
+}
+
+.mini-navbar{
+    width: 88px;
+    min-width: auto;
+
+    &>img{
+        width: 12px;
+        height: 22px;
+    }
+
+    &>.navbar-items{
+        padding-right: 8px;
+
+        &>.navbar-item {
+            &> p{
+                opacity: 0;        
+            }
+        }
+
+        &>.active-navbar-item>svg{
+                color: var(--grey-900);
+        }
+    }
+
+    &>.navbar-toggle {
+        transform: rotate(-180deg);
+        &>p{
+        opacity: 0;
+        }
+    }
+}
