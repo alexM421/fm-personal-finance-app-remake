@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import  SampleData  from "../../data.json"
 
 
-type Data = {
+export type Data = {
     balance: {
         current: number,
         income: number,
