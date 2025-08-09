@@ -1,7 +1,6 @@
 //CSS
 import styles from "./Overview.module.css"
 //Overview
-import OverviewLinkButton from "./OverviewLinkButton"
 import OverviewTransaction from "./OverviewTransaction"
 //context
 import { useDataContext } from "../../contexts/DataContext"
@@ -12,7 +11,7 @@ import OverviewHeader from "./OverviewHeader"
 export default function OverviewTransactions () {
 
     const { data } = useDataContext()
-    const sortedTransactions = SortedTransactionsByDate(data).slice(0,5)
+    const sortedTransactions = SortedTransactionsByDate(data.transactions).slice(0,5)
     const transactionsElements = sortedTransactions
         
         .flatMap((transaction,index) => {
@@ -26,6 +25,9 @@ export default function OverviewTransactions () {
             year: "numeric"  
             }).format(tranasctionDate)
 
+            const key = `transaction_${date}_${name}`
+            const borderKey=`transaction_border_${date}_${name}`
+
             return(
                 index!==4
                 ?[
@@ -34,15 +36,17 @@ export default function OverviewTransactions () {
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        key={key}
                     />
                     ,
-                    <div className={styles["transactions-border"]}></div>
+                    <div className={styles["transactions-border"]} key={borderKey}></div>
                 ]
                 :<OverviewTransaction
                         name={name}
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        key={key}
                 />
             )
         })

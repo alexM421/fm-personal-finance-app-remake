@@ -1,9 +1,16 @@
 //types
-import type { Data } from "../contexts/DataContext"
+type Transactions = {
+            avatar: string,
+            name: string,
+            category: string,
+            date: string,
+            amount: number,
+            recurring: boolean,
+    }[]
 
-export default function SortedTransactionsByDate (data: Data) {
+export default function SortedTransactionsByDate (transactions: Transactions) {
 
-    const transactions = data.transactions
+
 
     const sortedTransactions = transactions.sort((transactionA, transactionB) => {
 

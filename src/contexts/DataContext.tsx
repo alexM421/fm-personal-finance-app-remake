@@ -3,6 +3,9 @@ import  SampleData  from "../../data.json"
 
 
 export type Data = {
+    personnalSettings: {
+        budgetCycleDay: number,
+    },
     balance: {
         current: number,
         income: number,

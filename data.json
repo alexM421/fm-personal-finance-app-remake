@@ -1,4 +1,7 @@
 {
+    "personnalSettings": {
+        "budgetCycleDay": 15
+    },
     "balance": {
         "current": 4836.00,
         "income": 3814.25,

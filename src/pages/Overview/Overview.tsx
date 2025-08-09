@@ -1,5 +1,6 @@
 //CSS
 import styles from "./Overview.module.css"
+import OverviewBudgets from "./OverviewBudgets"
 //Overview
 import OverviewPots from "./OverviewPots"
 import OverviewTransactions from "./OverviewTransactions"
@@ -31,7 +32,7 @@ export default function Overview () {
                     <OverviewTransactions/>
                 </div>
                 <div>
-                    
+                    <OverviewBudgets/>
                 </div>
             </div>
         </div>

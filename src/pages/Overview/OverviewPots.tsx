@@ -2,7 +2,6 @@
 import styles from "./Overview.module.css"
 import OverviewHeader from "./OverviewHeader"
 //Overview
-import OverviewLinkButton from "./OverviewLinkButton"
 import OverviewPot from "./OverviewPot"
 
 export default function OverviewPots () {
