@@ -1,5 +1,6 @@
 //CSS
 import styles from "./Overview.module.css"
+import OverviewHeader from "./OverviewHeader"
 //Overview
 import OverviewLinkButton from "./OverviewLinkButton"
 import OverviewPot from "./OverviewPot"
@@ -10,10 +11,11 @@ export default function OverviewPots () {
 
     return(
         <div className={styles["overview-pots"]}>   
-            <div>
-                <h2 className="text-preset-2">Pots</h2>
-                <OverviewLinkButton link="/pots">See Details</OverviewLinkButton>
-            </div>
+            <OverviewHeader
+                title="Pots"
+                link="/pots"
+                btnDesc="See Details"
+            />
             <div className={styles["overview-pots-main"]}>
                 <div>
                     <img src="/assets/images/icon-pot.svg" alt="Pot icon"/>

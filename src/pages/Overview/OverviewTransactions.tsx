@@ -7,6 +7,7 @@ import OverviewTransaction from "./OverviewTransaction"
 import { useDataContext } from "../../contexts/DataContext"
 //utils
 import SortedTransactionsByDate from "../../utils/SortedTransactionsByDate"
+import OverviewHeader from "./OverviewHeader"
 
 export default function OverviewTransactions () {
 
@@ -48,10 +49,11 @@ export default function OverviewTransactions () {
 
     return(
         <div className={styles["overview-transactions"]}>
-            <div className={styles["overview-transactions-header"]}>
-                <h2 className="text-preset-2">Transactions</h2>
-                <OverviewLinkButton link="/transactions">See Details</OverviewLinkButton>
-            </div>
+            <OverviewHeader
+                title="Transactions"
+                link="/transactions"
+                btnDesc="View All"
+            />
             <div className={styles["overview-transactions-main"]}>
                 {transactionsElements}
             </div>

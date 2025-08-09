@@ -62,6 +62,16 @@
     }
 }
 
+.overview-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    &>h2{
+        color: var(--grey-900);
+    }
+}
+
 .overview-pots{
     display: flex;
     flex-direction: column;
@@ -69,12 +79,6 @@
     background-color: white;
     padding: 32px;
     border-radius: 12px;
-
-    &>div:first-of-type{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 
     &>.overview-pots-main{
         display: flex;
@@ -157,16 +161,6 @@
     padding: 32px;
     border-radius: 12px;
     gap: 32px;
-
-    &>.overview-transactions-header{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        
-        &>h2{
-            color: var(--grey-900);
-        }
-    }
 
     &>.overview-transactions-main{
         display: flex;
