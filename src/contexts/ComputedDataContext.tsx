@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, type Dispatch, type Rea
 import { useDataContext, type Budget, type Transaction } from "./DataContext";
 import filterTransactionsByCycle from "../utils/filterTransactionsByCycle";
 import getCurrentBudgetsAmount from "../utils/getCurrentBudgetsAmount";
+import { useDateContext } from "./DateContext";
 
 export type BudgetAmount = Budget & {
         amount: number
@@ -29,6 +30,7 @@ type ComputedDataProviderProps = {
 export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
 
     const  { data } = useDataContext()
+    const { date } = useDateContext()
 
     const [computedData, setComputedData] = useState<ComputedData>({
         currentCycleTransactions: [],
@@ -38,17 +40,30 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
 
     useEffect(() => {
 
-        const currentCycleTransactions = filterTransactionsByCycle(data.transactions)
-        const budgetedTransactions = currentCycleTransactions.filter(transaction => transaction.amount<0)
-        const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
-       
-        setComputedData({
-            currentCycleTransactions: currentCycleTransactions,
-            budgetedTransactions: budgetedTransactions,
-            budgetsAmount: budgetsAmount
-        })
+        if(date){
+            const { year, month, datetime } = date
+            const { transactions, budgets } = data
+            const { budgetCycleDay } = data.personnalSettings
+            const currentCycleTransactions = filterTransactionsByCycle(transactions, year, month, datetime, budgetCycleDay )
+            
+            const budgetedTransactions = currentCycleTransactions.filter(transaction => {
+                const isExpense = transaction.amount < 0
+                const isBudget = budgets.some(budget => budget.category === transaction.category)
 
-    },[])
+                return isBudget && isExpense
+            })
+            const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
+           
+        
+
+            setComputedData({
+                currentCycleTransactions: currentCycleTransactions,
+                budgetedTransactions: budgetedTransactions,
+                budgetsAmount: budgetsAmount
+            })
+        }
+
+    },[data, date])
 
     const value = {
         computedData: computedData,

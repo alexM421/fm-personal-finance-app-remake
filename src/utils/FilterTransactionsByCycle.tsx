@@ -2,9 +2,11 @@
 import type { Transaction } from "../contexts/DataContext"
 import getUserCycleInfos from "./getUserCycleInfos"
 //types
-export default function filterTransactionsByCycle (transactions: Transaction[]) {
+export default function filterTransactionsByCycle (transactions: Transaction[], year: number, month: number, datetime: string, budgetCycleDay: number) {
 
-    const userCycleData = getUserCycleInfos()
+    const userCycleData = getUserCycleInfos(year, month, datetime, budgetCycleDay)
+
+
 
     if(!userCycleData){
         return []

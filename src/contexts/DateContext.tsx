@@ -1,7 +1,7 @@
 //React
 import { createContext, useContext, useEffect, useState } from "react";
 
-type DateJson = {
+export type DateJson = {
   timezone: string,
   datetime: string,
   date: string,
