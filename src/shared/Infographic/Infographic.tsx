@@ -1,24 +1,16 @@
 //CSS
 import styles from "./Infographic.module.css"
-//types
-import type { Budget, Transaction } from "../../contexts/DataContext"
-//utils
-import filterTransactionsByCycle from "../../utils/filterTransactionsByCycle"
+//contexts
+import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 
-type InfographicProps = {
-    budgets: Budget[],
-    transactions: Transaction[]
-}
 
-export default function Infographic ({ budgets, transactions }: InfographicProps) {
+export default function Infographic () {
 
-    const budgetLimit = budgets.reduce((acc, currentBudget) => acc + currentBudget.maximum, 0)
+    
+    const { budgetedTransactions, budgetsAmount } = useComputedDataContext().computedData
 
-    const currentCycleTransactions = filterTransactionsByCycle(transactions)
-    const budgetedTransactions = currentCycleTransactions.filter(transaction => transaction.amount<0)
-
+    const budgetLimit = budgetsAmount.reduce((acc, currentBudget) => acc + currentBudget.maximum, 0)
     const budgetCurrentSpending = Math.round(Math.abs(budgetedTransactions.reduce((acc, transaction) => acc + transaction.amount, 0)))
-        
 
     return(
         <div className={styles.infographic}>

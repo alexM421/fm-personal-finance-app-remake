@@ -6,6 +6,7 @@ import { DataProvider } from './contexts/DataContext.tsx'
 //App
 import App from './App.tsx'
 import { DateProvider } from './contexts/DateContext.tsx'
+import { ComputedDataProvider } from './contexts/ComputedDataContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <DateProvider>
         <DataProvider>
-          <App />
+          <ComputedDataProvider>
+            <App />
+          </ComputedDataProvider>
         </DataProvider>
       </DateProvider>
     </BrowserRouter>

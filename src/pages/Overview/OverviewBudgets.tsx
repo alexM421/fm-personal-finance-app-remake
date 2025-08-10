@@ -20,10 +20,7 @@ export default function OverviewBudgets () {
                 btnDesc="See Details"
             />
             <div className={styles["overview-budgets-main"]}>
-                <Infographic
-                    budgets={data.budgets}
-                    transactions={data.transactions}
-                />
+                <Infographic/>
             </div>
         </div>
     )

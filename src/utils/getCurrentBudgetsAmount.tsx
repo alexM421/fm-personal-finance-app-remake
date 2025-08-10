@@ -20,6 +20,5 @@ export default function getCurrentBudgetsAmount (budgets: Budget[], budgetedTran
 
     })
     
-
     return budgetsAmount
 }
