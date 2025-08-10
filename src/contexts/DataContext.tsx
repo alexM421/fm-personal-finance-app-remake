@@ -2,36 +2,41 @@ import { createContext, useContext, useState } from "react";
 import  SampleData  from "../../data.json"
 
 
+export type Balance = {
+    current: number,
+    income: number,
+    expenses: number,
+}
+export type Transaction = {
+  avatar: string;
+  name: string;
+  category: string;
+  date: string;
+  amount: number;
+  recurring: boolean;
+}
+
+export type Budget = {
+  category: string;
+  maximum: number;
+  theme: string;
+}
+
+export type Pot = {
+  name: string;
+  target: number;
+  total: number;
+  theme: string;
+}
+
 export type Data = {
     personnalSettings: {
         budgetCycleDay: number,
     },
-    balance: {
-        current: number,
-        income: number,
-        expenses: number,
-    },
-    transactions: {
-            avatar: string,
-            name: string,
-            category: string,
-            date: string,
-            amount: number,
-            recurring: boolean,
-    }[],
-    budgets: 
-        {
-            category: string,
-            maximum: number,
-            theme: string,
-        }[],
-    pots: 
-        {
-            name: string,
-            target: number,
-            total: number,
-            theme: string,
-        }[]
+    balance: Balance
+    transactions: Transaction[]
+    budgets: Budget[]
+    pots: Pot[]
 }
 
 type DataContextValue = {

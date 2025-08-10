@@ -1,7 +1,7 @@
 //contexts
 import { useDataContext } from "../contexts/DataContext"
 import { useDateContext } from "../contexts/DateContext"
-import GetEndMonthDay from "./GetEndMonthDay"
+import getEndMonthDay from "./getEndMonthDay"
 
 export default function getUserCycleInfos () {
     
@@ -14,8 +14,8 @@ export default function getUserCycleInfos () {
 
     const { year, month, datetime } = date
 
-    const userCycleStartDay =  GetEndMonthDay(data.personnalSettings.budgetCycleDay, month, year)
-    const userEndCycleDay = userCycleStartDay===1? GetEndMonthDay(31, month, year) : userCycleStartDay-1
+    const userCycleStartDay =  getEndMonthDay(data.personnalSettings.budgetCycleDay, month, year)
+    const userEndCycleDay = userCycleStartDay===1? getEndMonthDay(31, month, year) : userCycleStartDay-1
 
     const currentDateObject = new Date(datetime)
     const possibleCycleStart = new Date(`${year}-${month}-${userCycleStartDay} 00:00:00`)

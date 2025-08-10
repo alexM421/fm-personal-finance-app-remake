@@ -1,16 +1,8 @@
-import getUserCycleInfos from "./GetUserCycleInfos"
-
+//utils
+import type { Transaction } from "../contexts/DataContext"
+import getUserCycleInfos from "./getUserCycleInfos"
 //types
-type Transactions = {
-            avatar: string,
-            name: string,
-            category: string,
-            date: string,
-            amount: number,
-            recurring: boolean,
-    }[]
-
-export default function filterTransactionsByCycle (transactions: Transactions) {
+export default function filterTransactionsByCycle (transactions: Transaction[]) {
 
     const userCycleData = getUserCycleInfos()
 
