@@ -1,5 +1,5 @@
 //CSS
-import FilterTransactionsByCycle from "../../utils/FilterTransactionsByCycle"
+import filterTransactionsByCycle from "../../utils/FilterTransactionsByCycle"
 import styles from "./Infographic.module.css"
 
 type InfographicProps = {
@@ -22,8 +22,12 @@ type InfographicProps = {
 export default function Infographic ({ budgets, transactions }: InfographicProps) {
 
     const budgetLimit = budgets.reduce((acc, currentBudget) => acc + currentBudget.maximum, 0)
-    const budgetCurrentSpending = ""
-    const test = FilterTransactionsByCycle(transactions)
+
+    const currentCycleTransactions = filterTransactionsByCycle(transactions)
+    
+
+    const budgetCurrentSpending = currentCycleTransactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+        
 
     return(
         <div className={styles.infographic}>

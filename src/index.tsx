@@ -5,14 +5,17 @@ import { BrowserRouter } from 'react-router'
 import { DataProvider } from './contexts/DataContext.tsx'
 //App
 import App from './App.tsx'
+import { DateProvider } from './contexts/DateContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <DataProvider>
-        <App />
-      </DataProvider>
+      <DateProvider>
+        <DataProvider>
+          <App />
+        </DataProvider>
+      </DateProvider>
     </BrowserRouter>
   </StrictMode>,
 )

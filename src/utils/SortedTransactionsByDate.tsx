@@ -8,9 +8,7 @@ type Transactions = {
             recurring: boolean,
     }[]
 
-export default function SortedTransactionsByDate (transactions: Transactions) {
-
-
+export default function sortedTransactionsByDate (transactions: Transactions) {
 
     const sortedTransactions = transactions.sort((transactionA, transactionB) => {
 

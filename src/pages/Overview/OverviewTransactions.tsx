@@ -5,13 +5,13 @@ import OverviewTransaction from "./OverviewTransaction"
 //context
 import { useDataContext } from "../../contexts/DataContext"
 //utils
-import SortedTransactionsByDate from "../../utils/SortedTransactionsByDate"
+import sortedTransactionsByDate from "../../utils/SortedTransactionsByDate"
 import OverviewHeader from "./OverviewHeader"
 
 export default function OverviewTransactions () {
 
     const { data } = useDataContext()
-    const sortedTransactions = SortedTransactionsByDate(data.transactions).slice(0,5)
+    const sortedTransactions = sortedTransactionsByDate(data.transactions).slice(0,5)
     const transactionsElements = sortedTransactions
         
         .flatMap((transaction,index) => {
