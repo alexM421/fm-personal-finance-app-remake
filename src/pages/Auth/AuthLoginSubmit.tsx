@@ -1,6 +1,6 @@
 //supabase
 import type { SetStateAction } from "react"
-import { supabase } from "../../../supabaseClient"
+import { supabase } from "../../supabaseClient"
 
 export type errorsObj = {
     emailErr : boolean,

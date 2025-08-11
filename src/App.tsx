@@ -4,10 +4,11 @@ import { Route, Routes } from 'react-router'
 import './App.css'
 //layouts
 import AuthLayout from './layouts/AuthLayout/AuthLayout'
+import HomeLayout from './layouts/HomeLayout/HomeLayout'
 //pages
 import AuthSignUp from './pages/Auth/AuthSignUp'
 import AuthLogin from './pages/Auth/AuthLogin'
-import HomeLayout from './layouts/HomeLayout/HomeLayout'
+import Overview from './pages/Overview/Overview'
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Route path="signup" element={<AuthSignUp/>}/>
       </Route>
       <Route path="/" element={<HomeLayout/>}>
-        <Route path="overview" element={"test"}/>
+        <Route path="overview" element={<Overview/>}/>
         <Route path="transactions" element={"budgets"}/>
         <Route path="budgets" element={"budgets"}/>
         <Route path="pots" element={"budgets"}/>

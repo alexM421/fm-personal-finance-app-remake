@@ -1,6 +1,6 @@
 //supabase
 import type { Dispatch, SetStateAction } from "react"
-import { supabase } from "../../../supabaseClient"
+import { supabase } from "../../supabaseClient"
 import { useNavigate } from "react-router"
 
 export type errorsObj = {
