@@ -1,4 +1,13 @@
 .home-layout{
     display: flex;
     min-height: 100vh;
+
+    &>div:last-of-type{
+        flex: 1;
+        padding: 32px 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        background-color: var(--beige-100);
+    }
 }
