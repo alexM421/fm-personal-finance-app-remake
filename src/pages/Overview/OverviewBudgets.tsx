@@ -28,6 +28,7 @@ export default function OverviewBudgets () {
                             colorCode={budget.theme}
                             title={budget.category}
                             amount={Math.floor(Math.abs(budget.amount))}
+                            key={`overview-budget-item-${budget.category}`}
                         />    
                     )}
                 </div>

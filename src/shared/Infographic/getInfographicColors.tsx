@@ -4,8 +4,6 @@ export default function getInfographicColors ( budgetCurrentSpending: number, bu
 
     let colorStopPercent = 0
 
-    console.log(budgetsAmount)
-
     const colorsArr = budgetsAmount.map((budgetAmount,index) => {
 
         const colorCode = budgetAmount.theme
@@ -19,9 +17,7 @@ export default function getInfographicColors ( budgetCurrentSpending: number, bu
         return `${colorCode} ${colorStart} ${colorStop}`
     })
 
-    
     const colorsString = colorsArr.join(",")
-    console.log(colorsArr)
     
     const backgroundStyle = `conic-gradient(${colorsString})`    
 

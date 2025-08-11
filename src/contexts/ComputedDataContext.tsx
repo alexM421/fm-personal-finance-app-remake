@@ -5,15 +5,24 @@ import { useDataContext, type Budget, type Transaction } from "./DataContext";
 import filterTransactionsByCycle from "../utils/filterTransactionsByCycle";
 import getCurrentBudgetsAmount from "../utils/getCurrentBudgetsAmount";
 import { useDateContext } from "./DateContext";
+import getRecurringBillsCycleStatus from "../utils/getRecurringBillsCycleStatus";
 
 export type BudgetAmount = Budget & {
         amount: number
+}
+
+export type recurringBillsCycleStatus = {
+    paidBills: Transaction[],
+    upcomingBills: Transaction[],
+    dueSoonBills: Transaction[]
 }
 
 export type ComputedData = {
     currentCycleTransactions: Transaction[],
     budgetedTransactions: Transaction[],
     budgetsAmount: BudgetAmount[],
+    recurringBillsCycleStatus: recurringBillsCycleStatus
+    
 }
 
 type ComputedDataContextValue = {
@@ -36,6 +45,11 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
         currentCycleTransactions: [],
         budgetedTransactions: [],
         budgetsAmount: [],
+        recurringBillsCycleStatus: {
+            paidBills: [],
+            upcomingBills: [],
+            dueSoonBills: []
+        }
     })
 
     useEffect(() => {
@@ -53,13 +67,15 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
                 return isBudget && isExpense
             })
             const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
-           
+            
+            const recurringBillsCycleStatus = getRecurringBillsCycleStatus(transactions, currentCycleTransactions, datetime)
         
 
             setComputedData({
                 currentCycleTransactions: currentCycleTransactions,
                 budgetedTransactions: budgetedTransactions,
-                budgetsAmount: budgetsAmount
+                budgetsAmount: budgetsAmount,
+                recurringBillsCycleStatus: recurringBillsCycleStatus,
             })
         }
 
