@@ -2,11 +2,12 @@
 import styles from "./Overview.module.css"
 import OverviewHeader from "./OverviewHeader"
 //Overview
-import OverviewPot from "./OverviewPot"
+import OverviewColorPotBudget from "./OverviewColorPotBudget.tsx"
+import { useDataContext } from "../../contexts/DataContext.tsx"
 
 export default function OverviewPots () {
 
-
+    const { pots } = useDataContext().data
 
     return(
         <div className={styles["overview-pots"]}>   
@@ -24,26 +25,14 @@ export default function OverviewPots () {
                     </div>
                 </div>
                 <div>
-                    <OverviewPot
-                        colorCode="red"
-                        potTitle="Savings"
-                        amount={159}    
-                    />
-                    <OverviewPot
-                        colorCode="var(--green)"
-                        potTitle="Savings"
-                        amount={159}    
-                    />
-                    <OverviewPot
-                        colorCode="var(--green)"
-                        potTitle="Savings"
-                        amount={159}    
-                    />
-                    <OverviewPot
-                        colorCode="var(--green)"
-                        potTitle="Savings"
-                        amount={159}    
-                    />
+                    {pots.slice(0,4).map(pot => 
+                        <OverviewColorPotBudget
+                            colorCode={pot.theme}
+                            title={pot.name}
+                            amount={pot.total}
+                            key={`pot-${pot.name}`}
+                        />
+                    )}
                 </div>
             </div>
         </div>

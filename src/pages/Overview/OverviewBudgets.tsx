@@ -6,11 +6,13 @@ import OverviewHeader from "./OverviewHeader"
 import Infographic from "../../shared/Infographic/Infographic"
 //contexts
 import { useDataContext } from "../../contexts/DataContext"
+import OverviewColorPotBudget from "./OverviewColorPotBudget"
+import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 
 
 export default function OverviewBudgets () {
 
-    const { data } = useDataContext()
+    const { budgetsAmount } = useComputedDataContext().computedData
 
     return(
         <div className={styles["overview-budgets"]}>
@@ -21,6 +23,15 @@ export default function OverviewBudgets () {
             />
             <div className={styles["overview-budgets-main"]}>
                 <Infographic/>
+                <div className={styles["overview-budgets-desc"]}>
+                    {budgetsAmount.map(budget => 
+                        <OverviewColorPotBudget
+                            colorCode={budget.theme}
+                            title={budget.category}
+                            amount={Math.floor(Math.abs(budget.amount))}
+                        />    
+                    )}
+                </div>
             </div>
         </div>
     )
