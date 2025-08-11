@@ -5,7 +5,6 @@ import OverviewHeader from "./OverviewHeader"
 //shared
 import Infographic from "../../shared/Infographic/Infographic"
 //contexts
-import { useDataContext } from "../../contexts/DataContext"
 import OverviewColorPotBudget from "./OverviewColorPotBudget"
 import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 
