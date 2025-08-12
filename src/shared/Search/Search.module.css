@@ -1,0 +1,42 @@
+.search{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--beige-500);
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: border 0.3s ease;
+
+    &>input{
+        flex: 1;
+        color: var(--grey-900);
+        border: none;
+
+        &:focus{
+            outline: none;
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        &::placeholder{
+            color: var(--beige-500)
+        }
+    }
+
+    &>svg{
+        width: 16px;
+        height: 16px;
+        color: var(--grey-900)
+    }
+
+    &:hover{
+        cursor: pointer;
+        border: 1px solid var(--grey-900)
+    }
+
+    &:has(input:focus){
+        border: 1px solid var(--grey-900)
+    }
+}
