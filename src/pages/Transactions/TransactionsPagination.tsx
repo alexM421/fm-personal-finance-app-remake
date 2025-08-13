@@ -9,13 +9,13 @@ type TransactionsPaginationProps = {
     filteredData: Transaction[],
     selectedPage: number,
     setSelectedPage: (num:number | ((prevNum :number) => number )) => void,
+    perPage: number,
 }
 
-export default function TransactionsPagination ({ filteredData ,selectedPage, setSelectedPage}: TransactionsPaginationProps) {
+export default function TransactionsPagination ({ filteredData ,selectedPage, setSelectedPage, perPage}: TransactionsPaginationProps) {
 
-    const pagesNumber = Math.ceil(filteredData.length/10) || 1
+    const pagesNumber = Math.ceil(filteredData.length/perPage) || 1
     
-
     const handlePaginationDisplay = () => {
 
         return(

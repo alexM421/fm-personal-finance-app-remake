@@ -30,7 +30,7 @@ export default function Transactions () {
 
     const filteredTransactions = getFilteredTransactions(transactions, categorySelect, search)
     const sortedAndFilteredTransactions = getSortedTransactions(filteredTransactions, sortSelect)
-    const selectedPageTransactions = sortedAndFilteredTransactions.slice((selectedPage-1)*10, selectedPage*10)
+    const selectedPageTransactions = sortedAndFilteredTransactions.slice((selectedPage-1)*perPage, selectedPage*perPage)
 
     useEffect(() => {
         setSelectedPage(1)
@@ -38,8 +38,18 @@ export default function Transactions () {
 
     const gridMainRef = useRef<HTMLDivElement | null>(null)
 
-    const gridMainHeight = gridMainRef.current?.clientHeight
-    console.log(gridMainHeight)
+
+    useEffect(() => {
+        const gridMainHeight = gridMainRef.current?.clientHeight
+        if(!gridMainHeight){
+            setPerPage(0)
+        }else{
+            const gridItemHeight = 40 + 16*2 + 1;
+            const numberOfGridItemPerPage = Math.floor((gridMainHeight - 40)/gridItemHeight) + 1
+            setPerPage(numberOfGridItemPerPage)
+        }
+
+    },[])
 
     return(
         <div className={styles.transactions}>
@@ -98,6 +108,7 @@ export default function Transactions () {
                     filteredData={sortedAndFilteredTransactions}
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
+                    perPage={perPage}
                 />
             </div>
         </div>
