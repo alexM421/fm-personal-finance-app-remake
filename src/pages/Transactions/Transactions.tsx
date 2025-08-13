@@ -14,27 +14,31 @@ import getSortedTransactions from "./getSortedTransactions"
 import TransactionItem from "./TransactionItem"
 import GapSeparation from "../../shared/GapSeparation/GapSeparation"
 import TransactionsPagination from "./TransactionsPagination"
+import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 
 export default function Transactions () {
 
     const transactions = useDataContext().data.transactions
+    const { currentCycleTransactions } = useComputedDataContext().computedData
 
     const [search, setSearch] = useState<string>("")
     const [sortSelect, setSortSelect] = useState<string>("Latest")
     const [categorySelect, setCategorySelect] = useState<string>("All Transactions")
+    const [showCycleOnly, setShowCycleOnly] = useState<boolean>(false)
     const [selectedPage, setSelectedPage] = useState<number>(1)
     const [perPage, setPerPage] = useState<number>(10)
 
     const categories = ["All Transactions","Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     const sortOptions = ["Latest","Oldest","A to Z","Z to A","Highest","Lowest"]
 
-    const filteredTransactions = getFilteredTransactions(transactions, categorySelect, search)
+   
+    const filteredTransactions = getFilteredTransactions(showCycleOnly? currentCycleTransactions:transactions, categorySelect, search)
     const sortedAndFilteredTransactions = getSortedTransactions(filteredTransactions, sortSelect)
     const selectedPageTransactions = sortedAndFilteredTransactions.slice((selectedPage-1)*perPage, selectedPage*perPage)
 
     useEffect(() => {
         setSelectedPage(1)
-    },[search, sortSelect, categorySelect])
+    },[search, sortSelect, categorySelect, showCycleOnly])
 
     const gridMainRef = useRef<HTMLDivElement | null>(null)
 
@@ -65,6 +69,9 @@ export default function Transactions () {
                         placeholder="Search transaction"
                     />
                     <div className={styles["transactions-selectors"]}>
+                        <button onClick={() => setShowCycleOnly(prevState => !prevState)}>
+                            Toggle Cycle Render Only
+                        </button>
                         <div className={`${styles["transactions-selector"]} ${styles["sort-selector"]}`}>
                             <p className="text-preset-4">Sort by</p>
                             <CustomSelect
@@ -95,11 +102,15 @@ export default function Transactions () {
                             index===selectedPageTransactions.length-1
                             ?<TransactionItem
                                 transaction={transaction}
+                                key={`transaction-${transaction.name}`}
                             />
                             :[<TransactionItem
                                 transaction={transaction}
+                                key={`transaction-${transaction.name}`}
                             />,
-                                <GapSeparation/>
+                                <GapSeparation
+                                key={`transaction-${transaction.name}-gap-separation`}
+                                />
                             ]
                             )}
                     </div>

@@ -60,8 +60,9 @@ export default function CustomSelect ({ selected, setSelected, options}: CustomS
                         className="text-preset-4"
                         style={{fontWeight: selected===option? "bold":""}}
                         onClick={handleOptionChange}
+                        key={`option-${option}`}
                         >{option}</p>
-                    const optionBorder = <div className={styles["option-border"]}></div>
+                    const optionBorder = <div className={styles["option-border"]} key={`option-border-${option}`}></div>
                     
                     return index+1 === options.length 
                         ? optionElement
