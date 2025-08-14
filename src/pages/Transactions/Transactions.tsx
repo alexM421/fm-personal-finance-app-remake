@@ -15,6 +15,7 @@ import TransactionItem from "./TransactionItem"
 import GapSeparation from "../../shared/GapSeparation/GapSeparation"
 import TransactionsPagination from "./TransactionsPagination"
 import { useComputedDataContext } from "../../contexts/ComputedDataContext"
+import ToggleBtn from "../../shared/ToggleBtn/ToggleBtn"
 
 export default function Transactions () {
 
@@ -44,15 +45,24 @@ export default function Transactions () {
 
 
     useEffect(() => {
+        
         const gridMainHeight = gridMainRef.current?.clientHeight
-        if(!gridMainHeight){
-            setPerPage(0)
-        }else{
-            const gridItemHeight = 40 + 16*2 + 1;
-            const numberOfGridItemPerPage = Math.floor((gridMainHeight - 40)/gridItemHeight) + 1
-            setPerPage(numberOfGridItemPerPage)
+        const gridItemHeight = 40 + 16*2 + 1;
+        
+        const handleGridHeight = () => {
+            if(!gridMainHeight){
+                setPerPage(0)
+            }else{
+                
+                const numberOfGridItemPerPage = Math.floor((gridMainHeight - 40)/gridItemHeight) + 1
+                setPerPage(numberOfGridItemPerPage)
+            }
         }
 
+        handleGridHeight() 
+        window.addEventListener("resize", handleGridHeight)
+
+        return () => window.removeEventListener("resize", handleGridHeight)
     },[])
 
     return(
@@ -69,9 +79,14 @@ export default function Transactions () {
                         placeholder="Search transaction"
                     />
                     <div className={styles["transactions-selectors"]}>
-                        <button onClick={() => setShowCycleOnly(prevState => !prevState)}>
-                            Toggle Cycle Render Only
-                        </button>
+                        <div className={styles["transactions-toggle"]}>
+                            <p className="text-preset-4" style={{fontWeight: !showCycleOnly? "700":"400"}}>All</p>
+                            <ToggleBtn
+                                setState={setShowCycleOnly}
+                                state={showCycleOnly}
+                            />
+                            <p className="text-preset-4" style={{fontWeight: showCycleOnly? "700":"400"}}>Budgets</p>
+                        </div>
                         <div className={`${styles["transactions-selector"]} ${styles["sort-selector"]}`}>
                             <p className="text-preset-4">Sort by</p>
                             <CustomSelect
@@ -102,14 +117,14 @@ export default function Transactions () {
                             index===selectedPageTransactions.length-1
                             ?<TransactionItem
                                 transaction={transaction}
-                                key={`transaction-${transaction.name}`}
+                                key={`transaction-${transaction.name}-${transaction.date}`}
                             />
                             :[<TransactionItem
                                 transaction={transaction}
-                                key={`transaction-${transaction.name}`}
+                                key={`transaction-${transaction.name}-${transaction.date}`}
                             />,
                                 <GapSeparation
-                                key={`transaction-${transaction.name}-gap-separation`}
+                                key={`transaction-${transaction.name}--${transaction.date}-gap-separation`}
                                 />
                             ]
                             )}
