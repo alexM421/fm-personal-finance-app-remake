@@ -5,7 +5,7 @@ import IconCaretDown from "../../assets/IconCaretDown"
 
 type CustomSelectProps = {
     selected: string,
-    setSelected: Dispatch<SetStateAction<string>>,
+    setSelected: (string: string) => void,
     options: string[]
 }
 

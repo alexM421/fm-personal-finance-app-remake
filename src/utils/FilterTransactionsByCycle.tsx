@@ -6,8 +6,6 @@ export default function filterTransactionsByCycle (transactions: Transaction[], 
 
     const userCycleData = getUserCycleInfos(year, month, datetime, budgetCycleDay)
 
-
-
     if(!userCycleData){
         return []
     }

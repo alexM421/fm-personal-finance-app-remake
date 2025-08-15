@@ -12,11 +12,11 @@ export default function getUserCycleInfos (year: number, month: number, datetime
     if(possibleCycleStart.getTime() <= currentDateObject.getTime()){
         return {
             userCycleStartDate: new Date(`${year}-${month}-${userCycleStartDay} 00:00:00`),
-            userCycleEndDate: new Date(`${year}-${month===12? 1: month+1}-${userEndCycleDay} 23:59:59`)
+            userCycleEndDate: new Date(`${year}-${Number(month)===12? 1: Number(month)+1}-${userEndCycleDay} 23:59:59`)
         }
     }else{
         return {
-            userCycleStartDate: new Date(`${year}-${month===1? 12: month-1}-${userCycleStartDay} 00:00:00`),
+            userCycleStartDate: new Date(`${year}-${Number(month)===1? 12: Number(month)-1}-${userCycleStartDay} 00:00:00`),
             userCycleEndDate: new Date(`${year}-${month}-${userEndCycleDay} 23:59:59`)
         }
     }
