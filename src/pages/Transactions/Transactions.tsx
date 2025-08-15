@@ -17,6 +17,7 @@ import TransactionsPagination from "./TransactionsPagination"
 import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 import ToggleBtn from "../../shared/ToggleBtn/ToggleBtn"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
+import AddTransactionModal from "../../modals/AddTransactionModal/AddTransactionModal"
 
 export default function Transactions () {
 
@@ -147,7 +148,7 @@ export default function Transactions () {
                 state={showModal}
                 toggleState={setShowModal}
             >
-                <p>HELLO</p>
+                <AddTransactionModal/>
             </ModalLayout>
         </>
     )

@@ -5,6 +5,7 @@ import TextInput from "../../shared/TextInput/TextInput"
 import styles from "./AddTransactionModal.module.css"
 import type { Transaction } from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
+import DateInput from "../../shared/DateInput/DateInput"
 
 
 
@@ -45,6 +46,7 @@ export default function AddTransactionModal () {
                         autoComplete: "none",
                         type: "text",
                         controlledInput: formInputs.name,
+                        placeholder: "John Doe",
                         setControlledInput: (e) => handleFormInputsUpdate("name", e.target.value)
                     }}
                     isPassword={false}
@@ -58,6 +60,12 @@ export default function AddTransactionModal () {
                         options={sortOptions}
                     />
                 </div>
+                <DateInput
+                    controlledInput={formInputs.date}
+                    setControlledInput={(date) => handleFormInputsUpdate("date", date)}
+                    legend="Transaction Date"
+                    name="date"
+                />
             </div>
             <Button>Add Transaction</Button>
         </form>

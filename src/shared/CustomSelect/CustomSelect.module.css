@@ -5,6 +5,7 @@
     &>.custom-select-selected{
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 16px;
         border: 1px solid var(--beige-500);
         border-radius: 8px;
@@ -14,6 +15,8 @@
             color: var(--grey-900);
             width: 16px;
             height: 16px;
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
         }
 
         &>p{
@@ -64,6 +67,10 @@
     }
 
     &.hidden{
+
+        &>.custom-select-selected>svg{
+            transform: rotate(0deg);
+        }
 
         &>.custom-select-options{
             opacity: 0;
