@@ -20,7 +20,8 @@ export default function AddTransactionModal () {
         category: "",
         date: "",
         amount: 0,
-        recurring: false
+        recurring: false,
+        currency: "",
     })
 
     const handleFormInputsUpdate = 

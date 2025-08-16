@@ -44,7 +44,8 @@ export default function AuthSignUp ( ) {
                             name: "name",
                             type: "text",
                             controlledInput: nameInput,
-                            setControlledInput: setNameInput,
+                            setControlledInput: (e) => setNameInput(e.target.value),
+                            placeholder: "John Doe"
                         }}
                         isPassword={false}
                         errorMessage={errors.nameErr? "Please enter a your name":""}
@@ -55,7 +56,8 @@ export default function AuthSignUp ( ) {
                             name: "email",
                             type: "email",
                             controlledInput: emailInput, 
-                            setControlledInput: setEmailInput,
+                            setControlledInput: (e) => setEmailInput(e.target.value),
+                            placeholder: "email@example.com"
                         }}
                         isPassword={false}
                         errorMessage={errors.emailErr? "Please enter a valid email":""}
@@ -67,8 +69,9 @@ export default function AuthSignUp ( ) {
                             legend: "Create password",
                             type: "password",
                             controlledInput: passwordInput,
-                            setControlledInput: setPasswordInput,
+                            setControlledInput: (e) => setPasswordInput(e.target.value),
                             minLength: 8,
+                            placeholder: "123SecurePassword"
                         }}
                         isPassword={true}
                         helperText="Passwords must be at least 8 characters"

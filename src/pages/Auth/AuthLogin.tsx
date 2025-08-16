@@ -37,7 +37,8 @@ export default function AuthLogin () {
                         name:"email",
                         type:"email",
                         controlledInput:emailInput, 
-                        setControlledInput:setEmailInput,
+                        setControlledInput: (e) => setEmailInput(e.target.value),
+                        placeholder:"email@example.com"
                     }}
                     isPassword={false}
                     errorMessage={errors.emailErr? "Please enter a valid email":""}
@@ -49,7 +50,8 @@ export default function AuthLogin () {
                         name:"password",
                         type: "password",
                         controlledInput: passwordInput,
-                        setControlledInput:setPasswordInput,
+                        setControlledInput: (e) => setPasswordInput(e.target.value),
+                        placeholder: "email@example.com"
                     }}
                     isPassword={true}
                     errorMessage={errors.passwordErr? "Please enter your password":""}
