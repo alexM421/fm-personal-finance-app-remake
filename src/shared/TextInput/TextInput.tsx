@@ -9,8 +9,10 @@ type TextInputProps = {
         type: string,
         autoComplete: string,
         controlledInput: string,
-        setControlledInput: (param: string | ((param: string) => string)) => void,
+        setControlledInput: (e: React.ChangeEvent<HTMLInputElement>) => void,
+        placeholder: string,
         minLength?: number,
+        pattern?: string,
     }
     isPassword: boolean,
     helperText ?: string,
@@ -22,10 +24,11 @@ type TextInputProps = {
 export default function TextInput ({ inputDetails, isPassword, errorMessage, helperText }: TextInputProps) {
 
 
-    const {name, type, autoComplete, controlledInput, setControlledInput} = inputDetails
+    const {name, type, autoComplete, controlledInput, setControlledInput, placeholder } = inputDetails
 
     const legend = inputDetails?.legend || name
     const minLength = inputDetails?.minLength || 1
+    const pattern = inputDetails?.pattern || ""
     
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -45,9 +48,11 @@ export default function TextInput ({ inputDetails, isPassword, errorMessage, hel
                     name={name}
                     type={isPassword? (showPassword? "text":"password") :type}
                     value={controlledInput}
-                    onChange={(e) => setControlledInput(e.target.value)}
+                    onChange={setControlledInput}
                     required
                     minLength={minLength - 1}
+                    placeholder={placeholder}
+                    pattern={pattern}
                 />
                 {isPassword
                     ?showPassword

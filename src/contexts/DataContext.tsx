@@ -1,6 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import  SampleData  from "../../data.json"
 
+export type PersonnalSettings = {
+    budgetCycleDay: number,
+    preferredCurrency: string,
+}
 
 export type Balance = {
     current: number,
@@ -8,35 +12,34 @@ export type Balance = {
     expenses: number,
 }
 export type Transaction = {
-  avatar: string;
-  name: string;
-  category: string;
-  date: string;
-  amount: number;
-  recurring: boolean;
+  avatar: string,
+  name: string,
+  category: string,
+  date: string,
+  amount: number,
+  recurring: boolean,
+  currency: string,
 }
 
 export type Budget = {
-  category: string;
-  maximum: number;
-  theme: string;
+  category: string,
+  maximum: number,
+  theme: string,
 }
 
 export type Pot = {
-  name: string;
-  target: number;
-  total: number;
-  theme: string;
+  name: string,
+  target: number,
+  total: number,
+  theme: string,
 }
 
 export type Data = {
-    personnalSettings: {
-        budgetCycleDay: number,
-    },
-    balance: Balance
-    transactions: Transaction[]
-    budgets: Budget[]
-    pots: Pot[]
+    personnalSettings: PersonnalSettings,
+    balance: Balance,
+    transactions: Transaction[],
+    budgets: Budget[],
+    pots: Pot[],
 }
 
 type DataContextValue = {

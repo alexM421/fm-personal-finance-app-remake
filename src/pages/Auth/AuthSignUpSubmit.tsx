@@ -44,13 +44,15 @@ export async function AuthSignUpSubmit (
     tempErrors.emailErr = !isEmailValid
     tempErrors.passwordErr = !isPasswordValid
 
+
+
     if(isEmailValid && isPasswordValid && isNameInputValid){
         const supabaseData = await supabase.auth.signUp({
             email: emailInput.value,
             password: passwordInput.value,
             options: {
                 data: {
-                    name: nameInput.value
+                    name: nameInput.value,
                 }
             }
         })
@@ -70,4 +72,5 @@ export async function AuthSignUpSubmit (
 
 
 }
+
 
