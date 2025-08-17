@@ -35,16 +35,15 @@ export async function AuthSignUpSubmit (
     const emailInput = formElements.namedItem("email") as HTMLInputElement
     const passwordInput = formElements.namedItem("new-password") as HTMLInputElement
     
+    const isNameInputValid = nameInput.validity.valid
     const isEmailValid = emailInput.validity.valid
     const isPasswordValid = passwordInput.validity.valid
-    const isNameInputValid = nameInput.validity.valid
 
+    console.log(isNameInputValid)
 
     tempErrors.nameErr =  !isNameInputValid
     tempErrors.emailErr = !isEmailValid
     tempErrors.passwordErr = !isPasswordValid
-
-
 
     if(isEmailValid && isPasswordValid && isNameInputValid){
         const supabaseData = await supabase.auth.signUp({
@@ -52,7 +51,7 @@ export async function AuthSignUpSubmit (
             password: passwordInput.value,
             options: {
                 data: {
-                    name: nameInput.value,
+                    name: nameInput.value
                 }
             }
         })
@@ -60,11 +59,9 @@ export async function AuthSignUpSubmit (
        //error handling
        const isSignUpValid = !error
        tempErrors.signupErr = !isSignUpValid
-       console.log(supabaseData)
     }
 
     setErrors(tempErrors)
-    console.log(Object.values(tempErrors))
     if(Object.values(tempErrors).every(value => !value)){
         setIsPopUpHidden(false)
         setTimeout(() => navigate("/auth/login"),  10000)
@@ -72,5 +69,4 @@ export async function AuthSignUpSubmit (
 
 
 }
-
 
