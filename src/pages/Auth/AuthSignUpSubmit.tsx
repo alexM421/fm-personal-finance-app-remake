@@ -55,7 +55,7 @@ export async function AuthSignUpSubmit (
                 }
             }
         })
-       const { data, error } = supabaseData
+       const { error } = supabaseData
        //error handling
        const isSignUpValid = !error
        tempErrors.signupErr = !isSignUpValid

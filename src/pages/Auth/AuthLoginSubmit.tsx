@@ -40,7 +40,7 @@ export async function AuthLoginSubmit (e: React.FormEvent<HTMLFormElement>, setE
        //error handling
        const isLoginValid = !error
        tempErrors.loginErr = !isLoginValid
-       console.log(supabaseData)
+
     }
 
     setErrors(tempErrors)
