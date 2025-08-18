@@ -1,5 +1,14 @@
+//react
 import { createContext, useContext, useEffect, useState } from "react";
+//data
 import  SampleData  from "../../data.json"
+//contexts
+import { useAuthContext } from "./AuthContext";
+//supabase
+import { supabase } from "../supabaseClient";
+//utils
+import getCachedData from "../utils/getCachedData";
+
 export type PersonnalSettings = {
     budgetCycleDay: number,
     preferredCurrency: string,
@@ -54,7 +63,28 @@ type DataProviderProps = {
 
 export function DataProvider ({ children }: DataProviderProps) {
 
+    const session = useAuthContext()
+
     const [data, setData] = useState<Data>(SampleData)
+    
+    const getData = async () => {
+        try{
+            const data = await supabase.from("appdata").select("*").eq("user_id", session?.user.id)
+        }catch (err){
+            console.log(err)
+        }
+        return data
+    }
+    
+    useEffect(() => {
+        const setSupabaseData = async () => {
+            if(session){
+                const data = await getCachedData("data",getData)
+                setData(data)
+            }
+        }
+        setSupabaseData()
+    },[session])
 
     const value = {
         data: data,

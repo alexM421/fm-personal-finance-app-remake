@@ -7,6 +7,7 @@ import { Navigate, Outlet } from "react-router"
 //contexts
 import { useAuthContext } from "../../contexts/AuthContext"
 
+
 export default function HomeLayout () {
 
     const isLoggedIn = useAuthContext()

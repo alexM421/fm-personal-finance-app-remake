@@ -14,10 +14,8 @@ export default async function getCachedData<T>(
     const isCachedDurationOk = (currentClientTime - storedDataClientTime) <= cachingTime
 
     if(localStorageParsedItem && isCachedDurationOk){
-        console.log("retrieved cached data")
         return localStorageParsedItem.cache
     }else{
-        console.log("retrieved fetched data")
         const fetchedData = await asyncDataFetchingFunction()
         const cachedData = JSON.stringify({
             cache: fetchedData,
