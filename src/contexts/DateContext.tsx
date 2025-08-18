@@ -16,8 +16,7 @@ export type DateJson = {
   day_of_week: string,
 }
 
-
-const getDate = async () => {
+const getDate = async (): Promise<DateJson> => {
     const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const res = await fetch(`https://api.api-ninjas.com/v1/worldtime?timezone=${clientTimeZone}`,{
         method: "GET",
@@ -25,8 +24,11 @@ const getDate = async () => {
             "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY 
         }
     })
-    return res
+    const json = await res.json()
+    return json
 }
+
+
 
 type DateContextValue = {
     date: DateJson | null;

@@ -1,6 +1,6 @@
-export default async function getCachedData(
+export default async function getCachedData<T>(
         storageKey: string,
-        asyncDataFetchingFunction: () => Promise<Response>
+        asyncDataFetchingFunction: () => Promise<T>
     ) {
 
     const localStorageItem = localStorage.getItem(storageKey)
@@ -19,12 +19,11 @@ export default async function getCachedData(
     }else{
         console.log("retrieved fetched data")
         const fetchedData = await asyncDataFetchingFunction()
-        const parsedData = await fetchedData.json()
         const cachedData = JSON.stringify({
-            cache: parsedData,
+            cache: fetchedData,
             "fetch-time": currentClientTime
         })
         localStorage.setItem(storageKey, cachedData)
-        return parsedData 
+        return fetchedData 
     }
 }
