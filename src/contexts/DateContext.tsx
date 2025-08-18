@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 //utils
 import getCachedData from "../utils/getCachedData";
+import { useAuthContext } from "./AuthContext";
 
 export type DateJson = {
   timezone: string,
@@ -43,6 +44,8 @@ type DateProviderProps = {
 
 export function DateProvider ({ children }: DateProviderProps) {
 
+    const session = useAuthContext()
+    
     const [date, setDate] = useState<DateJson | null>(null)
 
     useEffect(() => {
@@ -51,7 +54,7 @@ export function DateProvider ({ children }: DateProviderProps) {
             setDate(time)
         } 
         getTime()
-    },[])
+    },[session])
 
     const value = {
         date: date,

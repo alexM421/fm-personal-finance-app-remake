@@ -1,8 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import  SampleData  from "../../data.json"
-import getCachedData from "../utils/getCachedData";
-import { supabase } from "../supabaseClient";
-
 export type PersonnalSettings = {
     budgetCycleDay: number,
     preferredCurrency: string,
