@@ -1,5 +1,7 @@
 //React
 import { createContext, useContext, useEffect, useState } from "react";
+//utils
+import getCachedData from "../utils/getCachedData";
 
 export type DateJson = {
   timezone: string,
@@ -23,8 +25,7 @@ const getDate = async () => {
             "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY 
         }
     })
-    const json = await res.json()
-    return json
+    return res
 }
 
 type DateContextValue = {
@@ -43,7 +44,11 @@ export function DateProvider ({ children }: DateProviderProps) {
     const [date, setDate] = useState<DateJson | null>(null)
 
     useEffect(() => {
-        getDate().then(json => setDate(json))
+        const getTime = async () => {
+            const time = await getCachedData("date", getDate)
+            setDate(time)
+        } 
+        getTime()
     },[])
 
     const value = {
