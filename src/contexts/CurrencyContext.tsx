@@ -3,8 +3,17 @@ import { useAuthContext } from "./AuthContext";
 import { useDataContext } from "./DataContext";
 import getCachedData from "../utils/getCachedData";
 
+type Currency = `${Uppercase<string>}${Uppercase<string>} ${Uppercase<string>}`
 
-const fetchCurrencyData = async (base: string) => {
+type CurrencyObj = {
+    base: string,
+    disclaimer: string,
+    license: string,
+    rates: Record<Currency, number>
+    timestamp: number,
+}
+
+const fetchCurrencyData = async ():Promise<CurrencyObj> => {
     const appId = import.meta.env.VITE_API_OPEN_EXCHANGE_ID
     console.log(appId)
     const res = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${appId}`)
@@ -12,11 +21,7 @@ const fetchCurrencyData = async (base: string) => {
     return json
 }
 
-type CurrencyContextValue = 
-    {
-        currencyData: string 
-    } 
-    | null
+type CurrencyContextValue = CurrencyObj | null
 
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined)
 
@@ -27,18 +32,15 @@ type CurrencyProviderProps = {
 export function CurrencyProvider ({ children }: CurrencyProviderProps) {
 
     const session = useAuthContext().auth
-    const { data, loading } = useDataContext()
+    const { loading } = useDataContext()
 
     const [currencyData, setCurrencyData] = useState<CurrencyContextValue>(null)
-    
-    const base = data.personnalSettings.preferredCurrency
     
     useEffect(() => {
         const getCurrencyData = async () => {
             if(!loading){
-                const cachedData = await getCachedData("currency_data",() => fetchCurrencyData(base))
-                console.log(cachedData)
-                setCurrencyData[cachedData]
+                const cachedData = await getCachedData<CurrencyObj>("currency_data",fetchCurrencyData)
+                setCurrencyData(cachedData)
             }
         }
         getCurrencyData()
