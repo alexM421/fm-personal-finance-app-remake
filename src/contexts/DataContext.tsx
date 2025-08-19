@@ -52,8 +52,9 @@ export type Data = {
 }
 
 type DataContextValue = {
-    data: Data;
-    setData: React.Dispatch<React.SetStateAction<Data>>
+    data: Data,
+    setData: React.Dispatch<React.SetStateAction<Data>>,
+    loading: boolean,
 }
 
 const DataContext = createContext<DataContextValue | undefined>(undefined)
@@ -85,6 +86,7 @@ export function DataProvider ({ children }: DataProviderProps) {
     }
 
     const [data, setData] = useState<Data>(emptyData)
+    const [loading, setLoading] = useState<boolean>(true)
     
     const getData = async () => {
 
@@ -105,6 +107,7 @@ export function DataProvider ({ children }: DataProviderProps) {
             if(session){
                 const cachedData = await getCachedData("data",getData)
                 setData(cachedData)
+                setLoading(false)
             }
         }
         setSupabaseData()
@@ -112,7 +115,8 @@ export function DataProvider ({ children }: DataProviderProps) {
 
     const value = {
         data: data,
-        setData: setData
+        setData: setData,
+        loading: loading,
     }
 
     return(
