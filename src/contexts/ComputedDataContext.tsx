@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 //context
 import { useDataContext, type Budget, type Transaction } from "./DataContext";
-import filterTransactionsByCycle from "../utils/filterTransactionsByCycle";
+import filterTransactionsByCycle from "../utils/FilterTransactionsByCycle";
 import getCurrentBudgetsAmount from "../utils/getCurrentBudgetsAmount";
 import { useDateContext } from "./DateContext";
 import getRecurringBillsCycleStatus from "../utils/getRecurringBillsCycleStatus";

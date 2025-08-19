@@ -1,6 +1,7 @@
 //supabase
 import type { SetStateAction } from "react"
 import { supabase } from "../../supabaseClient"
+import { useNavigate } from "react-router"
 
 export type errorsObj = {
     emailErr : boolean,
@@ -10,39 +11,44 @@ export type errorsObj = {
 
 type setStateErrorsObj = React.Dispatch<SetStateAction<errorsObj>>
 
-export async function AuthLoginSubmit (e: React.FormEvent<HTMLFormElement>, setErrors: setStateErrorsObj ) {
+export async function AuthLoginSubmit (
+        e: React.FormEvent<HTMLFormElement>,
+        setErrors: setStateErrorsObj,
+        navigate: ReturnType<typeof useNavigate>, 
+    ){
 
-    e.preventDefault()
-    const form = e.target as HTMLFormElement
-    const formElements = form.elements
-    
-    const tempErrors = {
-        emailErr: false,
-        passwordErr: false,
-        loginErr: false,
+        e.preventDefault()
+        
+        const form = e.target as HTMLFormElement
+        const formElements = form.elements
+        
+        const tempErrors = {
+            emailErr: false,
+            passwordErr: false,
+            loginErr: false,
+        }
+
+        const emailInput = formElements.namedItem("email") as HTMLInputElement
+        const passwordInput = formElements.namedItem("password") as HTMLInputElement
+        
+        const isEmailValid = emailInput.validity.valid
+        const isPasswordValid = passwordInput.validity.valid
+
+        tempErrors.emailErr = !isEmailValid
+        tempErrors.passwordErr = !isPasswordValid
+
+        if(isEmailValid && isPasswordValid){
+            const supabaseData = await supabase.auth.signInWithPassword({
+                email: emailInput.value,
+                password: passwordInput.value,
+            })
+        const { error } = supabaseData
+        //error handling
+        const isLoginValid = !error
+        tempErrors.loginErr = !isLoginValid
+        if(isLoginValid){
+                navigate("/overview")
+            }
     }
-
-    const emailInput = formElements.namedItem("email") as HTMLInputElement
-    const passwordInput = formElements.namedItem("password") as HTMLInputElement
-    
-    const isEmailValid = emailInput.validity.valid
-    const isPasswordValid = passwordInput.validity.valid
-
-    tempErrors.emailErr = !isEmailValid
-    tempErrors.passwordErr = !isPasswordValid
-
-    if(isEmailValid && isPasswordValid){
-        const supabaseData = await supabase.auth.signInWithPassword({
-            email: emailInput.value,
-            password: passwordInput.value,
-        })
-       const { data, error } = supabaseData
-       //error handling
-       const isLoginValid = !error
-       tempErrors.loginErr = !isLoginValid
-       console.log(supabaseData)
-    }
-
-    setErrors(tempErrors)
-    
+    setErrors(tempErrors)    
 }
