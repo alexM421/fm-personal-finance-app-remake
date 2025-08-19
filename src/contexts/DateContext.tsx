@@ -1,5 +1,8 @@
 //React
 import { createContext, useContext, useEffect, useState } from "react";
+//utils
+import getCachedData from "../utils/getCachedData";
+import { useAuthContext } from "./AuthContext";
 
 export type DateJson = {
   timezone: string,
@@ -14,8 +17,7 @@ export type DateJson = {
   day_of_week: string,
 }
 
-
-const getDate = async () => {
+const getDate = async (): Promise<DateJson> => {
     const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const res = await fetch(`https://api.api-ninjas.com/v1/worldtime?timezone=${clientTimeZone}`,{
         method: "GET",
@@ -26,6 +28,8 @@ const getDate = async () => {
     const json = await res.json()
     return json
 }
+
+
 
 type DateContextValue = {
     date: DateJson | null;
@@ -40,11 +44,17 @@ type DateProviderProps = {
 
 export function DateProvider ({ children }: DateProviderProps) {
 
+    const session = useAuthContext()
+    
     const [date, setDate] = useState<DateJson | null>(null)
 
     useEffect(() => {
-        getDate().then(json => setDate(json))
-    },[])
+        const getTime = async () => {
+            const time = await getCachedData("date", getDate)
+            setDate(time)
+        } 
+        getTime()
+    },[session])
 
     const value = {
         date: date,

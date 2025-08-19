@@ -52,7 +52,7 @@ export default function TextInput ({ inputDetails, isPassword, errorMessage, hel
                     required
                     minLength={minLength - 1}
                     placeholder={placeholder}
-                    pattern={pattern}
+                    pattern={pattern || undefined}
                 />
                 {isPassword
                     ?showPassword

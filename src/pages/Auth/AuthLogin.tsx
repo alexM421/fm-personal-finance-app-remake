@@ -5,14 +5,14 @@ import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 //React
 import { useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 //auth
 import { AuthLoginSubmit } from "./AuthLoginSubmit"
 import type { errorsObj } from "./AuthLoginSubmit"
 
-
 export default function AuthLogin () {
 
+    const navigate = useNavigate()
 
     const [emailInput, setEmailInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
@@ -22,9 +22,8 @@ export default function AuthLogin () {
         loginErr: false,
     })
 
-
     return(
-        <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors)} noValidate>
+        <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors, navigate)} noValidate>
             
             <div className={`${styles["auth-headers"]} ${errors.loginErr? styles.error: ""}`}>
                 <h1 className="text-preset-1">Login</h1>

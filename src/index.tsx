@@ -7,18 +7,21 @@ import { DataProvider } from './contexts/DataContext.tsx'
 import App from './App.tsx'
 import { DateProvider } from './contexts/DateContext.tsx'
 import { ComputedDataProvider } from './contexts/ComputedDataContext.tsx'
+import { AuthProvider } from './contexts/AuthContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <DateProvider>
-        <DataProvider>
-          <ComputedDataProvider>
-            <App />
-          </ComputedDataProvider>
-        </DataProvider>
-      </DateProvider>
+      <AuthProvider>
+        <DateProvider>
+          <DataProvider>
+            <ComputedDataProvider>
+              <App />
+            </ComputedDataProvider>
+          </DataProvider>
+        </DateProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 )
