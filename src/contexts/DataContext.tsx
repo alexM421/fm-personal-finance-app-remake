@@ -48,6 +48,9 @@ export type Data = {
     transactions: Transaction[],
     budgets: Budget[],
     pots: Pot[],
+    created_at: string,
+    updated_at: string,
+    user_id: string,
 }
 
 type DataContextValue = {
