@@ -68,20 +68,24 @@ export function DataProvider ({ children }: DataProviderProps) {
     const [data, setData] = useState<Data>(SampleData)
     
     const getData = async () => {
-        try{
-            const data = await supabase.from("appdata").select("*").eq("user_id", session?.user.id)
-        }catch (err){
-            console.log(err)
+
+        const fetchUserData = async () => await supabase.from("appdata").select("*").eq("user_id", session?.user.id)
+        const { data } = await fetchUserData()
+        
+        if(data?.length === 0){
+            const { error } = await supabase.from("appdata").insert({})
+            const { data } = await fetchUserData()
+            return data?.[0]
+        }else{
+            return data?.[0]
         }
-        return data
     }
     
     useEffect(() => {
-
-        const setSupabaseData = async () => {
+        const setSupabaseData = async () => {     
             if(session){
-                const data = await getCachedData("data",getData)
-                setData(data)
+                const cachedData = await getCachedData("data",getData)
+                setData(cachedData)
             }
         }
         setSupabaseData()
