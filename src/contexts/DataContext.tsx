@@ -1,7 +1,5 @@
 //react
 import { createContext, useContext, useEffect, useState } from "react";
-//data
-import  SampleData  from "../../data.json"
 //contexts
 import { useAuthContext } from "./AuthContext";
 //supabase
@@ -68,7 +66,25 @@ export function DataProvider ({ children }: DataProviderProps) {
 
     const session = useAuthContext().auth
 
-    const [data, setData] = useState<Data>(SampleData)
+    const emptyData = {
+        personnalSettings: {
+            budgetCycleDay: 1,
+            preferredCurrency: "EUR",
+        },
+        balance: {
+            current: 0,
+            income: 0,
+            expenses: 0,
+        },
+        transactions: [],
+        budgets: [],
+        pots: [],
+        created_at: Date.toString(),
+        updated_at: Date.toString(),
+        user_id: "",
+    }
+
+    const [data, setData] = useState<Data>(emptyData)
     
     const getData = async () => {
 
