@@ -63,7 +63,7 @@ type DataProviderProps = {
 
 export function DataProvider ({ children }: DataProviderProps) {
 
-    const session = useAuthContext()
+    const session = useAuthContext().auth
 
     const [data, setData] = useState<Data>(SampleData)
     
@@ -77,6 +77,7 @@ export function DataProvider ({ children }: DataProviderProps) {
     }
     
     useEffect(() => {
+
         const setSupabaseData = async () => {
             if(session){
                 const data = await getCachedData("data",getData)

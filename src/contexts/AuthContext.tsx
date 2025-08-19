@@ -5,7 +5,10 @@ import { supabase } from "../supabaseClient";
 import type { Session } from "@supabase/supabase-js";
 
 
-type AuthContextValue = Session | null
+type AuthContextValue = {
+    auth: Session | null,
+    loading: boolean,
+}
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
@@ -16,17 +19,24 @@ type AuthContextProviderProps = {
 export function AuthProvider ({ children }: AuthContextProviderProps){
 
     const [auth, setAuth] = useState<Session | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const getLoggedIn = async () => {
             const { data: { session } } = await supabase.auth.getSession()
             setAuth(session || null)
+            setLoading(false)
         }
         getLoggedIn()
     },[])
 
+    const value={
+        auth: auth,
+        loading: loading,
+    }
+
     return (
-        <AuthContext.Provider value={auth}>
+        <AuthContext.Provider value={value}>
             { children }
         </AuthContext.Provider>
     )

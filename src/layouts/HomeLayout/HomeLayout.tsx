@@ -10,9 +10,9 @@ import { useAuthContext } from "../../contexts/AuthContext"
 
 export default function HomeLayout () {
 
-    const isLoggedIn = useAuthContext()
-    
-    if(!isLoggedIn){
+    const { loading, auth } = useAuthContext()
+
+    if(!auth && !loading){
         return(
             <Navigate to="/auth/login"/>
         )
