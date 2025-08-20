@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 import { useDataContext } from "./DataContext";
 import getCachedData from "../utils/getCachedData";
@@ -51,4 +51,15 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
             { children }
         </CurrencyContext.Provider>
     )
+}
+
+export function useCurrencyContext () {
+
+    const context = useContext(CurrencyContext)
+
+    if(context === undefined){
+        throw new Error("context is undefined")
+    }
+
+    return context
 }

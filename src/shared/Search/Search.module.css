@@ -2,13 +2,14 @@
     flex-shrink: 1;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 4px;
     border: 1px solid var(--beige-500);
     padding: 12px 20px;
     border-radius: 8px;
     transition: border 0.3s ease;
 
     &>input{
+        width: 100%;
         flex: 1;
         color: var(--grey-900);
         border: none;

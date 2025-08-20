@@ -6,6 +6,7 @@ import styles from "./AddTransactionModal.module.css"
 import type { Transaction } from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
+import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 
 
 
@@ -68,6 +69,7 @@ export default function AddTransactionModal () {
                     legend="Transaction Date"
                     name="date"
                 />
+                <MoneyInput/>
             </div>
             <Button>Add Transaction</Button>
         </form>

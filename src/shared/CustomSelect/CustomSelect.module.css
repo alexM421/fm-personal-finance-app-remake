@@ -13,8 +13,6 @@
 
         &>svg{
             color: var(--grey-900);
-            width: 16px;
-            height: 16px;
             transform: rotate(180deg);
             transition: transform 0.3s ease;
         }
@@ -37,13 +35,20 @@
         pointer-events: all;
         width: 100%;
         max-height: 350px;
+        min-width: 110px;
         overflow-y: auto;
+        overflow-x: hidden;
         text-align: start;
         border-radius: 8px;
         background-color: white;
         padding: 12px 15px 12px 20px;
         box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
         transition: opacity 0.3s ease;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
 
         &>label:first-of-type{
             width: calc(100% + 8px);

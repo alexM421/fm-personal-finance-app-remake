@@ -72,7 +72,7 @@ export default function CustomSelect ({ selected, setSelected, options, hasSearc
                     <Search
                         search={search}
                         setSearch={setSearch}
-                        placeholder="test"
+                        placeholder=""
                     />
                 }   
                 {optionsList.flatMap((option, index) => {
