@@ -59,6 +59,7 @@ export default function AddTransactionModal () {
                         selected={formInputs.category}
                         setSelected={(value) => handleFormInputsUpdate("category", value)}
                         options={sortOptions}
+                        hasSearch={true}
                     />
                 </div>
                 <DateInput

@@ -2,19 +2,26 @@
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react"
 import styles from "./CustomSelect.module.css"
 import IconCaretDown from "../../assets/IconCaretDown"
+import Search from "../Search/Search"
 
 type CustomSelectProps = {
     selected: string,
     setSelected: (string: string) => void,
-    options: string[]
+    options: string[],
+    hasSearch: boolean,
 }
 
-export default function CustomSelect ({ selected, setSelected, options}: CustomSelectProps) {
+export default function CustomSelect ({ selected, setSelected, options, hasSearch }: CustomSelectProps) {
 
     const [isHidden, setIsHidden] = useState<boolean>(true)
+    const [search, setSearch] = useState<string>("")
 
     const selectedRef = useRef<HTMLDivElement | null>(null)
     const optionsRef = useRef<HTMLDivElement | null>(null)
+
+    const optionsList = hasSearch
+        ? options.filter(option => option.includes(search))
+        : options
 
     useEffect(() => {
 
@@ -53,8 +60,22 @@ export default function CustomSelect ({ selected, setSelected, options}: CustomS
             <div 
                 className={styles["custom-select-options"]}
                 ref={optionsRef}
-            >
-                {options.flatMap((option, index) => {
+            >   
+                {
+                    hasSearch &&
+                    // <div className={styles["custom-select-search"]}>
+                    //     <input
+                    //         value={search}
+                    //         onChange={(e) => setSearch(e.target.value)}
+                    //     />
+                    // </div>
+                    <Search
+                        search={search}
+                        setSearch={setSearch}
+                        placeholder="test"
+                    />
+                }   
+                {optionsList.flatMap((option, index) => {
 
                     const optionElement = <p 
                         className="text-preset-4"

@@ -97,6 +97,7 @@ export default function Transactions () {
                                     selected={sortSelect}
                                     setSelected={setSortSelect}
                                     options={sortOptions}
+                                    hasSearch={false}
                                 />
                             </div>
                             <div className={`${styles["transactions-selector"]} ${styles["category-selector"]}`}>
@@ -105,6 +106,7 @@ export default function Transactions () {
                                     selected={categorySelect}
                                     setSelected={setCategorySelect}
                                     options={categories}
+                                    hasSearch={false}
                                 />
                             </div>
                         </div>
