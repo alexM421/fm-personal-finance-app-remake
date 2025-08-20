@@ -2,6 +2,7 @@
 import styles from "./Transactions.module.css"
 //types
 import type { Transaction } from "../../contexts/DataContext"
+import Avatar from "../../shared/Avatar/Avatar"
 
 type TransactionitemProps = {
     transaction: Transaction
@@ -11,7 +12,8 @@ type TransactionitemProps = {
 
 export default function TransactionItem ({ transaction }: TransactionitemProps) {
 
-    const { amount, avatar, category, date, name } = transaction
+    const { amount, avatar, category, date, name, } = transaction
+    const { theme, content, isContentImage } = avatar
 
     const sign = amount<0? "-":"+"
     const transactionDate = new Date(date)
@@ -25,7 +27,11 @@ export default function TransactionItem ({ transaction }: TransactionitemProps) 
     return(
         <div className={styles["transaction-item"]}>
             <div className={styles["transaction-item-profile"]}>
-                <img src={avatar}/>
+                <Avatar
+                    theme={theme}
+                    content={content}
+                    isContentImage={isContentImage}
+                />
                 <h2 className="text-preset-4-bold">{name}</h2>
             </div>
             <p className="text-preset-5">{category}</p>

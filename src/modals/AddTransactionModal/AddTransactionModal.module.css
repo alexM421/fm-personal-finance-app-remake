@@ -8,6 +8,25 @@
         flex-direction: column;
         gap: 16px;
 
+        &>.add-transaction-profile{
+            display: flex;
+            gap: 16px;
+
+            &>div:first-of-type{
+                zoom: 4;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+
+            &>.add-transaction-profile-desc{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
+
         &>.add-transaction-input{
             display: flex;
             flex-direction: column;

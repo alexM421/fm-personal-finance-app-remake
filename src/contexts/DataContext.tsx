@@ -18,12 +18,12 @@ export type Balance = {
     expenses: number,
 }
 export type Transaction = {
-  avatar: string,
+  avatar: { theme: string, content: string, isContentImage: boolean },
   name: string,
   category: string,
   date: string,
   amount: number,
-  recurring: boolean,
+  recurring: boolean,   
   currency: string,
 }
 

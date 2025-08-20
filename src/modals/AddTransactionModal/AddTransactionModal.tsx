@@ -7,24 +7,27 @@ import type { Transaction } from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
 import MoneyInput from "../../shared/MoneyInput/MoneyInput"
+import Avatar from "../../shared/Avatar/Avatar"
+import ChoosePicturaModal from "../choosePictureModal/choosePictureModal"
 
 
 
 export default function AddTransactionModal () {
 
 
-    const sortOptions = ["Latest","Oldest","A to Z","Z to A","Highest","Lowest"]
-
+    const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(true)
     const [formInputs, setFormInputs] = useState<Transaction>({
-        avatar: "",
+        avatar: { theme: "", content: "", isContentImage: false },
         name: "",
-        category: "",
+        category: "Latest",
         date: "",
         amount: 0,
         recurring: false,
         currency: "",
     })
-
+    
+    const sortOptions = ["Latest","Oldest","A to Z","Z to A","Highest","Lowest"]
+    
     const handleFormInputsUpdate = 
         (
             inputName: string,
@@ -38,22 +41,41 @@ export default function AddTransactionModal () {
     return(
         <form className={styles["add-transaction-modal"]}>
             <div className={styles["add-transaction-inputs"]}>
-                <div className={styles["add-transaction-input"]}>
-
+                <div className={styles["add-transaction-profile"]}>
+                    <div className={styles["add-transaction-choose-picture"]}
+                        onClick={() => setDisplayChoosePicture(true)}
+                    >
+                        <Avatar
+                            theme="var(--grey-500)"
+                            content="TA"
+                            isContentImage={false}
+                        />
+                        <ChoosePicturaModal
+                            state={displayChoosePicture}
+                        />
+                    </div>
+                    <div className={styles["add-transaction-profile-desc"]}>
+                        <TextInput
+                            inputDetails={{
+                                name: "name",
+                                legend: "Transaction name",
+                                autoComplete: "none",
+                                type: "text",
+                                controlledInput: formInputs.name,
+                                placeholder: "John Doe",
+                                setControlledInput: (e) => handleFormInputsUpdate("name", e.target.value)
+                            }}
+                            isPassword={false}
+                            errorMessage="Please enter a transaction name"
+                        />
+                        <DateInput
+                            controlledInput={formInputs.date}
+                            setControlledInput={(date) => handleFormInputsUpdate("date", date)}
+                            legend="Transaction Date"
+                            name="date"
+                        />
+                    </div>
                 </div>
-                <TextInput
-                    inputDetails={{
-                        name: "name",
-                        legend: "Transaction name",
-                        autoComplete: "none",
-                        type: "text",
-                        controlledInput: formInputs.name,
-                        placeholder: "John Doe",
-                        setControlledInput: (e) => handleFormInputsUpdate("name", e.target.value)
-                    }}
-                    isPassword={false}
-                    errorMessage="Please enter a transaction name"
-                />
                 <div className={styles["add-transaction-input"]}>
                     <p className="text-preset-5-bold">Transaction Category</p>
                     <CustomSelect
@@ -63,12 +85,6 @@ export default function AddTransactionModal () {
                         hasSearch={true}
                     />
                 </div>
-                <DateInput
-                    controlledInput={formInputs.date}
-                    setControlledInput={(date) => handleFormInputsUpdate("date", date)}
-                    legend="Transaction Date"
-                    name="date"
-                />
                 <MoneyInput/>
             </div>
             <Button>Add Transaction</Button>
