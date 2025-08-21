@@ -17,8 +17,14 @@ export type Balance = {
     income: number,
     expenses: number,
 }
+
+export type AvatarType = {
+    theme: string,
+    content: string,
+    isContentImage: boolean
+}   
 export type Transaction = {
-  avatar: { theme: string, content: string, isContentImage: boolean },
+  avatar: AvatarType,
   name: string,
   category: string,
   date: string,

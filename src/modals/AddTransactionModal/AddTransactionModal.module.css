@@ -13,9 +13,15 @@
             gap: 16px;
 
             &>div:first-of-type{
-                zoom: 4;
-                &:hover{
-                    cursor: pointer;
+                position: relative;
+                
+
+                &>button{
+                    border: none;
+                    zoom: 4;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
             }
 
@@ -47,5 +53,96 @@
                 outline: none;
             }
         }
+    }
+}
+
+.choose-picture{
+    position: absolute;
+    left: calc(100% + 8px);
+    top: 0px;
+    background-color: white;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    z-index: 100;
+    padding: 8px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+    &>.choose-picture-header{
+        display: flex;
+        justify-content: space-between;
+
+        &>.choose-picture-header-selectors{
+            display: flex;
+
+            &>p{
+                color: var(--grey-500);
+                border-bottom: 2px solid var(--grey-100);
+                /* background-color: var(--beige-100); */
+                transition: color 0.3s ease, border-bottom 0.3s ease;
+                padding: 2px 12px;
+    
+                &.choose-picture-header-selected{
+                    color: var(--grey-900);
+                    border-bottom: 2px solid var(--grey-500);
+                }
+    
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &>button{
+            background-color: transparent;
+            border: none;
+
+            &>svg{
+                color: var(--grey-500);
+                transition: color 0.3s ease;
+                
+            }
+
+            &:hover{
+                cursor: pointer;
+
+                &>svg{
+                    color: var(--red);
+                }
+            }
+        }
+    }
+
+    &>.choose-picture-main{
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        gap: 8px;
+        height: 300px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+
+        &>button{
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            zoom: 2.5;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &.choose-picture-hidden{
+        opacity: 0;
+        pointer-events: none;
+
     }
 }

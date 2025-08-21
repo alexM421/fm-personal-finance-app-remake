@@ -3,19 +3,19 @@ import { useState } from "react"
 import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 import styles from "./AddTransactionModal.module.css"
-import type { Transaction } from "../../contexts/DataContext"
+import type { AvatarType, Transaction } from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
 import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 import Avatar from "../../shared/Avatar/Avatar"
-import ChoosePicturaModal from "../choosePictureModal/choosePictureModal"
+import AddTransactionmodalPicturePopUp from "./AddTransactionModalPicturePopUp"
 
 
 
 export default function AddTransactionModal () {
 
 
-    const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(true)
+    const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(false)
     const [formInputs, setFormInputs] = useState<Transaction>({
         avatar: { theme: "", content: "", isContentImage: false },
         name: "",
@@ -26,15 +26,26 @@ export default function AddTransactionModal () {
         currency: "",
     })
     
-    const sortOptions = ["Latest","Oldest","A to Z","Z to A","Highest","Lowest"]
+    const categories = ["All Transactions","Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     
     const handleFormInputsUpdate = 
         (
             inputName: string,
-            value: string | number | boolean,
+            value: string | number | boolean | AvatarType | Partial<AvatarType>,
         ) => {
-            setFormInputs(prevInputs => 
-                ({...prevInputs, [inputName]: value})
+            setFormInputs(prevInputs => {
+                if(inputName === "avatar" && typeof(value)==="object"){
+                    return{
+                        ...prevInputs,
+                        avatar: {
+                            ...prevInputs.avatar,
+                            ...value,
+                        }
+                    }
+                }else{
+                    return({...prevInputs, [inputName]: value})
+                }
+            }
         )
     }   
 
@@ -43,15 +54,20 @@ export default function AddTransactionModal () {
             <div className={styles["add-transaction-inputs"]}>
                 <div className={styles["add-transaction-profile"]}>
                     <div className={styles["add-transaction-choose-picture"]}
-                        onClick={() => setDisplayChoosePicture(true)}
                     >
-                        <Avatar
-                            theme="var(--grey-500)"
-                            content="TA"
-                            isContentImage={false}
-                        />
-                        <ChoosePicturaModal
-                            state={displayChoosePicture}
+                        <button onClick={() => setDisplayChoosePicture(true)} type="button">
+                            <Avatar
+                                theme={formInputs.avatar.theme}
+                                content={formInputs.avatar.content}
+                                isContentImage={formInputs.avatar.isContentImage}
+                            />
+                        </button>
+                        <AddTransactionmodalPicturePopUp
+                            display={displayChoosePicture}
+                            toggleDisplay={setDisplayChoosePicture}
+                            avatar={formInputs.avatar}
+                            setAvatar={(e) => handleFormInputsUpdate("avatar", e)}
+                            name={formInputs.name}
                         />
                     </div>
                     <div className={styles["add-transaction-profile-desc"]}>
@@ -81,8 +97,8 @@ export default function AddTransactionModal () {
                     <CustomSelect
                         selected={formInputs.category}
                         setSelected={(value) => handleFormInputsUpdate("category", value)}
-                        options={sortOptions}
-                        hasSearch={true}
+                        options={categories}
+                        hasSearch={false}
                     />
                 </div>
                 <MoneyInput/>
