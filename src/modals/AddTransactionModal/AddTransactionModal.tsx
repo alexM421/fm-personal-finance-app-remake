@@ -3,29 +3,35 @@ import { useState } from "react"
 import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 import styles from "./AddTransactionModal.module.css"
-import type { AvatarType, Transaction } from "../../contexts/DataContext"
+import { useDataContext, type AvatarType, type Transaction } from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
 import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 import Avatar from "../../shared/Avatar/Avatar"
 import AddTransactionmodalPicturePopUp from "./AddTransactionModalPicturePopUp"
+import { supabase } from "../../supabaseClient"
 
 
 
 export default function AddTransactionModal () {
 
+    const { data, setData } = useDataContext()
 
     const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(false)
     const [formInputs, setFormInputs] = useState<Transaction>({
-        avatar: { theme: "", content: "", isContentImage: false },
+        avatar: { theme: "var(--green)", content: "text", isContentImage: false },
         name: "",
         category: "General",
         date: "",
         amount: 0,
         recurring: false,
         currency: "USD",
+        id: crypto.randomUUID()
     })
-    
+    const [formError, setFormError] = useState<boolean>(false)
+
+    console.log(data)
+
     const categories = ["Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     
     const handleFormInputsUpdate = 
@@ -49,8 +55,28 @@ export default function AddTransactionModal () {
         )
     }   
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const { name, date } = formInputs
+        if(!name || !date){
+            setFormError(true)
+            return
+        }else{
+            setData(prevData => {
+                const transactionsArr = [...prevData.transactions, formInputs]
+                return {
+                    ...prevData,
+                    transactions: transactionsArr
+                }
+            })
+        }
+    }
+
     return(
-        <form className={styles["add-transaction-modal"]}>
+        <form 
+            className={styles["add-transaction-modal"]}
+            onSubmit={handleSubmit}
+        >
             <div className={styles["add-transaction-inputs"]}>
                 <div className={styles["add-transaction-profile"]}>
                     <div className={styles["add-transaction-choose-picture"]}

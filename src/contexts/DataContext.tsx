@@ -31,6 +31,7 @@ export type Transaction = {
   amount: number,
   recurring: boolean,   
   currency: string,
+  id: string,
 }
 
 export type Budget = {

@@ -123,14 +123,14 @@ export default function Transactions () {
                                 index===selectedPageTransactions.length-1
                                 ?<TransactionItem
                                     transaction={transaction}
-                                    key={`transaction-${transaction.name}-${transaction.date}`}
+                                    key={`transaction-${transaction.id}`}
                                 />
                                 :[<TransactionItem
                                     transaction={transaction}
-                                    key={`transaction-${transaction.name}-${transaction.date}`}
+                                    key={`transaction-${transaction.id}`}
                                 />,
                                     <GapSeparation
-                                    key={`transaction-${transaction.name}--${transaction.date}-gap-separation`}
+                                    key={`transaction-${transaction.id}-gap-separation`}
                                     />
                                 ]
                                 )}
