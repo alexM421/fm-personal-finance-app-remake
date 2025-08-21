@@ -5,7 +5,7 @@ import OverviewTransaction from "./OverviewTransaction"
 //context
 import { useDataContext } from "../../contexts/DataContext"
 //utils
-import sortedTransactionsByDate from "../../utils/sortedTransactionsByDate"
+import sortedTransactionsByDate from "../../utils/SortedTransactionsByDate"
 import OverviewHeader from "./OverviewHeader"
 
 export default function OverviewTransactions () {

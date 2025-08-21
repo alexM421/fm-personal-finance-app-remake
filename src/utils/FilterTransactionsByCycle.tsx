@@ -1,5 +1,5 @@
 //utils
-import type { Transaction } from "../contexts/DataContext"
+import type { Transaction } from "../types/DataTypes"
 import getUserCycleInfos from "./getUserCycleInfos"
 //types
 export default function filterTransactionsByCycle (transactions: Transaction[], year: number, month: number, datetime: string, budgetCycleDay: number) {

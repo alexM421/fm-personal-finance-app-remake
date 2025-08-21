@@ -2,7 +2,7 @@
 import { useState, type Dispatch, type SetStateAction } from "react"
 import styles from "./AddTransactionModal.module.css"
 import IconCloseModal from "../../assets/IconCloseModal"
-import { type AvatarType } from "../../contexts/DataContext"
+import type { AvatarType } from "../../types/DataTypes"
 import Avatar from "../../shared/Avatar/Avatar"
 
 type AddTransactionModalPicturePopUpProps = {

@@ -1,4 +1,4 @@
-import type { Budget, Transaction } from "../contexts/DataContext";
+import type { Budget, Transaction } from "../types/DataTypes"
 
 export default function getCurrentBudgetsAmount (budgets: Budget[], budgetedTransactions: Transaction[]) {
 

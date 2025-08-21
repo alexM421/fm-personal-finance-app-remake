@@ -1,4 +1,4 @@
-import type { Transaction } from "../../contexts/DataContext";
+import type { Transaction } from "../../types/DataTypes"
 
 export default function getSortedTransactions (transactions: Transaction[], sort: string) {
 

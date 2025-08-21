@@ -3,13 +3,13 @@ import { useState } from "react"
 import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 import styles from "./AddTransactionModal.module.css"
-import { useDataContext, type AvatarType, type Transaction } from "../../contexts/DataContext"
+import { useDataContext} from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
 import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 import Avatar from "../../shared/Avatar/Avatar"
 import AddTransactionmodalPicturePopUp from "./AddTransactionModalPicturePopUp"
-import { supabase } from "../../supabaseClient"
+import type { Transaction, AvatarType } from "../../types/DataTypes"
 
 
 

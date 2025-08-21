@@ -1,14 +1,7 @@
 //types
-type Transactions = {
-            avatar: string,
-            name: string,
-            category: string,
-            date: string,
-            amount: number,
-            recurring: boolean,
-    }[]
+import type { Transaction } from "../types/DataTypes"
 
-export default function sortedTransactionsByDate (transactions: Transactions) {
+export default function sortedTransactionsByDate (transactions: Transaction[]) {
 
     const sortedTransactions = transactions.sort((transactionA, transactionB) => {
 
