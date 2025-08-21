@@ -109,12 +109,12 @@ export default function AddTransactionmodalPicturePopUp ({ toggleDisplay, displa
                             <button 
                                 type="button"
                                 onClick={() => setAvatar({content: contentOrText, isContentImage: contentImageOrText})}
+                                key={`avatar-icon-picture-${icon}`}
                             >
                                 <Avatar 
                                     theme={avatar.theme}
                                     content={contentOrText} 
                                     isContentImage={contentImageOrText}
-                                    key={`avatar-icon-picture-${icon}`}
                                 />
                             </button>
                         )
@@ -123,12 +123,12 @@ export default function AddTransactionmodalPicturePopUp ({ toggleDisplay, displa
                         <button 
                             type="button" 
                             onClick={() => setAvatar({theme: theme})}
+                            key={`avatar-theme-picture-${theme}`}
                         >
                             <Avatar 
                                 theme={theme} 
                                 content={avatar.content}
                                 isContentImage={avatar.isContentImage}
-                                key={`avatar-theme-picture-${theme}`}
                             />
                         </button>
                     )

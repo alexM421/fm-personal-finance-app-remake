@@ -32,7 +32,7 @@ export default function ModalLayout ({ modalTitle, modalDesc, state, toggleState
     },[])
 
     return(
-        state 
+        state
         && createPortal(
             <div className={styles["modal-layout"]}>
                 <div className={styles["actual-modal"]} ref={modalRef}>

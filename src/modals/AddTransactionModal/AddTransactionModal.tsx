@@ -19,14 +19,14 @@ export default function AddTransactionModal () {
     const [formInputs, setFormInputs] = useState<Transaction>({
         avatar: { theme: "", content: "", isContentImage: false },
         name: "",
-        category: "Latest",
+        category: "General",
         date: "",
         amount: 0,
         recurring: false,
-        currency: "",
+        currency: "USD",
     })
     
-    const categories = ["All Transactions","Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
+    const categories = ["Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     
     const handleFormInputsUpdate = 
         (
@@ -78,17 +78,18 @@ export default function AddTransactionModal () {
                                 autoComplete: "none",
                                 type: "text",
                                 controlledInput: formInputs.name,
-                                placeholder: "John Doe",
+                                placeholder: "E.g. Groceries",
                                 setControlledInput: (e) => handleFormInputsUpdate("name", e.target.value)
                             }}
                             isPassword={false}
-                            errorMessage="Please enter a transaction name"
+                            errorMessage={formInputs.name? "":"Please enter a transaction name"}
                         />
                         <DateInput
                             controlledInput={formInputs.date}
                             setControlledInput={(date) => handleFormInputsUpdate("date", date)}
                             legend="Transaction Date"
                             name="date"
+                            errorMessage={formInputs.date? "":"Please enter a transaction date"}
                         />
                     </div>
                 </div>
@@ -101,7 +102,12 @@ export default function AddTransactionModal () {
                         hasSearch={false}
                     />
                 </div>
-                <MoneyInput/>
+                <MoneyInput
+                    amount={formInputs.amount}
+                    currency={formInputs.currency}
+                    setAmount={(e) => handleFormInputsUpdate("amount", e)}
+                    setCurrency={(e) => handleFormInputsUpdate("currency", e)}
+                />
             </div>
             <Button>Add Transaction</Button>
         </form>

@@ -4,9 +4,15 @@ import styles from "./MoneyInput.module.css"
 import CustomSelect from "../CustomSelect/CustomSelect"
 //contexts
 import { useCurrencyContext } from "../../contexts/CurrencyContext"
-import { useState } from "react"
 
-export default function MoneyInput ({}) {
+type MoneyInputProps = {
+    amount: number,
+    currency: string,
+    setAmount: (e: number) => void,
+    setCurrency: (e: string) => void,
+}
+
+export default function MoneyInput ({amount, currency, setAmount, setCurrency}: MoneyInputProps) {
 
     const  rates = useCurrencyContext()?.rates
 
@@ -14,15 +20,10 @@ export default function MoneyInput ({}) {
         ?Object.keys(rates)
         :[] 
 
-    
-    const [amount, setAmount] = useState<number>(0)
-    const [currency, setCurrency] = useState<string>("USD")
-
     return(
         <div className={styles["money-input"]}>
             <div className={styles["input-header"]}>
-                <p className="text-preset-5-bold">Legend</p>
-                <p className="text-preset-5-bold"></p>
+                <p className="text-preset-5-bold">Transaction Amount</p>
             </div>
             <div className={styles["money-input-main"]}>
                 <input
@@ -37,8 +38,6 @@ export default function MoneyInput ({}) {
                     options={currenciesArr}
                 />
             </div>
-            
-            
         </div>
     )
 }

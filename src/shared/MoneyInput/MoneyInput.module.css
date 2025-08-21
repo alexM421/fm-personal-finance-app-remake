@@ -10,11 +10,7 @@
 
         &>p:first-of-type{
             transition: color ease 0.3s;
-            color: var(--grey-500);
-        }
-
-        &>p:last-of-type{
-            color: var(--red)
+            color: var(--grey-900);
         }
     }
 
