@@ -39,7 +39,7 @@ export default function ModalLayout ({ modalTitle, modalDesc, modalDisplay, clos
                 <div className={styles["actual-modal"]} ref={modalRef}>
                     <div className={styles["modal-header"]}>
                         <h1 className="text-preset-1">{modalTitle}</h1>
-                        <button onClick={() => closeModalDisplay()}>
+                        <button onClick={closeModalDisplay}>
                             <IconCloseModal/>
                         </button>
                     </div>

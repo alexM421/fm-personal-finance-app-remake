@@ -1,23 +1,24 @@
 //CSS
-import { useState, type Dispatch, type SetStateAction } from "react"
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
 import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
-import styles from "./AddTransactionModal.module.css"
+import styles from "./TransactionModal.module.css"
 import { useDataContext} from "../../contexts/DataContext"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
 import DateInput from "../../shared/DateInput/DateInput"
 import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 import Avatar from "../../shared/Avatar/Avatar"
-import AddTransactionmodalPicturePopUp from "./AddTransactionModalPicturePopUp"
+import AddTransactionmodalPicturePopUp from "./TransactionModalPicturePopUp"
 import type { Transaction, AvatarType } from "../../types/DataTypes"
 import syncUserData from "../../utils/syncUserData"
 
 
 type AddTransactionModalProps = {
     closeModalDisplay: () => void,
+    transactionData?: Transaction,
 }
 
-export default function AddTransactionModal ({ closeModalDisplay }: AddTransactionModalProps) {
+export default function TransactionModal ({ closeModalDisplay, transactionData }: AddTransactionModalProps) {
 
     const { data, setData } = useDataContext()
 
@@ -34,7 +35,11 @@ export default function AddTransactionModal ({ closeModalDisplay }: AddTransacti
     })
     const [formError, setFormError] = useState<boolean>(false)
 
-    console.log(data)
+    useEffect(() => {
+        if(transactionData){
+            setFormInputs(transactionData)
+        }
+    },[])
 
     const categories = ["Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     
@@ -59,12 +64,37 @@ export default function AddTransactionModal ({ closeModalDisplay }: AddTransacti
         )
     }   
 
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        const id = transactionData?.id
+        const transactionsArr = [...data.transactions]
+        const deleteIndex= transactionsArr.findIndex(transaction => transaction.id === id)
+        const splicedTransactionArr = transactionsArr.splice(deleteIndex,1)
+        const updatedData = { ...data, transactions: transactionsArr}
+        syncUserData(updatedData, setData)
+        closeModalDisplay()
+    }
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const { name, date } = formInputs
         if(!name || !date){
             setFormError(true)
             return
+        }else if(transactionData){
+            //need to delete old transactionData first
+            const id = transactionData.id
+            const transactionsArr = [...data.transactions].map(transaction => {
+                if(transaction.id === id){
+                    return formInputs
+                }else{
+                    return transaction
+                }
+            })
+            const updatedData = {...data, transactions: transactionsArr}
+            syncUserData(updatedData, setData)
+            closeModalDisplay()
+
         }else{
             const transactionsArr = [...data.transactions, formInputs]
             const updatedData = {...data, transactions: transactionsArr}
@@ -136,7 +166,18 @@ export default function AddTransactionModal ({ closeModalDisplay }: AddTransacti
                     setCurrency={(e) => handleFormInputsUpdate("currency", e)}
                 />
             </div>
-            <Button>Add Transaction</Button>
+            {
+                transactionData
+                    ?<div className={styles["transaction-modal-btns"]}>
+                        <Button 
+                            variant="delete"
+                            onClick={handleDelete}
+                        >Delete Transaction</Button>
+                        <Button>Edit Transaction</Button>
+                    </div>
+                    :<Button>Add Transaction</Button>
+            }
+            
         </form>
     )
 }
