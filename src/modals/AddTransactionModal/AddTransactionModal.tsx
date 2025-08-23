@@ -1,5 +1,5 @@
 //CSS
-import { useState } from "react"
+import { useState, type Dispatch, type SetStateAction } from "react"
 import Button from "../../shared/Button/Button"
 import TextInput from "../../shared/TextInput/TextInput"
 import styles from "./AddTransactionModal.module.css"
@@ -10,10 +10,14 @@ import MoneyInput from "../../shared/MoneyInput/MoneyInput"
 import Avatar from "../../shared/Avatar/Avatar"
 import AddTransactionmodalPicturePopUp from "./AddTransactionModalPicturePopUp"
 import type { Transaction, AvatarType } from "../../types/DataTypes"
+import syncUserData from "../../utils/syncUserData"
 
 
+type AddTransactionModalProps = {
+    toggleState: Dispatch<SetStateAction<boolean>>
+}
 
-export default function AddTransactionModal () {
+export default function AddTransactionModal ({ toggleState }: AddTransactionModalProps) {
 
     const { data, setData } = useDataContext()
 
@@ -62,13 +66,10 @@ export default function AddTransactionModal () {
             setFormError(true)
             return
         }else{
-            setData(prevData => {
-                const transactionsArr = [...prevData.transactions, formInputs]
-                return {
-                    ...prevData,
-                    transactions: transactionsArr
-                }
-            })
+            const transactionsArr = [...data.transactions, formInputs]
+            const updatedData = {...data, transactions: transactionsArr}
+            syncUserData(updatedData, setData)
+            toggleState(false)
         }
     }
 

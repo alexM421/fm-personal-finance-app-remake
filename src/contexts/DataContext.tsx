@@ -65,8 +65,8 @@ export function DataProvider ({ children }: DataProviderProps) {
     useEffect(() => {
         const setSupabaseData = async () => {     
             if(session){
-                const cachedData = await getCachedData("data",getData)
-                setData(cachedData)
+                const retrievedData = await getData()
+                setData(retrievedData)
                 setLoading(false)
             }
         }

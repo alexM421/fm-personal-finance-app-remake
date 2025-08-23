@@ -150,7 +150,9 @@ export default function Transactions () {
                 state={showModal}
                 toggleState={setShowModal}
             >
-                <AddTransactionModal/>
+                <AddTransactionModal
+                    toggleState={setShowModal}
+                />
             </ModalLayout>
         </>
     )
