@@ -2,18 +2,18 @@
 import styles from "./ModalLayout.module.css"
 //assets
 import IconCloseModal from "../../assets/IconCloseModal"
-import { useEffect, useRef, type Dispatch, type ReactNode, type SetStateAction } from "react"
+import { useEffect, useRef, type ReactNode } from "react"
 import { createPortal } from "react-dom"
 
 type ModalLayoutProps = {
     modalTitle: string,
     modalDesc: string,
-    state: boolean,
-    toggleState: Dispatch<SetStateAction<boolean>>,
+    modalDisplay: boolean,
+    closeModalDisplay: () => void,
     children: ReactNode,
 }
 
-export default function ModalLayout ({ modalTitle, modalDesc, state, toggleState, children }: ModalLayoutProps) {
+export default function ModalLayout ({ modalTitle, modalDesc, modalDisplay, closeModalDisplay, children }: ModalLayoutProps) {
 
     const modalRef = useRef<HTMLDivElement | null>(null)
 
@@ -22,7 +22,7 @@ export default function ModalLayout ({ modalTitle, modalDesc, state, toggleState
         const handleClickOutside = (e: MouseEvent) => {
             const isOutsideModalRef = !modalRef.current?.contains(e.target as Node)
             if(isOutsideModalRef){
-                toggleState(false)
+                closeModalDisplay()
             }
         }   
 
@@ -30,15 +30,16 @@ export default function ModalLayout ({ modalTitle, modalDesc, state, toggleState
         return () => document.removeEventListener("mousedown", handleClickOutside)
 
     },[])
+    
 
     return(
-        state
+        modalDisplay
         && createPortal(
             <div className={styles["modal-layout"]}>
                 <div className={styles["actual-modal"]} ref={modalRef}>
                     <div className={styles["modal-header"]}>
                         <h1 className="text-preset-1">{modalTitle}</h1>
-                        <button onClick={() => toggleState(false)}>
+                        <button onClick={() => closeModalDisplay()}>
                             <IconCloseModal/>
                         </button>
                     </div>

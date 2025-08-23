@@ -14,10 +14,10 @@ import syncUserData from "../../utils/syncUserData"
 
 
 type AddTransactionModalProps = {
-    toggleState: Dispatch<SetStateAction<boolean>>
+    closeModalDisplay: () => void,
 }
 
-export default function AddTransactionModal ({ toggleState }: AddTransactionModalProps) {
+export default function AddTransactionModal ({ closeModalDisplay }: AddTransactionModalProps) {
 
     const { data, setData } = useDataContext()
 
@@ -69,7 +69,7 @@ export default function AddTransactionModal ({ toggleState }: AddTransactionModa
             const transactionsArr = [...data.transactions, formInputs]
             const updatedData = {...data, transactions: transactionsArr}
             syncUserData(updatedData, setData)
-            toggleState(false)
+            closeModalDisplay()
         }
     }
 

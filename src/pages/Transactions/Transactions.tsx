@@ -147,11 +147,11 @@ export default function Transactions () {
             <ModalLayout
                 modalTitle="Add New Transaction"
                 modalDesc="Adding a new transaction"
-                state={showModal}
-                toggleState={setShowModal}
+                modalDisplay={showModal}
+                closeModalDisplay={() => setShowModal(false)}
             >
                 <AddTransactionModal
-                    toggleState={setShowModal}
+                    closeModalDisplay={() => setShowModal(false)}
                 />
             </ModalLayout>
         </>
