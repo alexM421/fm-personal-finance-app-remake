@@ -5,68 +5,36 @@ import PageHeader from "../../components/PageHeader/PageHeader"
 //shared
 import Search from "../../shared/Search/Search"
 import CustomSelect from "../../shared/CustomSelect/CustomSelect"
-//react
-import { useEffect, useRef, useState } from "react"
-//context
-import { useDataContext } from "../../contexts/DataContext"
-import getFilteredTransactions from "./getFilteredTransactions"
-import getSortedTransactions from "./getSortedTransactions"
-import TransactionItem from "./TransactionItem"
 import GapSeparation from "../../shared/GapSeparation/GapSeparation"
-import TransactionsPagination from "./TransactionsPagination"
-import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 import ToggleBtn from "../../shared/ToggleBtn/ToggleBtn"
+//react
+import { useState } from "react"
+//transactions
+import TransactionItem from "./TransactionItem"
+import TransactionsPagination from "./TransactionsPagination"
+import useTransactionsData from "./useTransactionsData"
+//modals
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
-import AddTransactionModal from "../../modals/TransactionModal/TransactionModal"
 import TransactionModal from "../../modals/TransactionModal/TransactionModal"
 
 export default function Transactions () {
 
-    const transactions = useDataContext().data.transactions
-    const { currentCycleTransactions } = useComputedDataContext().computedData
-
-    const [search, setSearch] = useState<string>("")
-    const [sortSelect, setSortSelect] = useState<string>("Latest")
-    const [categorySelect, setCategorySelect] = useState<string>("All Transactions")
-    const [showCycleOnly, setShowCycleOnly] = useState<boolean>(false)
-    const [selectedPage, setSelectedPage] = useState<number>(1)
-    const [perPage, setPerPage] = useState<number>(10)
     const [showModal, setShowModal] = useState<boolean>(false)
 
     const categories = ["All Transactions","Entertainment","Bills","Groceries","Dining Out","Transportation","Personal Care","Education","Lifestyle","Shopping","General"]
     const sortOptions = ["Latest","Oldest","A to Z","Z to A","Highest","Lowest"]
 
-    const filteredTransactions = getFilteredTransactions(showCycleOnly? currentCycleTransactions:transactions, categorySelect, search)
-    const sortedAndFilteredTransactions = getSortedTransactions(filteredTransactions, sortSelect)
-    const selectedPageTransactions = sortedAndFilteredTransactions.slice((selectedPage-1)*perPage, selectedPage*perPage)
-
-    useEffect(() => {
-        setSelectedPage(1)
-    },[search, sortSelect, categorySelect, showCycleOnly])
-
-    const gridMainRef = useRef<HTMLDivElement | null>(null)
-
-
-    useEffect(() => {
-        
-        const gridMainHeight = gridMainRef.current?.clientHeight
-        const gridItemHeight = 40 + 16*2 + 1;
-        
-        const handleGridHeight = () => {
-            if(!gridMainHeight){
-                setPerPage(0)
-            }else{
-                
-                const numberOfGridItemPerPage = Math.floor((gridMainHeight - 40)/gridItemHeight) + 1
-                setPerPage(numberOfGridItemPerPage)
-            }
-        }
-
-        handleGridHeight() 
-        window.addEventListener("resize", handleGridHeight)
-
-        return () => window.removeEventListener("resize", handleGridHeight)
-    },[])
+    const { 
+        search, setSearch, 
+        showCycleOnly, setShowCycleOnly,
+        sortSelect, setSortSelect,
+        categorySelect, setCategorySelect,
+        gridMainRef,
+        selectedPageTransactions,
+        sortedAndFilteredTransactions,
+        selectedPage, setSelectedPage,
+        perPage
+    } = useTransactionsData()
 
     return(
         <>

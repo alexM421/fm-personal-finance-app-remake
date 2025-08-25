@@ -2,7 +2,7 @@
 import styles from "./ModalLayout.module.css"
 //assets
 import IconCloseModal from "../../assets/IconCloseModal"
-import { useEffect, useRef, type ReactNode } from "react"
+import { useRef, type ReactNode } from "react"
 import { createPortal } from "react-dom"
 import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
