@@ -59,7 +59,7 @@
             margin-left: -8px;
         }
 
-        &>p{
+        &>.option-element{
             color: var(--grey-900);
             padding-block: 12px;
 
@@ -94,4 +94,12 @@
             pointer-events: none;
         }
     }
+}
+
+.custom-select-wrapper{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
 }

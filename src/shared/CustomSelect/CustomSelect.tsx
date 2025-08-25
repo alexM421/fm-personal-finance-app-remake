@@ -13,9 +13,6 @@ type CustomSelectProps = {
     onRender?: (arg: string) => JSX.Element
 }
 
-    
-      
-
 //guard against hasSearch and T not being string types
 
 export default function CustomSelect({ selected, setSelected, options, hasSearch, onRender }: CustomSelectProps) {
@@ -62,7 +59,7 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
                 {optionsList.flatMap((option, index) => {
 
                     const optionElement = <div 
-                        className="text-preset-4"
+                        className={`text-preset-4 ${styles["option-element"]}`}
                         style={{fontWeight: selected===option? "bold":""}}
                         onClick={handleOptionChange}
                         key={`option-${option}`}
