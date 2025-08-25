@@ -1,9 +1,26 @@
 //types & react
 import { useEffect, useState, type RefObject } from "react"
 
+type ReturnHidden = {
+  isHidden: boolean
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+// Overload signatures
+export default function useHandleClickOutside(
+  refsArr: RefObject<HTMLElement | null>[],
+  closeDisplay: () => void
+): void
+
+export default function useHandleClickOutside(
+  refsArr: RefObject<HTMLElement | null>[]
+): ReturnHidden
+
+
 export default function useHandleClickOutside (
-    refsArr: RefObject<HTMLElement | null>[]
-    ) {
+    refsArr: RefObject<HTMLElement | null>[],
+    closeDisplay?: () => void 
+    ): ReturnHidden | void {
         const [isHidden, setIsHidden] = useState<boolean>(true)
 
         useEffect(() => {    
@@ -12,7 +29,9 @@ export default function useHandleClickOutside (
                     const isOutsideRefsArr = refsArr.map(ref => !ref.current?.contains(e.target as Node))
 
                     if(isOutsideRefsArr.every(Boolean)){
-                        setIsHidden(true)
+                        if(closeDisplay) closeDisplay()
+                        else setIsHidden(true)
+                        
                     }
                 }
         
@@ -20,7 +39,7 @@ export default function useHandleClickOutside (
         
                 return () => window.removeEventListener("mousedown", handleClickOutside)
             }
-        ,[])
+        ,[refsArr, closeDisplay])
 
-        return {isHidden: isHidden, setIsHidden: setIsHidden}
+        return closeDisplay ? undefined :{isHidden: isHidden, setIsHidden: setIsHidden}
 }

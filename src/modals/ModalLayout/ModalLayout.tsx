@@ -4,6 +4,7 @@ import styles from "./ModalLayout.module.css"
 import IconCloseModal from "../../assets/IconCloseModal"
 import { useEffect, useRef, type ReactNode } from "react"
 import { createPortal } from "react-dom"
+import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
 type ModalLayoutProps = {
     modalTitle: string,
@@ -16,21 +17,8 @@ type ModalLayoutProps = {
 export default function ModalLayout ({ modalTitle, modalDesc, modalDisplay, closeModalDisplay, children }: ModalLayoutProps) {
 
     const modalRef = useRef<HTMLDivElement | null>(null)
-
-    useEffect(() => {
-
-        const handleClickOutside = (e: MouseEvent) => {
-            const isOutsideModalRef = !modalRef.current?.contains(e.target as Node)
-            if(isOutsideModalRef){
-                closeModalDisplay()
-            }
-        }   
-
-        document.addEventListener("mousedown", handleClickOutside)
-        return () => document.removeEventListener("mousedown", handleClickOutside)
-
-    },[])
     
+    useHandleClickOutside([modalRef], closeModalDisplay)
 
     return(
         modalDisplay
