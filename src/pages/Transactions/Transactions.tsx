@@ -17,8 +17,8 @@ import TransactionsPagination from "./TransactionsPagination"
 import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 import ToggleBtn from "../../shared/ToggleBtn/ToggleBtn"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
-import AddTransactionModal from "../../modals/AddTransactionModal/TransactionModal"
-import TransactionModal from "../../modals/AddTransactionModal/TransactionModal"
+import AddTransactionModal from "../../modals/TransactionModal/TransactionModal"
+import TransactionModal from "../../modals/TransactionModal/TransactionModal"
 
 export default function Transactions () {
 

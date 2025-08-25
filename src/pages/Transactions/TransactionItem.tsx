@@ -5,7 +5,7 @@ import type { Transaction } from "../../types/DataTypes"
 import Avatar from "../../shared/Avatar/Avatar"
 import { useState } from "react"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
-import TransactionModal from "../../modals/AddTransactionModal/TransactionModal"
+import TransactionModal from "../../modals/TransactionModal/TransactionModal"
 
 type TransactionitemProps = {
     transaction: Transaction

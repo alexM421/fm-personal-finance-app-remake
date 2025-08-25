@@ -1,45 +1,35 @@
 //CSS
-import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react"
+import { useEffect, useRef, useState, type JSX } from "react"
 import styles from "./CustomSelect.module.css"
 import IconCaretDown from "../../assets/IconCaretDown"
 import Search from "../Search/Search"
+import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
 type CustomSelectProps = {
     selected: string,
-    setSelected: (string: string) => void,
+    setSelected: (value: string) => void,
     options: string[],
-    hasSearch: boolean,
+    hasSearch: boolean
+    onRender?: (arg: string) => JSX.Element
 }
 
-export default function CustomSelect ({ selected, setSelected, options, hasSearch }: CustomSelectProps) {
+    
+      
 
-    const [isHidden, setIsHidden] = useState<boolean>(true)
+//guard against hasSearch and T not being string types
+
+export default function CustomSelect({ selected, setSelected, options, hasSearch, onRender }: CustomSelectProps) {
+
     const [search, setSearch] = useState<string>("")
 
-    const selectedRef = useRef<HTMLDivElement | null>(null)
-    const optionsRef = useRef<HTMLDivElement | null>(null)
+    const selectedRef = useRef<HTMLDivElement>(null)
+    const optionsRef = useRef<HTMLDivElement>(null)
 
+    const {isHidden, setIsHidden} = useHandleClickOutside([selectedRef,optionsRef])
+    
     const optionsList = hasSearch
         ? options.filter(option => option.includes(search))
         : options
-
-    useEffect(() => {
-
-        const handleClickOutside = (e: MouseEvent) => {
-
-            const isOutsideSelectedRef = !selectedRef.current?.contains(e.target as Node)
-            const isOutsideOptionsRef = !optionsRef.current?.contains(e.target as Node)
-
-            if(isOutsideSelectedRef && isOutsideOptionsRef){
-                setIsHidden(true)
-            }
-        }
-
-        window.addEventListener("mousedown", handleClickOutside)
-
-        return () => window.removeEventListener("mousedown", handleClickOutside)
-    }
-    ,[])
 
     const handleOptionChange = (e: React.MouseEvent<HTMLParagraphElement>) => {
         const paragraphValue = e.currentTarget.innerText
@@ -50,11 +40,11 @@ export default function CustomSelect ({ selected, setSelected, options, hasSearc
     return(
         <div className={`${styles["custom-select"]} ${isHidden && styles.hidden}`}>
             <div 
-                className={styles["custom-select-selected"]}
+                className={`${styles["custom-select-selected"]} text-preset-4`}
                 ref={selectedRef}
                 onClick={() => setIsHidden(prevState => !prevState)}
             >
-                <p className="text-preset-4">{selected}</p>
+                {onRender?  onRender(selected): selected}
                 <IconCaretDown/>
             </div>
             <div 
@@ -63,12 +53,6 @@ export default function CustomSelect ({ selected, setSelected, options, hasSearc
             >   
                 {
                     hasSearch &&
-                    // <div className={styles["custom-select-search"]}>
-                    //     <input
-                    //         value={search}
-                    //         onChange={(e) => setSearch(e.target.value)}
-                    //     />
-                    // </div>
                     <Search
                         search={search}
                         setSearch={setSearch}
@@ -77,12 +61,12 @@ export default function CustomSelect ({ selected, setSelected, options, hasSearc
                 }   
                 {optionsList.flatMap((option, index) => {
 
-                    const optionElement = <p 
+                    const optionElement = <div 
                         className="text-preset-4"
                         style={{fontWeight: selected===option? "bold":""}}
                         onClick={handleOptionChange}
                         key={`option-${option}`}
-                        >{option}</p>
+                        >{onRender? onRender(option): option}</div>
                     const optionBorder = <div className={styles["option-border"]} key={`option-border-${option}`}></div>
                     
                     return index+1 === options.length 

@@ -4,6 +4,7 @@ import styles from "./MoneyInput.module.css"
 import CustomSelect from "../CustomSelect/CustomSelect"
 //contexts
 import { useCurrencyContext } from "../../contexts/CurrencyContext"
+import { useState } from "react"
 
 type MoneyInputProps = {
     amount: number,
@@ -15,6 +16,11 @@ type MoneyInputProps = {
 export default function MoneyInput ({amount, currency, setAmount, setCurrency}: MoneyInputProps) {
 
     const  rates = useCurrencyContext()?.rates
+
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value
+        setAmount(Number(value))
+    }
 
     const currenciesArr = rates 
         ?Object.keys(rates)
@@ -29,7 +35,7 @@ export default function MoneyInput ({amount, currency, setAmount, setCurrency}: 
                 <input
                     type="number"
                     value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))}
+                    onChange={handleAmountChange}
                 />
                 <CustomSelect
                     selected={currency}
