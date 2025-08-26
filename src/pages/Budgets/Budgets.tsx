@@ -9,6 +9,8 @@ import PageHeader from "../../components/PageHeader/PageHeader"
 //Budgets
 import BudgetsInfographic from "./BudgetsInfographic"
 import BudgetItem from "./BudgetItem"
+import ModalLayout from "../../modals/ModalLayout/ModalLayout"
+import BudgetModal from "../../modals/BudgetModal/BudgetModal"
 
 export default function Budgets () {
 
@@ -17,20 +19,30 @@ export default function Budgets () {
     const [showModal, setShowModal] = useState<boolean>(false)
 
     return(
-        <div className={styles.budgets}>
-            <PageHeader
-                pageTitle="Budgets"
-                btnTxt="+ Add New Budget"
-                toggleState={setShowModal}
-            />
-            <div className={styles["budgets-main"]}>
-                <BudgetsInfographic
-                    budgets={budgetsAmount}
+        <>
+            <div className={styles.budgets}>
+                <PageHeader
+                    pageTitle="Budgets"
+                    btnTxt="+ Add New Budget"
+                    toggleState={setShowModal}
                 />
-                <div className={styles["budgets-container"]}>
-                    {budgetsAmount.map(budget => <BudgetItem budget={budget}/>)}
+                <div className={styles["budgets-main"]}>
+                    <BudgetsInfographic
+                        budgets={budgetsAmount}
+                    />
+                    <div className={styles["budgets-container"]}>
+                        {budgetsAmount.map(budget => <BudgetItem budget={budget}/>)}
+                    </div>
                 </div>
             </div>
-        </div>
+            <ModalLayout
+                modalTitle="Add new budget"
+                modalDisplay={showModal}
+                closeModalDisplay={() => setShowModal(false)}
+                modalDesc="Add new budget"
+            >
+                <BudgetModal/>
+            </ModalLayout>
+        </>
     )
 }

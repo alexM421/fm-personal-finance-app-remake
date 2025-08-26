@@ -29,11 +29,21 @@ export default function ThemesSelect ({ selected, setSelected, legend }: ThemesS
         "var(--orange)"
     ]
 
-    const onRender = (option: string) => {
+    const onRender = (option: string, selected: string, isSelect: boolean ) => {
+
+        const regex = /var\([\-]+/
+        const theme = option.replace(regex, "").replace(")", "").replace("-"," ")
+        const themeCapitalized = theme[0].toUpperCase() + theme.slice(1)
+
+        const isCurrenctlySelected = selected===option && !isSelect
+
         return(
             <div className={styles["theme-option"]}>
-                <div className={styles["theme-pin"]}></div>
-                <p className="text-preset-4">{option}</p>
+                <div className={styles["theme-option-content"]}>
+                    <div className={styles["theme-pin"]} style={{backgroundColor: option }}></div>
+                    <p className="text-preset-4">{themeCapitalized}</p>
+                </div>
+                {isCurrenctlySelected && <img src="/assets/images/icon-selected.svg"/>}
             </div>
         )
     }

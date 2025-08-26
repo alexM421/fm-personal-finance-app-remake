@@ -103,3 +103,27 @@
     justify-content: space-between;
     gap: 4px;
 }
+
+.theme-option{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &>.theme-option-content{
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        &>.theme-pin{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        &>p{
+            color: var(--grey-900);
+        }
+    }
+
+}

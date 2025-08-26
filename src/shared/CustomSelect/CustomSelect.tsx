@@ -10,7 +10,7 @@ type CustomSelectProps = {
     setSelected: (value: string) => void,
     options: string[],
     hasSearch: boolean
-    onRender?: (arg: string) => JSX.Element
+    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element
 }
 
 //guard against hasSearch and T not being string types
@@ -28,9 +28,9 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
         ? options.filter(option => option.includes(search))
         : options
 
-    const handleOptionChange = (e: React.MouseEvent<HTMLParagraphElement>) => {
-        const paragraphValue = e.currentTarget.innerText
-        setSelected(paragraphValue)
+    const handleOptionChange = (option: string) => {
+
+        setSelected(option)
         setIsHidden(true)
     }
 
@@ -41,7 +41,7 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
                 ref={selectedRef}
                 onClick={() => setIsHidden(prevState => !prevState)}
             >
-                {onRender?  onRender(selected): selected}
+                {onRender?  onRender(selected, selected, true): selected}
                 <IconCaretDown/>
             </div>
             <div 
@@ -61,9 +61,9 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
                     const optionElement = <div 
                         className={`text-preset-4 ${styles["option-element"]}`}
                         style={{fontWeight: selected===option? "bold":""}}
-                        onClick={handleOptionChange}
+                        onClick={() => handleOptionChange(option)}
                         key={`option-${option}`}
-                        >{onRender? onRender(option): option}</div>
+                        >{onRender? onRender(option, selected, false): option}</div>
                     const optionBorder = <div className={styles["option-border"]} key={`option-border-${option}`}></div>
                     
                     return index+1 === options.length 

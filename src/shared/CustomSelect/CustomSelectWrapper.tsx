@@ -9,7 +9,7 @@ type CategoriesCustomSelectProps = {
     selected: string,
     setSelected: (e: string) => void,
     legend: string, 
-    onRender?: (e: string) => JSX.Element
+    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element
 }
 
 export default function CustomSelectWrapper({ options, selected, setSelected, legend, onRender }: CategoriesCustomSelectProps) {
