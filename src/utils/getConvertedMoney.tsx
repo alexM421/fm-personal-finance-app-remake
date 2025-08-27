@@ -8,10 +8,6 @@ export default function getConvertedMoney (
     preferredCurrency: string,
 ) {
     
-    if(!currencyData){
-        return 0
-    }
-    
     const originalCurrencyRate = currencyData.rates[originalCurrency]
     const preferredCurrencyRate = currencyData.rates[preferredCurrency as Currency]
 

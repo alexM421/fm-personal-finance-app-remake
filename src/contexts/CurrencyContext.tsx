@@ -15,7 +15,6 @@ export type CurrencyObj = {
 
 const fetchCurrencyData = async ():Promise<CurrencyObj> => {
     const appId = import.meta.env.VITE_API_OPEN_EXCHANGE_ID
-    console.log(appId)
     const res = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${appId}`)
     const json = await res.json()
     return json
@@ -32,16 +31,16 @@ type CurrencyProviderProps = {
 export function CurrencyProvider ({ children }: CurrencyProviderProps) {
 
     const session = useAuthContext().auth
-    const { loading } = useDataContext()
+    // const { loading } = useDataContext()
 
     const [currencyData, setCurrencyData] = useState<CurrencyContextValue>(null)
     
     useEffect(() => {
         const getCurrencyData = async () => {
-            if(!loading){
+            // if(!loading){
                 const cachedData = await getCachedData<CurrencyObj>("currency_data",fetchCurrencyData)
                 setCurrencyData(cachedData)
-            }
+            // }
         }
         getCurrencyData()
     },[session])
