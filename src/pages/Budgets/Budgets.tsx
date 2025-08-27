@@ -31,7 +31,7 @@ export default function Budgets () {
                         budgets={budgetsAmount}
                     />
                     <div className={styles["budgets-container"]}>
-                        {budgetsAmount.map(budget => <BudgetItem budget={budget}/>)}
+                        {budgetsAmount.map(budget => <BudgetItem budget={budget} key={`budget-item-${budget.category}`}/>)}
                     </div>
                 </div>
             </div>
@@ -41,7 +41,9 @@ export default function Budgets () {
                 closeModalDisplay={() => setShowModal(false)}
                 modalDesc="Add new budget"
             >
-                <BudgetModal/>
+                <BudgetModal
+                    closeModalDisplay={() => setShowModal(false)}
+                />
             </ModalLayout>
         </>
     )

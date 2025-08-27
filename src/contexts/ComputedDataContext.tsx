@@ -7,6 +7,7 @@ import getCurrentBudgetsAmount from "../utils/getCurrentBudgetsAmount";
 import { useDateContext } from "./DateContext";
 import getRecurringBillsCycleStatus from "../utils/getRecurringBillsCycleStatus";
 import type { Budget, Transaction } from "../types/DataTypes";
+import useGetConvertedMoney from "../hooks/useGetConvertedMoney";
 
 export type BudgetAmount = Budget & {
         amount: number
@@ -42,7 +43,7 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
     const  { data } = useDataContext()
     const { date } = useDateContext()
 
-
+    const getConvertedMoney = useGetConvertedMoney()
 
     const [computedData, setComputedData] = useState<ComputedData>({
         currentCycleTransactions: [],
@@ -69,7 +70,7 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
                 const isBudget = budgets.some(budget => budget.category === transaction.category)
                 return isBudget && isExpense
             })
-            const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
+            const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions, getConvertedMoney)
             
             const recurringBillsCycleStatus = getRecurringBillsCycleStatus(transactions, currentCycleTransactions, datetime)
         

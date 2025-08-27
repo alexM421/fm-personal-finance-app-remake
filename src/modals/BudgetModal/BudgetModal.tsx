@@ -1,47 +1,39 @@
 //CSS
-import { useState } from "react"
 import styles from "./BudgetModal.module.css"
-import type { Budget } from "../../types/DataTypes"
+//shared
 import NumberInput from "../../shared/NumberInput/NumberInput"
+import Button from "../../shared/Button/Button"
 import CategoriesSelect from "../../shared/CustomSelect/CategoriesSelect"
 import ThemesSelect from "../../shared/CustomSelect/ThemesSelect"
-import Button from "../../shared/Button/Button"
+//budgets
+import useBudgetModalForm from "./useBudgetModalForm"
 
-export default function BudgetModal () {
+type BudgetModalProps = {
+    closeModalDisplay: () => void
+}
 
+export default function BudgetModal ({ closeModalDisplay }: BudgetModalProps) {
 
-    const [formInputs, setFormInputs] = useState<Budget>({
-        category: "Entertainment",
-        maximum: 0,
-        theme: "var(--green)"
-    })
+    const { formInputs, update, submit } = useBudgetModalForm(closeModalDisplay)
 
     const { category, maximum, theme } = formInputs
 
-    const handleFormInputsUpdate = 
-        (
-            inputName: string,
-            value: string | number,
-        ) => {
-            setFormInputs(prevInputs => ({...prevInputs, [inputName]: value}))
-        }   
-
     return(
-        <form className={styles["budget-modal"]}>
+        <form className={styles["budget-modal"]} onSubmit={submit}>
             <div className={styles["budget-modal-inputs"]}>
                 <CategoriesSelect
                     selected={category}
-                    setSelected={(e: string) => handleFormInputsUpdate("category",e)}
+                    setSelected={(e: string) => update("category",e)}
                     legend="Budget Category"
                 />
                 <NumberInput
                     legend="Budget maximum"
                     value={maximum}
-                    setValue={(e: number) => handleFormInputsUpdate("maximum",e)}
+                    setValue={(e: number) => update("maximum",e)}
                 />
                 <ThemesSelect
                     selected={theme}
-                    setSelected={(e: string) => handleFormInputsUpdate("theme",e)}
+                    setSelected={(e: string) => update("theme",e)}
                     legend="Budget Theme"
                 />
             </div>

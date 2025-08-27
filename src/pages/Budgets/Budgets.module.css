@@ -1,0 +1,63 @@
+.budgets-infographic{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+    background-color: white;
+    border-radius: 12px;
+    max-width: 400px;
+
+    &>.budgets-spending{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        &>h1{
+            color: var(--grey-900)
+        }
+
+        &>.budgets-spending-main{
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+}
+
+.budget-spending{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &>div{
+        display: flex;
+        align-items: center;
+    }
+
+    &>div:first-of-type{
+        gap: 16px;
+
+        &>.theme-bar{
+            width: 4px;
+            height: 20px;
+            border-radius: 999px;
+        }
+
+        &>p{
+            color: var(--grey-500);
+        }
+    }
+
+    &>div:last-of-type{
+        gap: 8px;
+
+        &>p:first-of-type{
+            color: var(--grey-900)
+        }
+
+        &>p:last-of-type{
+            color: var(--grey-500)
+        }
+    }
+}

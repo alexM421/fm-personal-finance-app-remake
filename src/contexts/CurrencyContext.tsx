@@ -3,9 +3,9 @@ import { useAuthContext } from "./AuthContext";
 import { useDataContext } from "./DataContext";
 import getCachedData from "../utils/getCachedData";
 
-type Currency = `${Uppercase<string>}${Uppercase<string>} ${Uppercase<string>}`
+export type Currency = `${Uppercase<string>}${Uppercase<string>} ${Uppercase<string>}`
 
-type CurrencyObj = {
+export type CurrencyObj = {
     base: string,
     disclaimer: string,
     license: string,

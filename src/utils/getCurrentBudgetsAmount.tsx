@@ -1,6 +1,15 @@
+//types
+import type { Currency } from "../contexts/CurrencyContext"
 import type { Budget, Transaction } from "../types/DataTypes"
 
-export default function getCurrentBudgetsAmount (budgets: Budget[], budgetedTransactions: Transaction[]) {
+export default function getCurrentBudgetsAmount (
+    budgets: Budget[],
+    budgetedTransactions: Transaction[],
+    convertFunction: (    
+        toConvertAmount: number, 
+        originalCurrency: Currency
+    ) => number
+) {
 
     const budgetsAmount = budgets.map(budget => {
         
@@ -9,7 +18,7 @@ export default function getCurrentBudgetsAmount (budgets: Budget[], budgetedTran
 
         for(let transaction of budgetedTransactions){
             if(transaction.category === category){
-                amount+= transaction.amount
+                amount+= convertFunction(transaction.amount, transaction.currency as Currency)
             }
         }
 

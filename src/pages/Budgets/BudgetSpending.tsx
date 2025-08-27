@@ -14,12 +14,12 @@ export default function BudgetSpending ({ budget }: BudgetSpendingProps) {
     return(
         <div className={styles["budget-spending"]}>
             <div>
-                <div className={styles["theme-bar"]}></div>
-                <p>{category}</p>
+                <div className={styles["theme-bar"]} style={{backgroundColor: theme}}></div>
+                <p className="text-preset-4">{category}</p>
             </div>
             <div>
-                <p>{amount}</p>
-                <p>{`of $${maximum.toFixed(2)}`}</p>
+                <p className="text-preset-3">{amount}</p>
+                <p className="text-preset-5">{`of $${maximum.toFixed(2)}`}</p>
             </div>
         </div>
     )

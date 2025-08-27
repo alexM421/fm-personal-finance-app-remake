@@ -1,5 +1,5 @@
 //CSS
-import { useEffect, useRef, useState, type JSX } from "react"
+import { useRef, useState, type JSX } from "react"
 import styles from "./CustomSelect.module.css"
 import IconCaretDown from "../../assets/IconCaretDown"
 import Search from "../Search/Search"
