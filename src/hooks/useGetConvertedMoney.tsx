@@ -8,13 +8,12 @@ export default function useGetConvertedMoney () {
     const currencyData = useCurrencyContext()
     const { data: { personnalSettings: { preferredCurrency } } } = useDataContext()
 
-    
-    
     return (toConvertAmount: number, originalCurrency: Currency) => {
         
         if(!currencyData){
             return 0
         }
+
 
         return getConvertedMoney(
             toConvertAmount, 

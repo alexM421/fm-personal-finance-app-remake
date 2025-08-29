@@ -14,6 +14,8 @@ export type CurrencyObj = {
     timestamp: number,
 }
 
+export type CurrencyRates = Record<Currency, number>
+
 const fetchCurrencyData = async ():Promise<CurrencyObj> => {
     const appId = import.meta.env.VITE_API_OPEN_EXCHANGE_ID
     const res = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${appId}`)
@@ -21,7 +23,7 @@ const fetchCurrencyData = async ():Promise<CurrencyObj> => {
     return json
 }
 
-type CurrencyContextValue = CurrencyObj | null
+type CurrencyContextValue = CurrencyRates | null
 
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined)
 
@@ -38,13 +40,13 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
     useEffect(() => {
         const getCurrencyData = async () => {
             const date = new Date().toISOString().split("T")[0]
-            const { data, error } = await supabase.from("ratesdata").select("*").eq("rates_date", date)
+            const { data, error } = await supabase.from("ratesdata").select("rates").eq("rates_date", date)
             if(!data || data.length === 0){
                 const todayRates = await fetchCurrencyData()
-                await supabase.from("ratesdata").insert({"rates_date": date, "rates": todayRates.rates})
+                const { error } = await supabase.from("ratesdata").insert({"rates_date": date, "rates": todayRates.rates})
                 getCurrencyData()
             }else{
-                setCurrencyData(data[0])
+                setCurrencyData(data[0].rates)
             }
         }
         getCurrencyData()

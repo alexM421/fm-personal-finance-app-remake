@@ -1,15 +1,15 @@
 //types
-import type { Currency, CurrencyObj } from "../contexts/CurrencyContext"
+import type { Currency, CurrencyObj, CurrencyRates } from "../contexts/CurrencyContext"
 
 export default function getConvertedMoney (
     toConvertAmount: number, 
     originalCurrency: Currency,
-    currencyData: CurrencyObj,
+    currencyData: CurrencyRates,
     preferredCurrency: string,
 ) {
     
-    const originalCurrencyRate = currencyData.rates[originalCurrency]
-    const preferredCurrencyRate = currencyData.rates[preferredCurrency as Currency]
+    const originalCurrencyRate = currencyData[originalCurrency]
+    const preferredCurrencyRate = currencyData[preferredCurrency as Currency]
 
     if(!originalCurrencyRate || !preferredCurrencyRate){
         return 0

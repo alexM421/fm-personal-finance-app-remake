@@ -15,7 +15,7 @@ type MoneyInputProps = {
 
 export default function MoneyInput ({amount, currency, setAmount, setCurrency}: MoneyInputProps) {
 
-    const  rates = useCurrencyContext()?.rates
+    const  rates = useCurrencyContext()
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
