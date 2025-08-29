@@ -1,9 +1,14 @@
-export default function formatNumber (number: number){
+import getSymbolFromCurrency from "currency-symbol-map"
 
-    const formattedNumber = number.toLocaleString("en-US", {
+export default function formatNumber (amount: number, currency: string){
+
+    const formattedNumber = Math.abs(amount).toLocaleString("en-US", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     })
 
-    return formattedNumber
+    const sign = amount>=0 ? "+":"-"
+    const symbol = getSymbolFromCurrency(currency)
+
+    return `${sign}${formattedNumber}${symbol}`
 }

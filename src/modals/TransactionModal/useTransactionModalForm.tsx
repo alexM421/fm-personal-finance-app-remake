@@ -7,7 +7,7 @@ import { useDataContext } from "../../contexts/DataContext"
 //types
 import type { AvatarType, Transaction } from "../../types/DataTypes"
 import getChangeRate from "../../utils/getChangeRate"
-import { useCurrencyContext, type Currency, type CurrencyRates } from "../../contexts/CurrencyContext"
+import { type Currency } from "../../contexts/CurrencyContext"
 import getSpecificDateRates from "../../utils/getSpecificDateRates"
 import { useDateContext } from "../../contexts/DateContext"
 

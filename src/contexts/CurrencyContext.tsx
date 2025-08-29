@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContext";
-import { useDataContext } from "./DataContext";
-import getCachedData from "../utils/getCachedData";
 import { supabase } from "../supabaseClient";
 
 export type Currency = `${Uppercase<string>}${Uppercase<string>} ${Uppercase<string>}`
@@ -23,6 +21,7 @@ const fetchCurrencyData = async ():Promise<CurrencyObj> => {
     return json
 }
 
+
 type CurrencyContextValue = CurrencyRates | null
 
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined)
@@ -36,19 +35,24 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
     const session = useAuthContext().auth
 
     const [currencyData, setCurrencyData] = useState<CurrencyContextValue>(null)
-    
+
     useEffect(() => {
         const getCurrencyData = async () => {
+
             const date = new Date().toISOString().split("T")[0]
             const { data, error } = await supabase.from("ratesdata").select("rates").eq("rates_date", date)
+
             if(!data || data.length === 0){
                 const todayRates = await fetchCurrencyData()
                 const { error } = await supabase.from("ratesdata").insert({"rates_date": date, "rates": todayRates.rates})
                 getCurrencyData()
+
             }else{
                 setCurrencyData(data[0].rates)
+
             }
         }
+
         getCurrencyData()
 
     },[session])

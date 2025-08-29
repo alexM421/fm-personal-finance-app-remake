@@ -14,7 +14,6 @@ export default function getCurrentBudgetsAmount (
 
         for(let transaction of budgetedTransactions){
             if(transaction.category === category){
-                console.log(transaction)
                 amount+= roundNumber2Decimals(transaction.amount * transaction.rate)
             }
         }

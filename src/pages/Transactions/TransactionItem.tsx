@@ -1,26 +1,28 @@
 //CSS
 import styles from "./Transactions.module.css"
-//types
-import type { Transaction } from "../../types/DataTypes"
-import Avatar from "../../shared/Avatar/Avatar"
+//react
 import { useState } from "react"
+//shared
+import Avatar from "../../shared/Avatar/Avatar"
+//modals
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import TransactionModal from "../../modals/TransactionModal/TransactionModal"
+//utils
+import formatNumber from "../../utils/formatNumber"
+//types
+import type { Transaction } from "../../types/DataTypes"
 
 type TransactionitemProps = {
     transaction: Transaction
 }
 
-
-
 export default function TransactionItem ({ transaction }: TransactionitemProps) {
 
     const [displayTransactionModal, toggleDisplayTransactionModal] = useState(false)
 
-    const { amount, avatar, category, date, name, } = transaction
+    const { amount, avatar, category, date, name, currency } = transaction
     const { theme, content, isContentImage } = avatar
 
-    const sign = amount<0? "-":"+"
     const transactionDate = new Date(date)
 
     const stringDate = transactionDate.toLocaleDateString("en-GB", {
@@ -51,7 +53,7 @@ export default function TransactionItem ({ transaction }: TransactionitemProps) 
                         ?"var(--grey-900)"
                         :"var(--green)"
                     }}
-                >{`${sign}$${Math.abs(amount).toFixed(2)}`}</h2>
+                >{formatNumber(amount, currency)}</h2>
             </button>
             <ModalLayout
                 modalTitle={`Edit Transaction`}
