@@ -23,6 +23,7 @@ export type Transaction = {
   recurring: boolean,   
   currency: string,
   id: string,
+  rate: number,
 }
 
 export type Budget = {

@@ -4,8 +4,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 //supabase
 import { supabase } from "../supabaseClient";
-//utils
-import getCachedData from "../utils/getCachedData";
 //types
 import type { Data } from "../types/DataTypes";
 

@@ -6,21 +6,28 @@ import syncUserData from "../../utils/syncUserData"
 import { useDataContext } from "../../contexts/DataContext"
 //types
 import type { AvatarType, Transaction } from "../../types/DataTypes"
+import getChangeRate from "../../utils/getChangeRate"
+import { useCurrencyContext, type Currency, type CurrencyRates } from "../../contexts/CurrencyContext"
+import getSpecificDateRates from "../../utils/getSpecificDateRates"
+import { useDateContext } from "../../contexts/DateContext"
 
 
 export default function useTransactionModalForm (transactionData: Transaction | undefined, closeModalDisplay: () => void) {
 
     const { data, setData } = useDataContext()
+    const datetime = useDateContext().date?.datetime
+    
 
     const [formInputs, setFormInputs] = useState<Transaction>({
         avatar: { theme: "var(--green)", content: "text", isContentImage: false },
         name: "",
         category: "General",
-        date: "",
+        date: datetime? datetime:"",
         amount: 0,
         recurring: false,
         currency: "USD",
-        id: crypto.randomUUID()
+        id: crypto.randomUUID(),
+        rate: 1.00
     })
     
     const [formError, setFormError] = useState<boolean>(false)
@@ -31,6 +38,36 @@ export default function useTransactionModalForm (transactionData: Transaction | 
             setFormInputs(transactionData)
         }
     },[])
+
+    useEffect(() => {
+
+        const updateRate = async () => {
+            const transactionDate = new Date(formInputs.date)
+            const ratesData =  (await getSpecificDateRates(transactionDate)).data
+
+            if(!ratesData || ratesData.length === 0){
+               return 
+            }
+
+            const rates = ratesData[0]?.rates
+
+            const updatedRate = getChangeRate(
+                formInputs.currency as Currency,
+                data.personnalSettings.preferredCurrency as Currency,
+                rates
+            )
+
+            setFormInputs(prevForm => 
+                ({
+                    ...prevForm, 
+                    rate: updatedRate
+                })
+            )
+        }
+
+        updateRate()
+        
+    },[formInputs.currency])
     
     const update = 
         (

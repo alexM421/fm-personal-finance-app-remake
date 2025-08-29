@@ -1,14 +1,10 @@
 //types
-import type { Currency } from "../contexts/CurrencyContext"
 import type { Budget, Transaction } from "../types/DataTypes"
+import roundNumber2Decimals from "./roundNumber2Decimals"
 
 export default function getCurrentBudgetsAmount (
     budgets: Budget[],
-    budgetedTransactions: Transaction[],
-    convertFunction: (    
-        toConvertAmount: number, 
-        originalCurrency: Currency
-    ) => number
+    budgetedTransactions: Transaction[]
 ) {
 
     const budgetsAmount = budgets.map(budget => {
@@ -18,7 +14,8 @@ export default function getCurrentBudgetsAmount (
 
         for(let transaction of budgetedTransactions){
             if(transaction.category === category){
-                amount+= convertFunction(transaction.amount, transaction.currency as Currency)
+                console.log(transaction)
+                amount+= roundNumber2Decimals(transaction.amount * transaction.rate)
             }
         }
 

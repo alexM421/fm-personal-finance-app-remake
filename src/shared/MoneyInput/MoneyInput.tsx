@@ -4,7 +4,6 @@ import styles from "./MoneyInput.module.css"
 import CustomSelect from "../CustomSelect/CustomSelect"
 //contexts
 import { useCurrencyContext } from "../../contexts/CurrencyContext"
-import { useState } from "react"
 
 type MoneyInputProps = {
     amount: number,
