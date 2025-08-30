@@ -19,7 +19,7 @@ export default function BudgetItemSpending ({ theme, maximum, amount }: BudgetIt
 
     const ratio = spent > maximum 
         ? "100%"
-        : `${spent/maximum}%`
+        : `${(spent/maximum)*100}%`
 
     return(
         <div className={styles["budget-item-spending"]}>
