@@ -1,11 +1,19 @@
 //CSS
-import { useRef } from "react"
 import styles from "./EditBtn.module.css"
-import useHandleClickOutside from "../../hooks/useHandleClickOutside"
+//react
+import { useRef } from "react"
+//shared
 import GapSeparation from "../GapSeparation/GapSeparation"
+//hooks
+import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
 
-export default function EditBtn () {
+type EditBtnProps = {
+    displayEdit: () => void,
+    displayDelete: () => void
+}
+
+export default function EditBtn ({ displayEdit, displayDelete }: EditBtnProps) {
 
     const contextMenuRef = useRef(null)
     const ellipsisBtnRef = useRef(null)
@@ -27,9 +35,15 @@ export default function EditBtn () {
                     ${isHidden? styles["edit-btn-context-menu-hidden"]:""}
                 `}
             >
-                <button className="text-preset-4">Edit</button>
+                <button 
+                    className="text-preset-4"
+                    onClick={displayEdit}
+                >Edit</button>
                 <GapSeparation/>
-                <button className="text-preset-4">Delete</button>
+                <button 
+                    className="text-preset-4"
+                    onClick={displayDelete}
+                >Delete</button>
             </div>
         </div>
     )

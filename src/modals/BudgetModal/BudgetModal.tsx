@@ -7,17 +7,20 @@ import CategoriesSelect from "../../shared/CustomSelect/CategoriesSelect"
 import ThemesSelect from "../../shared/CustomSelect/ThemesSelect"
 //budgets
 import useBudgetModalForm from "./useBudgetModalForm"
+//types
+import type { Budget } from "../../types/DataTypes"
 
 type BudgetModalProps = {
-    closeModalDisplay: () => void
+    closeModalDisplay: () => void,
+    budget?: Budget
 }
 
-export default function BudgetModal ({ closeModalDisplay }: BudgetModalProps) {
+export default function BudgetModal ({ closeModalDisplay, budget }: BudgetModalProps) {
 
-    const { formInputs, update, submit } = useBudgetModalForm(closeModalDisplay)
+    const { formInputs, update, submit } = useBudgetModalForm(closeModalDisplay, budget)
 
     const { category, maximum, theme } = formInputs
-
+    
     return(
         <form className={styles["budget-modal"]} onSubmit={submit}>
             <div className={styles["budget-modal-inputs"]}>
@@ -37,7 +40,7 @@ export default function BudgetModal ({ closeModalDisplay }: BudgetModalProps) {
                     legend="Budget Theme"
                 />
             </div>
-            <Button>Add Budget</Button>
+            <Button>{`${budget? "Edit":"Add"} Budget`}</Button>
         </form>
     )
 }

@@ -1,5 +1,5 @@
 //react
-import { useState } from "react"
+import { useEffect, useState } from "react"
 //contexts
 import { useDataContext } from "../../contexts/DataContext"
 //types
@@ -8,7 +8,7 @@ import type { Budget } from "../../types/DataTypes"
 import syncUserData from "../../utils/syncUserData"
 
 
-export default function useBudgetModalForm (closeModalDisplay: () => void) {
+export default function useBudgetModalForm (closeModalDisplay: () => void, budget: Budget | undefined) {
 
     const { data, setData } = useDataContext()
 
@@ -18,6 +18,11 @@ export default function useBudgetModalForm (closeModalDisplay: () => void) {
         theme: "var(--green)"
     })
 
+    useEffect(() => {
+        if(budget){
+            setFormInputs(budget)
+        }
+    },[budget])
     
 
     const update = (
@@ -29,10 +34,15 @@ export default function useBudgetModalForm (closeModalDisplay: () => void) {
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const budgetsArr = [...data.budgets, formInputs]
+        const budgetsArr = budget
+            ?[...data.budgets]
+                .map(budgetData => budgetData.category===budget.category? formInputs:budgetData)
+            :[...data.budgets, formInputs]
         const updatedData = {...data, budgets: budgetsArr}
         syncUserData(updatedData, setData)
         closeModalDisplay()
+   
+
         
     }
 

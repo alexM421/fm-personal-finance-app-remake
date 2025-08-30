@@ -17,8 +17,7 @@ export default function BudgetItem ({ budget }: BudgetItemProps) {
     return(
         <div className={styles["budget-item"]}>
             <BudgetItemHeader
-                theme={theme}
-                category={category}   
+                budget={budget}  
             />
             <BudgetItemSpending
                 theme={theme}
