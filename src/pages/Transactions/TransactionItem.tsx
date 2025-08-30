@@ -53,7 +53,7 @@ export default function TransactionItem ({ transaction }: TransactionitemProps) 
                         ?"var(--grey-900)"
                         :"var(--green)"
                     }}
-                >{formatNumber(amount, currency)}</h2>
+                >{formatNumber(amount, currency, true)}</h2>
             </button>
             <ModalLayout
                 modalTitle={`Edit Transaction`}

@@ -1,5 +1,11 @@
+.budgets-main{
+    display: flex;
+    gap: 24px;
+}
+
 .budgets-infographic{
     flex: 1;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -58,6 +64,128 @@
 
         &>p:last-of-type{
             color: var(--grey-500)
+        }
+    }
+}
+
+.budgets-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.budget-item{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    border-radius: 12px;
+    background-color: white;
+
+
+    &>.budget-item-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>div{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            &>.budget-item-color-pin{
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+            }
+
+            &>h1{
+                color: var(--grey-900);
+            }
+        }
+
+        &>button{
+            background-color: transparent;
+            border: none;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &>.budget-item-spending{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        &>p{
+            color: var(--grey-500);
+        }
+
+        &>.budget-item-filling-bar-ext{
+            padding: 4px;   
+            background-color: var(--beige-100);
+            border-radius: 4px;
+
+            &>.budget-item-filling-bar-int{
+                height: 24px;
+                border-radius: 4px;
+            }
+        }
+
+        &>.budget-item-status{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            &>.budget-item-status-item{
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+
+                &>div:last-of-type{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    gap: 4px;
+
+                    &>p:first-of-type{
+                        color: var(--grey-500);
+                    }
+                    
+                    &>p:last-of-type{
+                        color: var(--grey-900);
+                    }
+                }
+            }
+        }
+    }
+
+    &>.budget-item-latest{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: var(--beige-100);
+        padding: 20px;
+        border-radius: 12px;
+
+        &>.budget-item-latest-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &>p{
+                color: var(--grey-900);
+            }
+        }
+
+        &>.budget-item-latest-transactions{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
     }
 }

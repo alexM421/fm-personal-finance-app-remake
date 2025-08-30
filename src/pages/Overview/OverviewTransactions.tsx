@@ -15,7 +15,7 @@ export default function OverviewTransactions () {
     const transactionsElements = sortedTransactions
         
         .flatMap((transaction,index) => {
-            const { name, amount, date, avatar } = transaction
+            const { name, amount, date, avatar, currency } = transaction
 
             const tranasctionDate = new Date(date)
             
@@ -36,6 +36,7 @@ export default function OverviewTransactions () {
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        currency={currency}
                         key={key}
                     />
                     ,
@@ -46,6 +47,7 @@ export default function OverviewTransactions () {
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        currency={currency}
                         key={key}
                 />
             )

@@ -1,11 +1,16 @@
 import styles from "./GapSeparation.module.css"
 
-export default function GapSeparation () {
+type GapSeparationProps = {
+    theme?: string,
+}
+
+export default function GapSeparation ({ theme }: GapSeparationProps) {
 
 
     return(
-        <div className={styles["gap-separation"]}>
-
-        </div>
+        <div 
+            className={styles["gap-separation"]}  
+            style={{backgroundColor: theme}}    
+        ></div>
     )
 }
