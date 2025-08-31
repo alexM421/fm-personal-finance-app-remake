@@ -14,6 +14,7 @@ export default function BudgetItem ({ budget }: BudgetItemProps) {
 
     const { theme, category, maximum, amount } = budget
 
+
     return(
         <div className={styles["budget-item"]}>
             <BudgetItemHeader

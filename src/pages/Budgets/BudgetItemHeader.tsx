@@ -5,6 +5,7 @@ import styles from "./Budgets.module.css"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import BudgetModal from "../../modals/BudgetModal/BudgetModal"
 import type { BudgetAmount } from "../../contexts/ComputedDataContext"
+import DeleteModal from "../../modals/DeleteModal/DeleteModal"
 
 type BudgetItemHeaderProps = {
     budget: BudgetAmount
@@ -46,6 +47,17 @@ export default function BudgetItemHeader ({ budget }: BudgetItemHeaderProps) {
                 <BudgetModal
                     closeModalDisplay={() => setDisplayEdit(false)}
                     budget={budgetWithoutAmount}
+                />
+            </ModalLayout>
+            <ModalLayout
+                modalTitle={`Delete '${budget.category}' ?`}
+                modalDisplay={displayDelete}
+                closeModalDisplay={() => setDisplayDelete(false)}
+                modalDesc="Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
+            >
+                <DeleteModal
+                    closeModalDisplay={() => setDisplayDelete(false)}
+                    itemToRemove={budgetWithoutAmount}
                 />
             </ModalLayout>
         </>

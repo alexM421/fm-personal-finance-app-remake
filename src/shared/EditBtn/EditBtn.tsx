@@ -20,6 +20,11 @@ export default function EditBtn ({ displayEdit, displayDelete }: EditBtnProps) {
     
     const { isHidden, setIsHidden } = useHandleClickOutside([contextMenuRef, ellipsisBtnRef])
 
+    const onClick = (displayState: (boo: boolean) => void) => {
+        setIsHidden(true)
+        displayState(true)
+    }
+
     return(
         <div className={styles["edit-btn"]}>
             <button 
@@ -37,12 +42,12 @@ export default function EditBtn ({ displayEdit, displayDelete }: EditBtnProps) {
             >
                 <button 
                     className="text-preset-4"
-                    onClick={displayEdit}
+                    onClick={() => onClick(displayEdit)}
                 >Edit</button>
                 <GapSeparation/>
                 <button 
                     className="text-preset-4"
-                    onClick={displayDelete}
+                    onClick={() => onClick(displayDelete)}
                 >Delete</button>
             </div>
         </div>

@@ -68,7 +68,6 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
                 return isBudget && isExpense
             })
             const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
-            
             const recurringBillsCycleStatus = getRecurringBillsCycleStatus(transactions, currentCycleTransactions, datetime)
 
             setComputedData({
