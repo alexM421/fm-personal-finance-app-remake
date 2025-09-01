@@ -1,0 +1,98 @@
+.pots-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.pot-item{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    border-radius: 12px;
+    background-color: white;
+
+
+    &>.pot-item-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>div{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            &>.pot-item-color-pin{
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+            }
+
+            &>h1{
+                color: var(--grey-900);
+            }
+        }
+
+        &>button{
+            background-color: transparent;
+            border: none;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &>.pot-item-progress{
+        display: flex;
+        flex-direction: column;
+        
+        &>.pot-item-total{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &>p{
+                color: var(--grey-500);
+            }
+
+            &>h2{
+                color: var(--grey-900);
+            }
+        }
+
+        &>.pot-item-progress-bar-ext{
+            height: 8px;
+            width: 100%;
+            background-color: var(--beige-100);
+            border-radius: 4px;
+            margin-block: 16px 12px;
+
+            &>.pot-item-progress-bar-int{
+                height: 4px;
+                border-radius: 4px;
+            }
+        }
+
+        &>.pot-item-target{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &>p{
+                color: var(--grey-500);
+            }
+        }
+    }
+
+    &>.pot-item-btns{
+        display: flex;
+        gap: 16px;
+
+        &>button{
+            flex: 1;
+            color: var(--grey-900);
+            background-color: var(--beige-100);
+        }
+    }
+}
