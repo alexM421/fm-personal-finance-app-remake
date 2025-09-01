@@ -31,7 +31,7 @@ export default function Budgets () {
                         budgets={budgetsAmount}
                     />
                     <div className={styles["budgets-container"]}>
-                        {budgetsAmount.map(budget => <BudgetItem budget={budget} key={`budget-item-${budget.category}`}/>)}
+                        {budgetsAmount.map(budget => <BudgetItem budgetAmount={budget} key={`budget-item-${budget.category}`}/>)}
                     </div>
                 </div>
             </div>

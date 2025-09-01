@@ -1,5 +1,3 @@
-//CSS
-import styles from "./CustomSelect.module.css"
 //CustomSelect
 import CustomSelectWrapper from "./CustomSelectWrapper";
 
@@ -7,9 +5,11 @@ type CategoriesSelectProps = {
     selected: string,
     setSelected: (e: string) => void,
     legend: string, 
+    disabledOptions ?: string[],
+    error?: boolean
 }
 
-export default function CategoriesSelect ({ selected, setSelected, legend }: CategoriesSelectProps) {
+export default function CategoriesSelect ({ selected, setSelected, legend, disabledOptions, error }: CategoriesSelectProps) {
 
     const categories = [
         "Entertainment",
@@ -30,6 +30,8 @@ export default function CategoriesSelect ({ selected, setSelected, legend }: Cat
             selected={selected}
             setSelected={setSelected}
             legend={legend}
+            disabledOptions={disabledOptions}
+            error={error}
         />
     )
 }

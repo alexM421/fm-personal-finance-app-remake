@@ -19,6 +19,7 @@ export default function NumberInput ({ value, setValue, legend }: NumberInputPro
                 type="number"
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
+                min={0}
             />
         </div>
     )

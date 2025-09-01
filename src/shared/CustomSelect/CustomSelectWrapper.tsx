@@ -9,13 +9,17 @@ type CategoriesCustomSelectProps = {
     selected: string,
     setSelected: (e: string) => void,
     legend: string, 
-    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element
+    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element,
+    disabledOptions?: string[],
+    error?: boolean
 }
 
-export default function CustomSelectWrapper({ options, selected, setSelected, legend, onRender }: CategoriesCustomSelectProps) {
+export default function CustomSelectWrapper({ options, selected, setSelected, legend, onRender, disabledOptions, error }: CategoriesCustomSelectProps) {
 
     return(
-        <div className={styles["custom-select-wrapper"]}>
+        <div 
+            className={`${styles["custom-select-wrapper"]} ${error? styles["custom-select-wrapper-err"]:""}`}
+        >
             <p className="text-preset-5-bold">{legend}</p>
             <CustomSelect
                 selected={selected}
@@ -23,6 +27,8 @@ export default function CustomSelectWrapper({ options, selected, setSelected, le
                 options={options}
                 hasSearch={false}
                 onRender={onRender}
+                disabledOptions={disabledOptions}
+                error={error}
             />
         </div>
     )

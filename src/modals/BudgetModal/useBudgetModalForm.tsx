@@ -12,10 +12,12 @@ export default function useBudgetModalForm (closeModalDisplay: () => void, budge
 
     const { data, setData } = useDataContext()
 
+    const [error, setError]  = useState<boolean>(false)
     const [formInputs, setFormInputs] = useState<Budget>({
-        category: "Entertainment",
+        category: "Select a category",
         maximum: 0,
-        theme: "var(--green)"
+        theme: "var(--green)",
+        id: crypto.randomUUID(),
     })
 
     useEffect(() => {
@@ -34,6 +36,10 @@ export default function useBudgetModalForm (closeModalDisplay: () => void, budge
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if(formInputs.category==="Select a category"){
+            setError(true)
+            return
+        }
         const budgetsArr = budget
             ?[...data.budgets]
                 .map(budgetData => budgetData.category===budget.category? formInputs:budgetData)
@@ -46,5 +52,11 @@ export default function useBudgetModalForm (closeModalDisplay: () => void, budge
         
     }
 
-    return { formInputs, update, submit }
+    const filteredOptions = budget
+    ? [...data.budgets].filter(budgetData => budgetData.id !== budget?.id)
+    : [...data.budgets] 
+
+    const disabledOptions = filteredOptions.map(budget => budget.category)
+
+    return { formInputs, update, submit, disabledOptions, error }
 }

@@ -73,6 +73,14 @@
             &:last-of-type{
                 padding-bottom: 0px;
             }
+
+            &.option-disabled-element{
+                opacity: 0.3;
+                
+                &:hover{
+                    cursor: not-allowed;
+                }
+            }
         }
 
         &>.option-border{
@@ -94,14 +102,24 @@
             pointer-events: none;
         }
     }
+
+    &.custom-select-err>.custom-select-selected{
+        border-color: var(--red);
+    }   
 }
 
 .custom-select-wrapper{
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 4px;
+
+    &.custom-select-wrapper-err{
+
+        &>p{
+            color: var(--red)
+        }
+    }
 }
 
 .theme-option{

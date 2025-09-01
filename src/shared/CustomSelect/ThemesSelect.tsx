@@ -7,9 +7,10 @@ type ThemesSelectProps = {
     selected: string,
     setSelected: (e: string) => void,
     legend: string, 
+    disabledOptions?: string[],
 }
 
-export default function ThemesSelect ({ selected, setSelected, legend }: ThemesSelectProps) {
+export default function ThemesSelect ({ selected, setSelected, legend, disabledOptions }: ThemesSelectProps) {
 
     const themes = [
         "var(--green)",
@@ -55,6 +56,7 @@ export default function ThemesSelect ({ selected, setSelected, legend }: ThemesS
             setSelected={setSelected}
             legend={legend}
             onRender={onRender}
+            disabledOptions={disabledOptions}
         />
     )
 }

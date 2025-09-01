@@ -17,10 +17,12 @@ type BudgetModalProps = {
 
 export default function BudgetModal ({ closeModalDisplay, budget }: BudgetModalProps) {
 
-    const { formInputs, update, submit } = useBudgetModalForm(closeModalDisplay, budget)
+    const { formInputs, update, submit, disabledOptions, error } = useBudgetModalForm(closeModalDisplay, budget)
 
     const { category, maximum, theme } = formInputs
-    
+
+    console.log(error)
+
     return(
         <form className={styles["budget-modal"]} onSubmit={submit}>
             <div className={styles["budget-modal-inputs"]}>
@@ -28,6 +30,8 @@ export default function BudgetModal ({ closeModalDisplay, budget }: BudgetModalP
                     selected={category}
                     setSelected={(e: string) => update("category",e)}
                     legend="Budget Category"
+                    disabledOptions={disabledOptions}
+                    error={error}
                 />
                 <NumberInput
                     legend="Budget maximum"

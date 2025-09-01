@@ -30,6 +30,7 @@ export type Budget = {
   category: string,
   maximum: number,
   theme: string,
+  id: string,
 }
 
 export type Pot = {
@@ -37,6 +38,7 @@ export type Pot = {
   target: number,
   total: number,
   theme: string,
+  id: string,
 }
 
 export type Data = {

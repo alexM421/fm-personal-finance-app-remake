@@ -9,13 +9,16 @@ type CustomSelectProps = {
     selected: string,
     setSelected: (value: string) => void,
     options: string[],
-    hasSearch: boolean
-    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element
+    hasSearch: boolean,
+    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element,
+    disabledOptions?: string[],
+    error?: boolean
+    
 }
 
 //guard against hasSearch and T not being string types
 
-export default function CustomSelect({ selected, setSelected, options, hasSearch, onRender }: CustomSelectProps) {
+export default function CustomSelect({ selected, setSelected, options, hasSearch, onRender, disabledOptions, error}: CustomSelectProps) {
 
     const [search, setSearch] = useState<string>("")
 
@@ -34,8 +37,11 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
         setIsHidden(true)
     }
 
+
     return(
-        <div className={`${styles["custom-select"]} ${isHidden && styles.hidden}`}>
+        <div 
+            className={`${styles["custom-select"]} ${isHidden && styles.hidden} ${error? styles["custom-select-err"]:""}`}
+        >
             <div 
                 className={`${styles["custom-select-selected"]} text-preset-4`}
                 ref={selectedRef}
@@ -56,12 +62,20 @@ export default function CustomSelect({ selected, setSelected, options, hasSearch
                         placeholder=""
                     />
                 }   
+           
                 {optionsList.flatMap((option, index) => {
 
+                    const isDisabled = disabledOptions
+                        ? disabledOptions.some(disabledOption => disabledOption === option)
+                        : false
                     const optionElement = <div 
-                        className={`text-preset-4 ${styles["option-element"]}`}
+                        className={`
+                            text-preset-4 
+                            ${styles["option-element"]} 
+                            ${isDisabled && styles["option-disabled-element"]}
+                        `}
                         style={{fontWeight: selected===option? "bold":""}}
-                        onClick={() => handleOptionChange(option)}
+                        onClick={isDisabled? undefined:() => handleOptionChange(option)}
                         key={`option-${option}`}
                         >{onRender? onRender(option, selected, false): option}</div>
                     const optionBorder = <div className={styles["option-border"]} key={`option-border-${option}`}></div>

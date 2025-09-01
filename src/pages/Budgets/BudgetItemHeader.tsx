@@ -4,11 +4,11 @@ import EditBtn from "../../shared/EditBtn/EditBtn"
 import styles from "./Budgets.module.css"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import BudgetModal from "../../modals/BudgetModal/BudgetModal"
-import type { BudgetAmount } from "../../contexts/ComputedDataContext"
 import DeleteModal from "../../modals/DeleteModal/DeleteModal"
+import type { Budget } from "../../types/DataTypes"
 
 type BudgetItemHeaderProps = {
-    budget: BudgetAmount
+    budget: Budget
 }
 
 export default function BudgetItemHeader ({ budget }: BudgetItemHeaderProps) {
@@ -16,12 +16,7 @@ export default function BudgetItemHeader ({ budget }: BudgetItemHeaderProps) {
     const [displayDelete, setDisplayDelete] = useState<boolean>(false)
     const [displayEdit, setDisplayEdit] = useState<boolean>(false)
 
-    const { theme, category, maximum } = budget
-    const budgetWithoutAmount = {
-        theme: theme,
-        category: category,
-        maximum: maximum
-    }
+    const { theme, category } = budget
 
     return(
         <>
@@ -46,7 +41,7 @@ export default function BudgetItemHeader ({ budget }: BudgetItemHeaderProps) {
             >
                 <BudgetModal
                     closeModalDisplay={() => setDisplayEdit(false)}
-                    budget={budgetWithoutAmount}
+                    budget={budget}
                 />
             </ModalLayout>
             <ModalLayout
@@ -57,7 +52,7 @@ export default function BudgetItemHeader ({ budget }: BudgetItemHeaderProps) {
             >
                 <DeleteModal
                     closeModalDisplay={() => setDisplayDelete(false)}
-                    itemToRemove={budgetWithoutAmount}
+                    itemToRemove={budget}
                 />
             </ModalLayout>
         </>

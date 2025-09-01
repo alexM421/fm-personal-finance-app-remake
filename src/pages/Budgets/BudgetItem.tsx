@@ -7,13 +7,13 @@ import BudgetItemSpending from "./BudgetItemSpending"
 import BudgetItemLatest from "./BudgetItemLatest"
 
 type BudgetItemProps = {
-    budget: BudgetAmount
+    budgetAmount : BudgetAmount
 }
 
-export default function BudgetItem ({ budget }: BudgetItemProps) {
+export default function BudgetItem ({ budgetAmount }: BudgetItemProps) {
 
-    const { theme, category, maximum, amount } = budget
-
+    const { amount , ...budget } = budgetAmount
+    const { theme, category, maximum } = budget
 
     return(
         <div className={styles["budget-item"]}>
