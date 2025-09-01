@@ -1,0 +1,39 @@
+.money-input{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &>.input-header{
+        
+        display: flex;
+        justify-content: space-between;
+
+        &>p:first-of-type{
+            transition: color ease 0.3s;
+            color: var(--grey-900);
+        }
+    }
+
+    &>.money-input-main{
+        display: flex;
+        gap: 8px;
+
+
+
+        &>input{
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--grey-500);
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            &:focus, &:hover{
+                border-color: var(--grey-900);
+                outline: none;
+            }
+        }
+    }
+}

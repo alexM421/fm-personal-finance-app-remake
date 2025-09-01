@@ -1,5 +1,5 @@
 //CSS
-import { useState, type SetStateAction } from "react"
+import { useState } from "react"
 import styles from "./TextInput.module.css"
 
 type TextInputProps = {

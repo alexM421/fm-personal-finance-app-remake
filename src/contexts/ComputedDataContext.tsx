@@ -1,11 +1,12 @@
 //React
 import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 //context
-import { useDataContext, type Budget, type Transaction } from "./DataContext";
+import { useDataContext } from "./DataContext";
 import filterTransactionsByCycle from "../utils/FilterTransactionsByCycle";
 import getCurrentBudgetsAmount from "../utils/getCurrentBudgetsAmount";
 import { useDateContext } from "./DateContext";
 import getRecurringBillsCycleStatus from "../utils/getRecurringBillsCycleStatus";
+import type { Budget, Transaction } from "../types/DataTypes";
 
 export type BudgetAmount = Budget & {
         amount: number
@@ -41,8 +42,6 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
     const  { data } = useDataContext()
     const { date } = useDateContext()
 
-
-
     const [computedData, setComputedData] = useState<ComputedData>({
         currentCycleTransactions: [],
         budgetedTransactions: [],
@@ -69,9 +68,7 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
                 return isBudget && isExpense
             })
             const budgetsAmount = getCurrentBudgetsAmount(data.budgets, budgetedTransactions)
-            
             const recurringBillsCycleStatus = getRecurringBillsCycleStatus(transactions, currentCycleTransactions, datetime)
-        
 
             setComputedData({
                 currentCycleTransactions: currentCycleTransactions,

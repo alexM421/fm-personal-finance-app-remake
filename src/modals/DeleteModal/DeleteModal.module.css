@@ -1,0 +1,17 @@
+.delete-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &>button:last-of-type{
+        border: none;
+        background-color: transparent;
+        color: var(--grey-500);
+        align-self: center;
+
+        &:hover{
+            cursor: pointer;
+            color: var(--grey-900)
+        }
+    }
+}

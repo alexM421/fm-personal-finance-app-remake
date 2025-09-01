@@ -13,4 +13,12 @@
         box-shadow: 0px 4px 0px rgba(32, 31, 36, 0.4);
         transform: translateY(-4px);
     }
+
+    &.delete{
+        background-color: var(--red);
+
+        &:hover{
+            box-shadow: 0px 4px 0px rgba(232, 72, 51, 0.4);
+        }
+    }
 }

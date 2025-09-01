@@ -1,67 +1,83 @@
 //CSS
-import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react"
+import { useRef, useState, type JSX } from "react"
 import styles from "./CustomSelect.module.css"
 import IconCaretDown from "../../assets/IconCaretDown"
+import Search from "../Search/Search"
+import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
 type CustomSelectProps = {
     selected: string,
-    setSelected: (string: string) => void,
-    options: string[]
+    setSelected: (value: string) => void,
+    options: string[],
+    hasSearch: boolean,
+    onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element,
+    disabledOptions?: string[],
+    error?: boolean
+    
 }
 
-export default function CustomSelect ({ selected, setSelected, options}: CustomSelectProps) {
+//guard against hasSearch and T not being string types
 
-    const [isHidden, setIsHidden] = useState<boolean>(true)
+export default function CustomSelect({ selected, setSelected, options, hasSearch, onRender, disabledOptions, error}: CustomSelectProps) {
 
-    const selectedRef = useRef<HTMLDivElement | null>(null)
-    const optionsRef = useRef<HTMLDivElement | null>(null)
+    const [search, setSearch] = useState<string>("")
 
-    useEffect(() => {
+    const selectedRef = useRef<HTMLDivElement>(null)
+    const optionsRef = useRef<HTMLDivElement>(null)
 
-        const handleClickOutside = (e: MouseEvent) => {
+    const {isHidden, setIsHidden} = useHandleClickOutside([selectedRef,optionsRef])
+    
+    const optionsList = hasSearch
+        ? options.filter(option => option.includes(search))
+        : options
 
-            const isOutsideSelectedRef = !selectedRef.current?.contains(e.target as Node)
-            const isOutsideOptionsRef = !optionsRef.current?.contains(e.target as Node)
+    const handleOptionChange = (option: string) => {
 
-            if(isOutsideSelectedRef && isOutsideOptionsRef){
-                setIsHidden(true)
-            }
-        }
-
-        window.addEventListener("mousedown", handleClickOutside)
-
-        return () => window.removeEventListener("mousedown", handleClickOutside)
-    }
-    ,[])
-
-    const handleOptionChange = (e: React.MouseEvent<HTMLParagraphElement>) => {
-        const paragraphValue = e.currentTarget.innerText
-        setSelected(paragraphValue)
+        setSelected(option)
         setIsHidden(true)
     }
 
+
     return(
-        <div className={`${styles["custom-select"]} ${isHidden && styles.hidden}`}>
+        <div 
+            className={`${styles["custom-select"]} ${isHidden && styles.hidden} ${error? styles["custom-select-err"]:""}`}
+        >
             <div 
-                className={styles["custom-select-selected"]}
+                className={`${styles["custom-select-selected"]} text-preset-4`}
                 ref={selectedRef}
                 onClick={() => setIsHidden(prevState => !prevState)}
             >
-                <p className="text-preset-4">{selected}</p>
+                {onRender?  onRender(selected, selected, true): selected}
                 <IconCaretDown/>
             </div>
             <div 
                 className={styles["custom-select-options"]}
                 ref={optionsRef}
-            >
-                {options.flatMap((option, index) => {
+            >   
+                {
+                    hasSearch &&
+                    <Search
+                        search={search}
+                        setSearch={setSearch}
+                        placeholder=""
+                    />
+                }   
+           
+                {optionsList.flatMap((option, index) => {
 
-                    const optionElement = <p 
-                        className="text-preset-4"
+                    const isDisabled = disabledOptions
+                        ? disabledOptions.some(disabledOption => disabledOption === option)
+                        : false
+                    const optionElement = <div 
+                        className={`
+                            text-preset-4 
+                            ${styles["option-element"]} 
+                            ${isDisabled && styles["option-disabled-element"]}
+                        `}
                         style={{fontWeight: selected===option? "bold":""}}
-                        onClick={handleOptionChange}
+                        onClick={isDisabled? undefined:() => handleOptionChange(option)}
                         key={`option-${option}`}
-                        >{option}</p>
+                        >{onRender? onRender(option, selected, false): option}</div>
                     const optionBorder = <div className={styles["option-border"]} key={`option-border-${option}`}></div>
                     
                     return index+1 === options.length 

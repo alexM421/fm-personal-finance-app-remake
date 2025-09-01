@@ -1,61 +1,18 @@
 //react
 import { createContext, useContext, useEffect, useState } from "react";
-//data
-import  SampleData  from "../../data.json"
 //contexts
 import { useAuthContext } from "./AuthContext";
 //supabase
 import { supabase } from "../supabaseClient";
-//utils
-import getCachedData from "../utils/getCachedData";
+//types
+import type { Data } from "../types/DataTypes";
 
-export type PersonnalSettings = {
-    budgetCycleDay: number,
-    preferredCurrency: string,
-}
 
-export type Balance = {
-    current: number,
-    income: number,
-    expenses: number,
-}
-export type Transaction = {
-  avatar: string,
-  name: string,
-  category: string,
-  date: string,
-  amount: number,
-  recurring: boolean,
-  currency: string,
-}
-
-export type Budget = {
-  category: string,
-  maximum: number,
-  theme: string,
-}
-
-export type Pot = {
-  name: string,
-  target: number,
-  total: number,
-  theme: string,
-}
-
-export type Data = {
-    personnalSettings: PersonnalSettings,
-    balance: Balance,
-    transactions: Transaction[],
-    budgets: Budget[],
-    pots: Pot[],
-    created_at: string,
-    updated_at: string,
-    user_id: string,
-}
 
 type DataContextValue = {
-    data: Data;
-    setData: React.Dispatch<React.SetStateAction<Data>>
+    data: Data,
+    setData: React.Dispatch<React.SetStateAction<Data>>,
+    loading: boolean,
 }
 
 const DataContext = createContext<DataContextValue | undefined>(undefined)
@@ -68,7 +25,26 @@ export function DataProvider ({ children }: DataProviderProps) {
 
     const session = useAuthContext().auth
 
-    const [data, setData] = useState<Data>(SampleData)
+    const emptyData = {
+        personnalSettings: {
+            budgetCycleDay: 1,
+            preferredCurrency: "EUR",
+        },
+        balance: {
+            current: 0,
+            income: 0,
+            expenses: 0,
+        },
+        transactions: [],
+        budgets: [],
+        pots: [],
+        created_at: Date.toString(),
+        updated_at: Date.toString(),
+        user_id: "",
+    }
+
+    const [data, setData] = useState<Data>(emptyData)
+    const [loading, setLoading] = useState<boolean>(true)
     
     const getData = async () => {
 
@@ -87,8 +63,9 @@ export function DataProvider ({ children }: DataProviderProps) {
     useEffect(() => {
         const setSupabaseData = async () => {     
             if(session){
-                const cachedData = await getCachedData("data",getData)
-                setData(cachedData)
+                const retrievedData = await getData()
+                setData(retrievedData)
+                setLoading(false)
             }
         }
         setSupabaseData()
@@ -96,7 +73,8 @@ export function DataProvider ({ children }: DataProviderProps) {
 
     const value = {
         data: data,
-        setData: setData
+        setData: setData,
+        loading: loading,
     }
 
     return(

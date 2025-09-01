@@ -1,10 +1,10 @@
 .overview{
-    flex: 1;
+    /* flex: 1;
     padding: 32px 40px;
     display: flex;
     flex-direction: column;
     gap: 32px;
-    background-color: var(--beige-100);
+    background-color: var(--beige-100); */
 
     &>h1{
         color: var(--grey-900)
@@ -166,38 +166,39 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+}
 
-        &>.overview-transaction{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+.overview-transaction{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            &>.overview-transaction-profile{
-                display: flex;
-                align-items: center;
-                gap: 16px;
+    &>.overview-transaction-profile{
+        display: flex;
+        align-items: center;
+        gap: 16px;
 
-                &>img{
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                }
+        &>div{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
 
-                &>h3{
-                    color: var(--grey-900)
-                }
-            }
+        &>h3{
+            color: var(--grey-900)
+        }
+    }
 
-            &>.overview-transaction-infos{
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
+    &>.overview-transaction-infos{
+        display: flex;
+        flex-direction: column;
+        text-align: end;
+        gap: 8px;
 
 
-                &>p{
-                    color: var(--grey-500)
-                }
-            }
+        &>p{
+            color: var(--grey-500)
         }
     }
 }

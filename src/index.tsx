@@ -8,6 +8,7 @@ import App from './App.tsx'
 import { DateProvider } from './contexts/DateContext.tsx'
 import { ComputedDataProvider } from './contexts/ComputedDataContext.tsx'
 import { AuthProvider } from './contexts/AuthContext.tsx'
+import { CurrencyProvider } from './contexts/CurrencyContext.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -16,9 +17,11 @@ createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <DateProvider>
           <DataProvider>
-            <ComputedDataProvider>
-              <App />
-            </ComputedDataProvider>
+            <CurrencyProvider>
+              <ComputedDataProvider>
+                <App />
+              </ComputedDataProvider>
+            </CurrencyProvider>
           </DataProvider>
         </DateProvider>
       </AuthProvider>

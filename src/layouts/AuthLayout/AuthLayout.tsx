@@ -4,9 +4,6 @@ import styles from "./AuthLayout.module.css"
 
 export default function AuthLayout () {
 
-
-
-
     return(
         <div className={styles["auth-layout"]}>
             <div className={styles["auth-image"]}>

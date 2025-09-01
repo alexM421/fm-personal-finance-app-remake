@@ -3,7 +3,7 @@ import styles from "./Transactions.module.css"
 //assets
 import IconCaretRight from "../../assets/IconCaretRight"
 //types
-import type { Transaction } from "../../contexts/DataContext"
+import type { Transaction } from "../../types/DataTypes"
 
 type TransactionsPaginationProps = {
     filteredData: Transaction[],

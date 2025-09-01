@@ -1,7 +1,7 @@
 export default async function getCachedData<T>(
         storageKey: string,
         asyncDataFetchingFunction: () => Promise<T>
-    ) {
+    ): Promise<T> {
 
     const localStorageItem = localStorage.getItem(storageKey)
     const localStorageParsedItem =  localStorageItem

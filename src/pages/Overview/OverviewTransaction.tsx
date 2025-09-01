@@ -1,23 +1,33 @@
 //CSS
+import Avatar from "../../shared/Avatar/Avatar"
+import type { AvatarType } from "../../types/DataTypes"
+import formatNumber from "../../utils/formatNumber"
 import styles from "./Overview.module.css"
 
 type OverviewTransactionsProps = {
-    avatar: string,
+    avatar: AvatarType
     name: string,
     amount: number,
     date: string,
+    currency: string,
 }
 
-export default function OverviewTransaction ({ avatar, name, amount, date}: OverviewTransactionsProps) {
+export default function OverviewTransaction ({ avatar, name, amount, date, currency}: OverviewTransactionsProps) {
 
-    const amountSign = amount<0? "-":"+"
-    const amountAbs = Math.abs(amount).toFixed(2)
-    const amountString = `${amountSign}$${amountAbs}`
+    const formattedDate = new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit", 
+        month: "short",  
+        year: "numeric"  
+    }).format(new Date(date))
 
     return(
         <div className={styles["overview-transaction"]}>
             <div className={styles["overview-transaction-profile"]}>
-                <img src={avatar} alt="avatar image"/>
+                <Avatar
+                    theme={avatar.theme}
+                    content={avatar.content}
+                    isContentImage={avatar.isContentImage}
+                />
                 <h3 className="text-preset-4-bold">{name}</h3>
             </div>
             <div className={styles["overview-transaction-infos"]}>
@@ -28,8 +38,8 @@ export default function OverviewTransaction ({ avatar, name, amount, date}: Over
                             ?"var(--grey-900)"
                             :"var(--green)"
                         }
-                    }>{amountString}</h3>
-                <p className="text-preset-5">{date}</p>
+                    }>{formatNumber(amount, currency, true)}</h3>
+                <p className="text-preset-5">{formattedDate}</p>
             </div>
         </div>
     )

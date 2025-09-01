@@ -10,6 +10,7 @@ import AuthSignUp from './pages/Auth/AuthSignUp'
 import AuthLogin from './pages/Auth/AuthLogin'
 import Overview from './pages/Overview/Overview'
 import Transactions from './pages/Transactions/Transactions'
+import Budgets from './pages/Budgets/Budgets'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       <Route path="/" element={<HomeLayout/>}>
         <Route path="overview" element={<Overview/>}/>
         <Route path="transactions" element={<Transactions/>}/>
-        <Route path="budgets" element={"budgets"}/>
+        <Route path="budgets" element={<Budgets/>}/>
         <Route path="pots" element={"budgets"}/>
         <Route path="recurring-bills" element={"budgets"}/>
       </Route>

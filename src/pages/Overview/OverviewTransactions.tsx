@@ -5,7 +5,7 @@ import OverviewTransaction from "./OverviewTransaction"
 //context
 import { useDataContext } from "../../contexts/DataContext"
 //utils
-import sortedTransactionsByDate from "../../utils/sortedTransactionsByDate"
+import sortedTransactionsByDate from "../../utils/SortedTransactionsByDate"
 import OverviewHeader from "./OverviewHeader"
 
 export default function OverviewTransactions () {
@@ -15,7 +15,7 @@ export default function OverviewTransactions () {
     const transactionsElements = sortedTransactions
         
         .flatMap((transaction,index) => {
-            const { name, amount, date, avatar } = transaction
+            const { name, amount, date, avatar, currency } = transaction
 
             const tranasctionDate = new Date(date)
             
@@ -36,6 +36,7 @@ export default function OverviewTransactions () {
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        currency={currency}
                         key={key}
                     />
                     ,
@@ -46,6 +47,7 @@ export default function OverviewTransactions () {
                         avatar= {avatar}
                         amount={amount}
                         date={formattedDate}
+                        currency={currency}
                         key={key}
                 />
             )
