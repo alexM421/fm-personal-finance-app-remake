@@ -21,7 +21,6 @@ export default function BudgetModal ({ closeModalDisplay, budget }: BudgetModalP
 
     const { category, maximum, theme } = formInputs
 
-    console.log(error)
 
     return(
         <form className={styles["budget-modal"]} onSubmit={submit}>
@@ -37,6 +36,7 @@ export default function BudgetModal ({ closeModalDisplay, budget }: BudgetModalP
                     legend="Budget maximum"
                     value={maximum}
                     setValue={(e: number) => update("maximum",e)}
+                    min={0}
                 />
                 <ThemesSelect
                     selected={theme}

@@ -43,48 +43,6 @@
         }
     }
 
-    &>.pot-item-progress{
-        display: flex;
-        flex-direction: column;
-        
-        &>.pot-item-total{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            &>p{
-                color: var(--grey-500);
-            }
-
-            &>h2{
-                color: var(--grey-900);
-            }
-        }
-
-        &>.pot-item-progress-bar-ext{
-            height: 8px;
-            width: 100%;
-            background-color: var(--beige-100);
-            border-radius: 4px;
-            margin-block: 16px 12px;
-
-            &>.pot-item-progress-bar-int{
-                height: 4px;
-                border-radius: 4px;
-            }
-        }
-
-        &>.pot-item-target{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            &>p{
-                color: var(--grey-500);
-            }
-        }
-    }
-
     &>.pot-item-btns{
         display: flex;
         gap: 16px;
@@ -93,6 +51,49 @@
             flex: 1;
             color: var(--grey-900);
             background-color: var(--beige-100);
+        }
+    }
+}
+
+.pot-item-progress{
+    display: flex;
+    flex-direction: column;
+    
+    &>.pot-item-total{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>p{
+            color: var(--grey-500);
+        }
+
+        &>h2{
+            color: var(--grey-900);
+        }
+    }
+
+    &>.pot-item-progress-bar-ext{
+        height: 8px;
+        width: 100%;
+        background-color: var(--beige-100);
+        border-radius: 4px;
+        margin-block: 16px 12px;
+
+        &>.pot-item-progress-bar-int{
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    }
+
+    &>.pot-item-target{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>p{
+            color: var(--grey-500);
         }
     }
 }

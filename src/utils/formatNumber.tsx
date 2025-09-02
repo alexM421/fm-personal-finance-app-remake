@@ -8,7 +8,7 @@ export default function formatNumber (amount: number, currency: string, showPlus
     })
 
     const sign = amount>=0 ? "+":"-"
-    const symbol = getSymbolFromCurrency(currency)
+    const symbol = getSymbolFromCurrency(currency) || currency
 
     return `${sign==="+" && !showPlus ? "":sign}${formattedNumber}${symbol}`
 }

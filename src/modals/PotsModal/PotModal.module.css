@@ -9,3 +9,9 @@
         gap: 16px;
     }
 }
+
+.change-pot-money{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
