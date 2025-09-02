@@ -1,0 +1,17 @@
+.pot-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &>.pot-modal-inputs{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+.change-pot-money{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

@@ -1,0 +1,120 @@
+.pots-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.pot-item{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    border-radius: 12px;
+    background-color: white;
+
+
+    &>.pot-item-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>div{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            &>.pot-item-color-pin{
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+            }
+
+            &>h1{
+                color: var(--grey-900);
+            }
+        }
+
+        &>button{
+            background-color: transparent;
+            border: none;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    &>.pot-item-btns{
+        display: flex;
+        gap: 16px;
+
+        &>button{
+            flex: 1;
+            color: var(--grey-900);
+            background-color: var(--beige-100);
+        }
+    }
+}
+
+.pot-item-progress{
+    display: flex;
+    flex-direction: column;
+    
+    &>.pot-item-total{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>p{
+            color: var(--grey-500);
+        }
+
+        &>h2{
+            color: var(--grey-900);
+        }
+    }
+
+    &>.pot-item-progress-bar-ext{
+        height: 8px;
+        width: 100%;
+        background-color: var(--beige-100);
+        border-radius: 4px;
+        margin-block: 16px 12px;
+
+        &>.pot-item-progress-bar-int{
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            display: flex;
+            gap: 2px;
+            align-items: center;
+
+            &>.pot-item-progress-bar-variant-int-element{
+                height: 8px;
+                border-radius: 4px;
+                transition: width 0.3s ease;
+
+                &:first-of-type{
+                    background-color: var(--grey-900);
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                &:last-of-type{
+                    flex: 1;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+    }
+
+    &>.pot-item-target{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &>p{
+            color: var(--grey-500);
+        }
+    }
+}
