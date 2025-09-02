@@ -84,6 +84,27 @@
             height: 8px;
             border-radius: 4px;
             transition: width 0.3s ease;
+            display: flex;
+            gap: 2px;
+            align-items: center;
+
+            &>.pot-item-progress-bar-variant-int-element{
+                height: 8px;
+                border-radius: 4px;
+                transition: width 0.3s ease;
+
+                &:first-of-type{
+                    background-color: var(--grey-900);
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                &:last-of-type{
+                    flex: 1;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
         }
     }
 

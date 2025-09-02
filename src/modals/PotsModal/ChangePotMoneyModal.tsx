@@ -43,6 +43,10 @@ export default function ChangePotMoneyModal ({ closeModalDisplay, pot, isWithdra
                 theme={theme}
                 target={target}
                 total={modifiedTotal}
+                variant={{
+                    isWithdraw: isWithdraw,
+                    originalTotal: total,
+                }}
             />
             <NumberInput
                 value={amount}
@@ -50,7 +54,7 @@ export default function ChangePotMoneyModal ({ closeModalDisplay, pot, isWithdra
                 legend={`Amount to ${isWithdraw? "Withdraw":"Add"}`}
                 max={max}
             />
-            <Button>Confirm Withdrawal</Button>
+            <Button>{isWithdraw? "Confirm Withdrawal":"Confirm Addition"}</Button>
         </form>
     )
 }
