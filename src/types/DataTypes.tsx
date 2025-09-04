@@ -41,12 +41,24 @@ export type Pot = {
   id: string,
 }
 
+export type Bill ={
+  id: string,
+  name: string,
+  date: string,
+  period: string,
+  avatar: AvatarType,
+  amount: number,
+  currency: string,
+  category: string,
+}
+
 export type Data = {
     personnalSettings: PersonnalSettings,
     balance: Balance,
     transactions: Transaction[],
     budgets: Budget[],
     pots: Pot[],
+    bills: Bill[],
     created_at: string,
     updated_at: string,
     user_id: string,

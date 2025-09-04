@@ -1,6 +1,12 @@
-import type { Transaction } from "../../types/DataTypes"
+import type { Bill, Transaction } from "../types/DataTypes"
 
-export default function getSortedTransactions (transactions: Transaction[], sort: string) {
+type Sortable = {
+    date: string,
+    name: string,
+    amount: number,
+}
+
+export default function getSortedTransactions<T extends Sortable>(transactions: T[], sort: string):T[] {
 
     const sorted = transactions.sort((transactionA, transactionB) => {
 

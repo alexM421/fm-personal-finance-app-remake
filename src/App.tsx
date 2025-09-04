@@ -12,6 +12,7 @@ import Overview from './pages/Overview/Overview'
 import Transactions from './pages/Transactions/Transactions'
 import Budgets from './pages/Budgets/Budgets'
 import Pots from './pages/Pots/Pots'
+import RecurringBills from './pages/RecurringBills/RecurringBills'
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
         <Route path="transactions" element={<Transactions/>}/>
         <Route path="budgets" element={<Budgets/>}/>
         <Route path="pots" element={<Pots/>}/>
-        <Route path="recurring-bills" element={"budgets"}/>
+        <Route path="recurring-bills" element={<RecurringBills/>}/>
       </Route>
     </Routes>
   )

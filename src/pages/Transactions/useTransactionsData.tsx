@@ -5,7 +5,7 @@ import { useDataContext } from "../../contexts/DataContext"
 import { useComputedDataContext } from "../../contexts/ComputedDataContext"
 //utils
 import getFilteredTransactions from "./getFilteredTransactions"
-import getSortedTransactions from "./getSortedTransactions"
+import getSortedTransactions from "../../utils/getSortedTransactions"
 
 export default function useTransactionsData () {
 
