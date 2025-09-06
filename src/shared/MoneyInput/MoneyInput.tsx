@@ -10,9 +10,10 @@ type MoneyInputProps = {
     currency: string,
     setAmount: (e: number) => void,
     setCurrency: (e: string) => void,
+    legend: string,
 }
 
-export default function MoneyInput ({amount, currency, setAmount, setCurrency}: MoneyInputProps) {
+export default function MoneyInput ({amount, currency, setAmount, setCurrency, legend }: MoneyInputProps) {
 
     const  rates = useCurrencyContext()
 
@@ -28,7 +29,7 @@ export default function MoneyInput ({amount, currency, setAmount, setCurrency}: 
     return(
         <div className={styles["money-input"]}>
             <div className={styles["input-header"]}>
-                <p className="text-preset-5-bold">Transaction Amount</p>
+                <p className="text-preset-5-bold">{legend}</p>
             </div>
             <div className={styles["money-input-main"]}>
                 <input

@@ -1,5 +1,3 @@
-import type { Bill, Transaction } from "../types/DataTypes"
-
 type Sortable = {
     date: string,
     name: string,

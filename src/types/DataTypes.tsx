@@ -46,6 +46,7 @@ export type Bill ={
   name: string,
   date: string,
   period: string,
+  dueDate: string,
   avatar: AvatarType,
   amount: number,
   currency: string,

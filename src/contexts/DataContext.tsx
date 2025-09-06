@@ -71,7 +71,7 @@ export function DataProvider ({ children }: DataProviderProps) {
         }
         setSupabaseData()
     },[session])
-
+    
     const value = {
         data: data,
         setData: setData,

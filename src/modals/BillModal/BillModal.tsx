@@ -12,10 +12,10 @@ import CategoriesSelect from "../../shared/CustomSelect/CategoriesSelect"
 //Transactions
 import AddTransactionmodalPicturePopUp from "../TransactionModal/TransactionModalPicturePopUp"
 //Bills
-
+import PeriodSelectBillModal from "./PeriodSelectBillModal"
+import useBillModalForm from "./useBillModalForm"
 //types
 import type { Bill } from "../../types/DataTypes"
-import useBillModalForm from "./useBillModalForm"
 
 
 type BillModalProps = {
@@ -28,6 +28,8 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
     const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(false)
 
     const { formInputs, update, remove, submit } = useBillModalForm(billData, closeModalDisplay)
+
+    const { period } = formInputs
 
     return(
         <form 
@@ -54,19 +56,6 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                         />
                     </div>
                     <div className={styles["add-bill-profile-desc"]}>
-                        <TextInput
-                            inputDetails={{
-                                name: "name",
-                                legend: "Bill Name",
-                                autoComplete: "none",
-                                type: "text",
-                                controlledInput: formInputs.name,
-                                placeholder: "E.g. Groceries",
-                                setControlledInput: (e) => update("name", e.target.value)
-                            }}
-                            isPassword={false}
-                            errorMessage={formInputs.name? "":"Please enter a bill name"}
-                        />
                         <DateInput
                             controlledInput={formInputs.date}
                             setControlledInput={(date) => update("date", date)}
@@ -74,8 +63,26 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                             name="date"
                             errorMessage={formInputs.date? "":"Please enter a bill date"}
                         />
+                        <PeriodSelectBillModal
+                            selected={period}
+                            setSelected={update}
+                            legend="Bill Period"
+                        />
                     </div>
                 </div>
+                <TextInput
+                    inputDetails={{
+                        name: "name",
+                        legend: "Bill Name",
+                        autoComplete: "none",
+                        type: "text",
+                        controlledInput: formInputs.name,
+                        placeholder: "E.g. Groceries",
+                        setControlledInput: (e) => update("name", e.target.value)
+                    }}
+                    isPassword={false}
+                    errorMessage={formInputs.name? "":"Please enter a bill name"}
+                />
                 <CategoriesSelect
                     selected={formInputs.category}
                     setSelected={(e: string) => update("category", e)}
@@ -86,6 +93,7 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                     currency={formInputs.currency}
                     setAmount={(e) => update("amount", e)}
                     setCurrency={(e) => update("currency", e)}
+                    legend="Bill Amount"
                 />
             </div>
             {

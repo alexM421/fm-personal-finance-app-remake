@@ -114,6 +114,10 @@
     justify-content: space-between;
     gap: 4px;
 
+    &>p{
+        color: var(--grey-500);
+    }
+
     &.custom-select-wrapper-err{
 
         &>p{

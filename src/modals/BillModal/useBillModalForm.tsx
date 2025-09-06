@@ -4,10 +4,10 @@ import { useState, useEffect } from "react"
 import syncUserData from "../../utils/syncUserData"
 //contexts
 import { useDataContext } from "../../contexts/DataContext"
+import { useDateContext } from "../../contexts/DateContext"
 //types
 import type { AvatarType, Bill } from "../../types/DataTypes"
-import { type Currency } from "../../contexts/CurrencyContext"
-import { useDateContext } from "../../contexts/DateContext"
+import getDueDate from "../../utils/getDueDate"
 
 
 export default function useBillModalForm (billData: Bill | undefined, closeModalDisplay: () => void) {
@@ -22,12 +22,15 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         avatar: { theme: "var(--green)", content: "text", isContentImage: false },
         category: "General",
         date: datetime? datetime:"",
-        period: "monthly",
+        period: "Monthly",
+        dueDate: "",
         amount: 0,
         currency: "USD",
     })
     
     const [formError, setFormError] = useState<boolean>(false)
+
+    const { dueDate, date, period }= formInputs
 
     //If a transaction was passed on init, consider this is an edit and set data to transactionData
     useEffect(() => {
@@ -35,6 +38,13 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
             setFormInputs(billData)
         }
     },[])
+
+    useEffect(() => {
+        setFormInputs(prevForm => ({
+            ...prevForm, 
+            dueDate: getDueDate(dueDate || date, period)
+        }))
+    },[formInputs.date,formInputs.period])
     
     const update = 
         (

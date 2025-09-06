@@ -125,9 +125,12 @@
 }
 
 .recurring-bill{
+    border: none;
+    background-color: transparent;
     padding-inline: 16px;
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
+    gap: 32px;
     align-items: center;
     transition: background-color 0.3s ease;
     

@@ -156,3 +156,14 @@
         flex: 1;
     }
 }
+
+.period-select-bill-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    &>p{
+        color: var(--grey-500)
+    }
+}
+

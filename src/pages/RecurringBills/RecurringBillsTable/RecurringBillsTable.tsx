@@ -1,8 +1,7 @@
 //CSS
-import { useDataContext } from "../../../contexts/DataContext"
 import styles from "../RecurringBills.module.css"
-import RecurringBillsTableContent from "./RecurringBillsTableContent"
 //RecurringBillsTable
+import RecurringBillsTableContent from "./RecurringBillsTableContent"
 import RecurringBillsTableHeader from "./RecurringBillsTableHeader"
 import RecurringBillsTableLegend from "./RecurringBillsTableLegend"
 import useRecurringBillsTable from "./useRecurringBillsTable"
