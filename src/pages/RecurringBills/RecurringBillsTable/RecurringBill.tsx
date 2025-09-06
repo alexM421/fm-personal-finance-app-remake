@@ -9,12 +9,18 @@ import BillModal from "../../../modals/BillModal/BillModal"
 import { useState } from "react"
 import formatNumber from "../../../utils/formatNumber"
 import getDueDateDisplay from "./getDueDateDisplay"
+import { useDateContext } from "../../../contexts/DateContext"
+import getBillPaidStatus from "./getBillPaidStatus"
 
 type RecurringBillProps = {
     bill: Bill
 }
 
 export default function RecurringBill ({ bill }: RecurringBillProps) {
+
+    const { date } = useDateContext()
+
+    const possibleDate = date?.datetime || new Date().toISOString()
 
     const [modalDisplay, setModalDisplay] = useState<boolean>(false)
     
@@ -23,7 +29,7 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
 
     const dueDateObj = new Date(dueDate)
     const dueDateDisplay = getDueDateDisplay(dueDateObj, period)
-    const paid = true
+    const { isPaid, isNeutral } = getBillPaidStatus(possibleDate, dueDate, period)
 
     return(
         <>
@@ -39,9 +45,10 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
                 <div className={styles["recurring-bill-due"]}>
                     <p 
                         className="text-preset-5"
-                        style={{color: paid? "var(--green)":"var(--grey-500)"}}
+                        style={{color: isPaid? "var(--green)":"var(--grey-500)"}}
                     >{dueDateDisplay}</p>
-                    <img src={`/assets/images/icon-bill-${paid? "paid":"due"}.svg`}/>
+                    {!isNeutral 
+                    && <img src={`/assets/images/icon-bill-${isPaid? "paid":"due"}.svg`}/>}
                 </div>
                 <p 
                     className="text-preset-4-bold"
