@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import syncUserData from "../../utils/syncUserData"
 //contexts
 import { useDataContext } from "../../contexts/DataContext"
-import { useDateContext } from "../../contexts/DateContext"
 //types
 import type { AvatarType, Bill } from "../../types/DataTypes"
 
@@ -13,7 +12,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
 
     const { data, setData } = useDataContext()
     const { transactions } = data
-    const datetime = useDateContext().date?.datetime
     
 
     const [formInputs, setFormInputs] = useState<Bill>({
@@ -25,6 +23,7 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         dueDate: "",
         amount: 0,
         currency: "USD",
+        isSuspended: false,
     })
     
     const [formError, setFormError] = useState<boolean>(false)
@@ -98,5 +97,24 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         }
     }
 
-    return { formInputs, formError, update, remove, submit }
+    console.log(formInputs)
+
+    const suspend = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        const billsArr = [...data.bills].map(bill => {
+                if(bill.id === billData?.id){
+                    return {...formInputs, isSuspended: !formInputs.isSuspended}
+                }else{
+                    return bill
+                }
+        })
+        const updatedData = {
+            ...data,
+            bills: billsArr,
+        }
+        syncUserData(updatedData, setData)
+        closeModalDisplay()
+    }
+
+    return { formInputs, formError, update, remove, submit, suspend }
 }

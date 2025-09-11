@@ -52,6 +52,7 @@ export type Bill ={
   amount: number,
   currency: string,
   category: string,
+  isSuspended: boolean
 }
 
 export type Data = {

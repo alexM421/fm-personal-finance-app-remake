@@ -162,4 +162,8 @@
         cursor: pointer;
         background-color: var(--grey-100);
     }
+
+    &.recurring-bill-disabled{
+        opacity: 0.5;
+    }
 }

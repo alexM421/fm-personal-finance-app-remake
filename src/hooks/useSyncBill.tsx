@@ -29,12 +29,12 @@ export default function useSyncBill () {
             //updates every transactions to match the bill category and name every time
             const updatedBillTransactions = billsTransactions
                 .filter(transaction => transaction.billId === id)
-                .map(transaction => ({...transaction, name: bill.name, category: bill.category}))
+                .map(transaction => ({...transaction, name: bill.name, category: bill.category, avatar: bill.avatar}))
             updatedTransactionsArr.push(...updatedBillTransactions)
 
             const dateObj = new Date(todayDate)
             let dueDateLoop = dueDate
-            
+
             //update transactions array for new transactions
             while(new Date(dueDateLoop).getTime()<dateObj.getTime()){
                 //First add new transaction
@@ -50,7 +50,9 @@ export default function useSyncBill () {
                     rate: 0,
                     billId: bill.id
                 }
-                newTransactionsArr.push(newTransaction)
+                if(!bill.isSuspended){
+                    newTransactionsArr.push(newTransaction)
+                }
                 dueDateLoop =  getDueDate(dueDateLoop, period)
           
             }

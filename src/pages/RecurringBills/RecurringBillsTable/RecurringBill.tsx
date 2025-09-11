@@ -24,15 +24,15 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
 
     const [modalDisplay, setModalDisplay] = useState<boolean>(false)
     
-    const { name, avatar, period, amount, currency, dueDate } = bill
+    const { name, avatar, period, amount, currency, dueDate, isSuspended } = bill
     const { theme, content, isContentImage } = avatar
     const dueDateObj = new Date(dueDate)
     const dueDateDisplay = getDueDateDisplay(dueDateObj, period)
-    const { isPaid, isNeutral, isDueSoon } = getBillPaidStatus(possibleDate, dueDate, period)
+    const { isPaid, isNeutral } = getBillPaidStatus(possibleDate, dueDate, period)
 
     return(
         <>
-            <button className={styles["recurring-bill"]} onClick={() => setModalDisplay(true)}>
+            <button className={`${styles["recurring-bill"]} ${isSuspended? styles["recurring-bill-disabled"]:""}`} onClick={() => setModalDisplay(true)}>
                 <div className={styles["recurring-bill-profile"]}>
                     <Avatar
                         theme={theme}
@@ -45,8 +45,8 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
                     <p 
                         className="text-preset-5"
                         style={{color: isPaid? "var(--green)":"var(--grey-500)"}}
-                    >{dueDateDisplay}</p>
-                    {!isNeutral 
+                    >{isSuspended? "Suspended":dueDateDisplay}</p>
+                    {!isNeutral && !isSuspended
                     && <img src={`/assets/images/icon-bill-${isPaid? "paid":"due"}.svg`}/>}
                 </div>
                 <p 
