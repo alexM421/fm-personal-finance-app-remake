@@ -57,11 +57,11 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                     </div>
                     <div className={styles["add-bill-profile-desc"]}>
                         <DateInput
-                            controlledInput={formInputs.date}
-                            setControlledInput={(date) => update("date", date)}
-                            legend="Bill Date"
-                            name="date"
-                            errorMessage={formInputs.date? "":"Please enter a bill date"}
+                            controlledInput={formInputs.dueDate}
+                            setControlledInput={(date) => update("dueDate", date)}
+                            legend="Next Due Date"
+                            name="dueDate"
+                            errorMessage={formInputs.dueDate? "":"Please enter the bills next due date"}
                         />
                         <PeriodSelectBillModal
                             selected={period}

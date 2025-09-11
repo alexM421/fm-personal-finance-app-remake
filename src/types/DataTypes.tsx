@@ -24,6 +24,8 @@ export type Transaction = {
   currency: string,
   id: string,
   rate: number,
+  billId?: string,
+  skipped?: boolean,
 }
 
 export type Budget = {
@@ -44,7 +46,6 @@ export type Pot = {
 export type Bill ={
   id: string,
   name: string,
-  date: string,
   period: string,
   dueDate: string,
   avatar: AvatarType,

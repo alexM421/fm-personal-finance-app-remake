@@ -26,10 +26,9 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
     
     const { name, avatar, period, amount, currency, dueDate } = bill
     const { theme, content, isContentImage } = avatar
-
     const dueDateObj = new Date(dueDate)
     const dueDateDisplay = getDueDateDisplay(dueDateObj, period)
-    const { isPaid, isNeutral } = getBillPaidStatus(possibleDate, dueDate, period)
+    const { isPaid, isNeutral, isDueSoon } = getBillPaidStatus(possibleDate, dueDate, period)
 
     return(
         <>

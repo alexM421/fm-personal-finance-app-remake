@@ -7,12 +7,12 @@ import { useDataContext } from "../../contexts/DataContext"
 import { useDateContext } from "../../contexts/DateContext"
 //types
 import type { AvatarType, Bill } from "../../types/DataTypes"
-import getDueDate from "../../utils/getDueDate"
 
 
 export default function useBillModalForm (billData: Bill | undefined, closeModalDisplay: () => void) {
 
     const { data, setData } = useDataContext()
+    const { transactions } = data
     const datetime = useDateContext().date?.datetime
     
 
@@ -21,7 +21,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         name: "",
         avatar: { theme: "var(--green)", content: "text", isContentImage: false },
         category: "General",
-        date: datetime? datetime:"",
         period: "Monthly",
         dueDate: "",
         amount: 0,
@@ -30,8 +29,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
     
     const [formError, setFormError] = useState<boolean>(false)
 
-    const { dueDate, date, period }= formInputs
-
     //If a transaction was passed on init, consider this is an edit and set data to transactionData
     useEffect(() => {
         if(billData){
@@ -39,13 +36,8 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         }
     },[])
 
-    useEffect(() => {
-        setFormInputs(prevForm => ({
-            ...prevForm, 
-            dueDate: getDueDate(dueDate || date, period)
-        }))
-    },[formInputs.date,formInputs.period])
-    
+    console.log(formInputs.dueDate)
+
     const update = 
         (
             inputName: string,
@@ -72,16 +64,17 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         const id = billData?.id
         const billsArr = [...data.bills]
         const deleteIndex = billsArr.findIndex(bill => bill.id === id)
+        const transactionsWithoutLinkedBills = transactions.filter(transaction => transaction.billId!== id)
         billsArr.splice(deleteIndex,1)
-        const updatedData = { ...data, bills: billsArr}
+        const updatedData = { ...data, bills: billsArr, transactions: transactionsWithoutLinkedBills}
         syncUserData(updatedData, setData)
         closeModalDisplay()
     }
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const { name, date } = formInputs
-        if(!name || !date){
+        const { name } = formInputs
+        if(!name){
             setFormError(true)
             return
         }else if(billData){

@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar"
 import { Navigate, Outlet } from "react-router"
 //contexts
 import { useAuthContext } from "../../contexts/AuthContext"
+import useSyncBill from "../../hooks/useSyncBill"
 
 
 export default function HomeLayout () {
@@ -17,6 +18,8 @@ export default function HomeLayout () {
             <Navigate to="/auth/login"/>
         )
     }
+
+    useSyncBill()
 
     return(
         <div className={styles["home-layout"]}>
