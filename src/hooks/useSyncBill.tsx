@@ -17,8 +17,7 @@ export default function useSyncBill () {
     useEffect(() => {
 
         let newTransactionsArr = []
-        const updatedTransactionsArr = []
-        const billsTransactions = transactions.filter(transaction => transaction?.billId)
+        const billsTransactions = [...transactions].filter(transaction => transaction?.billId)
         const billsArr = [...bills]
         let billsChanged = false
 
@@ -27,10 +26,15 @@ export default function useSyncBill () {
             const { period, dueDate, id } = bill
 
             //updates every transactions to match the bill category and name every time
-            const updatedBillTransactions = billsTransactions
-                .filter(transaction => transaction.billId === id)
-                .map(transaction => ({...transaction, name: bill.name, category: bill.category, avatar: bill.avatar}))
-            updatedTransactionsArr.push(...updatedBillTransactions)
+            billsTransactions
+                .forEach((transaction, index, array) => {
+                    if(transaction.billId === id){
+                        array[index] = {...transaction, name: bill.name, category: bill.category, avatar: bill.avatar}
+                        return
+                    }else{
+                        return 
+                    }
+                })
 
             const dateObj = new Date(todayDate)
             let dueDateLoop = dueDate
@@ -65,9 +69,7 @@ export default function useSyncBill () {
             }
         }
 
-
-
-        const needUpdate = JSON.stringify(updatedTransactionsArr) !== JSON.stringify(billsTransactions)
+        const needUpdate = JSON.stringify(billsTransactions) !== JSON.stringify(billsTransactions)
 
         if(newTransactionsArr.length>0 || billsChanged || needUpdate){
             
@@ -75,7 +77,7 @@ export default function useSyncBill () {
 
             const updatedData = {
                 ...data,
-                transactions: [...transactionsWithoutBills, ...newTransactionsArr, ...updatedTransactionsArr],
+                transactions: [...transactionsWithoutBills, ...newTransactionsArr, ...billsTransactions],
                 bills: billsArr
             }
             syncUserData(updatedData, setData)

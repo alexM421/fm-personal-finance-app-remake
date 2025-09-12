@@ -97,8 +97,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         }
     }
 
-    console.log(formInputs)
-
     const suspend = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         const billsArr = [...data.bills].map(bill => {
@@ -116,5 +114,16 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         closeModalDisplay()
     }
 
-    return { formInputs, formError, update, remove, submit, suspend }
+    const cancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        const id = billData?.id
+        const billsArr = [...data.bills]
+        const deleteIndex = billsArr.findIndex(bill => bill.id === id)
+        billsArr.splice(deleteIndex,1)
+        const updatedData = { ...data, bills: billsArr}
+        syncUserData(updatedData, setData)
+        closeModalDisplay()
+    }
+
+    return { formInputs, formError, update, remove, submit, suspend, cancel }
 }

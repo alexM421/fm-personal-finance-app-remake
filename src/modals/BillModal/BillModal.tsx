@@ -27,7 +27,7 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
 
     const [displayChoosePicture, setDisplayChoosePicture] = useState<boolean>(false)
 
-    const { formInputs, update, remove, submit, suspend } = useBillModalForm(billData, closeModalDisplay)
+    const { formInputs, update, remove, submit, suspend, cancel } = useBillModalForm(billData, closeModalDisplay)
 
     const { period } = formInputs
 
@@ -101,9 +101,13 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                     ?<div className={styles["bill-modal-btns"]}>
                         <Button>Edit Bill</Button>
                         <Button
-                            variant="warning"
+                            variant="info"
                             onClick={suspend}
                         >{billData.isSuspended? "Resume Bill":"Suspend Bill"}</Button>
+                        <Button
+                            variant="warning"
+                            onClick={cancel}
+                        >Cancel Bill</Button>
                         <Button 
                             variant="delete"
                             onClick={remove}

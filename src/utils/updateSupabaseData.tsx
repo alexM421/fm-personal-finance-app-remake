@@ -19,6 +19,5 @@ export default async function updateSupabaseData (updateData: Data) {
         throw new Error("Data is null.")
     }
 
-    localStorage.setItem(`data_${user_id}`, JSON.stringify(data))
 
 }
