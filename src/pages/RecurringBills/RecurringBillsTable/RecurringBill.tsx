@@ -28,7 +28,7 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
     const { theme, content, isContentImage } = avatar
     const dueDateObj = new Date(dueDate)
     const dueDateDisplay = getDueDateDisplay(dueDateObj, period)
-    const { isPaid, isNeutral } = getBillPaidStatus(possibleDate, dueDate, period)
+    const { isPaid, isNeutral, isDueSoon} = getBillPaidStatus(possibleDate, dueDate, period)
 
     return(
         <>
@@ -51,7 +51,7 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
                 </div>
                 <p 
                     className="text-preset-4-bold"
-                    style={{color: amount>=0? "var(--grey-900)":"var(--red)"}}
+                    style={{color: isDueSoon? "var(--red)":"var(--grey-900)"}}
                 >{formatNumber(amount, currency, false)}</p>
             </button>
             <ModalLayout

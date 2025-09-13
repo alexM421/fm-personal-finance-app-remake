@@ -11,15 +11,23 @@ type MoneyInputProps = {
     setAmount: (e: number) => void,
     setCurrency: (e: string) => void,
     legend: string,
+    max?: number,
+    min?: number,
 }
 
-export default function MoneyInput ({amount, currency, setAmount, setCurrency, legend }: MoneyInputProps) {
+export default function MoneyInput ({amount, currency, setAmount, setCurrency, legend, max, min }: MoneyInputProps) {
 
     const  rates = useCurrencyContext()
 
-    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-        setAmount(Number(value))
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const number = Number(e.target.value)
+        if(max!==undefined && number>max){
+            setAmount(max)
+        }else if(min!==undefined && number<min){
+            setAmount(min)
+        }else{
+            setAmount(number)
+        }
     }
 
     const currenciesArr = rates 
@@ -35,7 +43,7 @@ export default function MoneyInput ({amount, currency, setAmount, setCurrency, l
                 <input
                     type="number"
                     value={amount}
-                    onChange={handleAmountChange}
+                    onChange={handleChange}
                 />
                 <CustomSelect
                     selected={currency}

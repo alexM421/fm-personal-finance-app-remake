@@ -35,8 +35,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         }
     },[])
 
-    console.log(formInputs.dueDate)
-
     const update = 
         (
             inputName: string,

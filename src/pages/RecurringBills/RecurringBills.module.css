@@ -61,6 +61,10 @@
             &>h3{
                 color: var(--grey-900);
             }
+
+            &:last-of-type>*{
+                color: var(--red);
+            }
         }
     }
 }

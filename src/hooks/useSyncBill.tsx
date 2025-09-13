@@ -4,13 +4,16 @@ import { useDateContext } from "../contexts/DateContext";
 import getDueDate from "../utils/getDueDate";
 import type { Transaction } from "../types/DataTypes";
 import syncUserData from "../utils/syncUserData";
+import getChangeRate from "../utils/getChangeRate";
+import { useCurrencyContext, type Currency } from "../contexts/CurrencyContext";
 
 export default function useSyncBill () {
 
     const { data, setData } = useDataContext()
+    const rates = useCurrencyContext()
     const { bills, transactions } = data
     const { date } = useDateContext()
-
+    const { preferredCurrency } = data.personnalSettings
     const todayDate = date?.datetime || Date.now()
 
     //goal is on startup, to refresh dueDate for each bill, and if dueDate<Date, create Transaction and move due Date
@@ -51,7 +54,7 @@ export default function useSyncBill () {
                     recurring: true,
                     currency: bill.currency,
                     id: crypto.randomUUID(),
-                    rate: 0,
+                    rate: rates? getChangeRate(bill.currency as Currency, preferredCurrency, rates):1,
                     billId: bill.id
                 }
                 if(!bill.isSuspended){

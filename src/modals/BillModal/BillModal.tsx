@@ -94,6 +94,7 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                     setAmount={(e) => update("amount", e)}
                     setCurrency={(e) => update("currency", e)}
                     legend="Bill Amount"
+                    min={0}
                 />
             </div>
             {
