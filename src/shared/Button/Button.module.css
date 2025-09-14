@@ -21,4 +21,20 @@
             box-shadow: 0px 4px 0px rgba(232, 72, 51, 0.4);
         }
     }
+
+    &.warning{
+        background-color: var(--orange);
+
+        &:hover{
+            box-shadow: 0px 4px 0px #BE6C4964;
+        }
+    }
+
+    &.info{
+        background-color: var(--gold);
+
+        &:hover{
+            box-shadow: 0px 4px 0px #CAB36164;
+        }
+    }
 }

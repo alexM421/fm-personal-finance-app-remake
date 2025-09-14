@@ -18,9 +18,9 @@ export default function NumberInput ({ value, setValue, legend, min, max }: Numb
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const number = Number(e.target.value)
-        if(max && number>max){
+        if(max!==undefined && number>max){
             setValue(max)
-        }else if(min && number<min){
+        }else if(min!==undefined && number<min){
             setValue(min)
         }else{
             setValue(number)

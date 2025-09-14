@@ -38,6 +38,7 @@ export function DataProvider ({ children }: DataProviderProps) {
         transactions: [],
         budgets: [],
         pots: [],
+        bills: [],
         created_at: Date.toString(),
         updated_at: Date.toString(),
         user_id: "",
@@ -70,7 +71,7 @@ export function DataProvider ({ children }: DataProviderProps) {
         }
         setSupabaseData()
     },[session])
-
+    
     const value = {
         data: data,
         setData: setData,

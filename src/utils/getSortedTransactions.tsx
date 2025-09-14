@@ -1,11 +1,16 @@
-import type { Transaction } from "../../types/DataTypes"
+type Sortable = {
+    date : string,
+    name: string,
+    amount: number,
+}
 
-export default function getSortedTransactions (transactions: Transaction[], sort: string) {
+export default function getSortedTransactions<T extends Sortable>(transactions: T[], sort: string):T[] {
 
     const sorted = transactions.sort((transactionA, transactionB) => {
 
         const transactionADate = new Date(transactionA.date)
         const transactionBDate = new Date(transactionB.date)
+        
 
         switch (sort) {
             case "Latest":

@@ -84,6 +84,7 @@ export default function TransactionModal ({ closeModalDisplay, transactionData }
                     currency={formInputs.currency}
                     setAmount={(e) => update("amount", e)}
                     setCurrency={(e) => update("currency", e)}
+                    legend="Transaction Amount"
                 />
             </div>
             {

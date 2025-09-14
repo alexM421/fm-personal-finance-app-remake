@@ -1,13 +1,21 @@
 //CSS
 import styles from "./Overview.module.css"
-import OverviewHeader from "./OverviewHeader"
 //Overview
+import OverviewHeader from "./OverviewHeader"
 import OverviewColorPotBudget from "./OverviewColorPotBudget.tsx"
+//utils
+import getSymbolFromCurrency from "currency-symbol-map"
+//contexts
 import { useDataContext } from "../../contexts/DataContext.tsx"
 
 export default function OverviewPots () {
 
-    const { pots } = useDataContext().data
+    const { data } = useDataContext()
+    const { pots } = data
+    const { personnalSettings: { preferredCurrency}} = data
+
+
+    const totalSaved = pots.reduce((acc, pot) =>  acc + pot.total ,0)
 
     return(
         <div className={styles["overview-pots"]}>   
@@ -21,7 +29,7 @@ export default function OverviewPots () {
                     <img src="/assets/images/icon-pot.svg" alt="Pot icon"/>
                     <div>
                         <p className="text-preset-4">Total Saved</p>
-                        <h3 className="text-preset-1">$850</h3>
+                        <h3 className="text-preset-1">{`${Math.round(totalSaved)}${getSymbolFromCurrency(preferredCurrency)}`}</h3>
                     </div>
                 </div>
                 <div>

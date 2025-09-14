@@ -26,6 +26,7 @@ export default function DateInput ({ controlledInput, setControlledInput, name, 
                 onChange={handleChange}
                 name={name}
                 id={name}
+                required
             />
         </div>
     )

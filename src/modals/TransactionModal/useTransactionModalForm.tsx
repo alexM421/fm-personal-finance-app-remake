@@ -22,7 +22,7 @@ export default function useTransactionModalForm (transactionData: Transaction | 
         avatar: { theme: "var(--green)", content: "text", isContentImage: false },
         name: "",
         category: "General",
-        date: datetime? datetime:"",
+        date: datetime? datetime:new Date().toISOString().slice(0,16),
         amount: 0,
         recurring: false,
         currency: "USD",
