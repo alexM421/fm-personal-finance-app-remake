@@ -11,7 +11,7 @@ type PeriodSelectBillModal = {
 export default function PeriodSelectBillModal ({ selected, setSelected, legend }: PeriodSelectBillModal) {
 
 
-    const periods = ["Weekly","Monthly","Semester","Yearly"]
+    const periods = ["Weekly","Monthly","Yearly"]
 
     return(
         <div className={styles["period-select-bill-modal"]}>

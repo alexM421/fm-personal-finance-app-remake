@@ -9,7 +9,7 @@ export default function getDueDateDisplay (dueDateObj: Date, period: string) {
         case "Monthly":
             return `Monthly-${dueDateObj.getDate()}`
         case "Yearly": 
-            return `Monthly-${monthsArr[dueDateObj.getMonth()-1]}-${dueDateObj.getDate()}`
+            return `Yearly-${monthsArr[dueDateObj.getMonth()-1]}-${dueDateObj.getDate()}`
         default:
             return undefined
     }
