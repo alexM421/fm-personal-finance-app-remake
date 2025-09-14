@@ -15,6 +15,7 @@ export default function useRecurringBillsTable () {
 
     const [search, setSearch] = useState<string>("")
     const [selected, setSelected] = useState<string>("Latest")
+    const [incomeToggle, setIncomeToggle] = useState<boolean>(false)
 
     const filteredTransactions = bills.filter(bill => bill.name.toLowerCase().includes(search.toLowerCase()))
     const sortableBills = filteredTransactions.map(bill => ({...bill, date: bill.dueDate}))
@@ -42,6 +43,7 @@ export default function useRecurringBillsTable () {
         return {
             search, setSearch,
             selected, setSelected,
+            incomeToggle, setIncomeToggle,
             recurringBills
         }      
     
@@ -52,6 +54,7 @@ export default function useRecurringBillsTable () {
         return {
             search, setSearch,
             selected, setSelected,
+            incomeToggle, setIncomeToggle,
             recurringBills
         }
     }

@@ -91,6 +91,17 @@
                 color: var(--grey-500);
             }
         }
+
+        &>.recurring-bills-table-header-toggle{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            &>p{
+                color: var(--grey-500);
+                transition: font-weight 0.3s ease;
+            }
+        }
     }
 
     &>div:last-of-type{
