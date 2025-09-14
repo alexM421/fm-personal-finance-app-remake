@@ -11,10 +11,11 @@ type CategoriesCustomSelectProps = {
     legend: string, 
     onRender?: (arg: string, selected: string, isSelect: boolean) => JSX.Element,
     disabledOptions?: string[],
-    error?: boolean
+    error?: boolean,
+    hasSearch?: boolean
 }
 
-export default function CustomSelectWrapper({ options, selected, setSelected, legend, onRender, disabledOptions, error }: CategoriesCustomSelectProps) {
+export default function CustomSelectWrapper({ options, selected, setSelected, legend, onRender, disabledOptions, error, hasSearch }: CategoriesCustomSelectProps) {
 
     return(
         <div 
@@ -25,7 +26,7 @@ export default function CustomSelectWrapper({ options, selected, setSelected, le
                 selected={selected}
                 setSelected={setSelected}
                 options={options}
-                hasSearch={false}
+                hasSearch={hasSearch??false}
                 onRender={onRender}
                 disabledOptions={disabledOptions}
                 error={error}

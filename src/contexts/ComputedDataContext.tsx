@@ -84,7 +84,7 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
         computedData: computedData,
         setComputedData: setComputedData
     }
-
+    
     return(
         <ComputedDataContext.Provider value={value}>
             { children }

@@ -10,6 +10,8 @@ import OverviewBudgets from "./OverviewBudgets"
 import OverviewPots from "./OverviewPots"
 import OverviewRecurringBills from "./OverviewRecurringBills"
 import OverviewTransactions from "./OverviewTransactions"
+import ModalLayout from "../../modals/ModalLayout/ModalLayout"
+import SettingsModal from "../../modals/SettingsModal/SettingsModal"
 
 export default function Overview () {
 
@@ -51,6 +53,16 @@ export default function Overview () {
                     </div>
                 </div>
             </div>
+            <ModalLayout
+                modalTitle="User Setting"
+                modalDesc="Change your personnal settings here."
+                modalDisplay={settingsDisplay}
+                closeModalDisplay={() => setSettingsDisplay(false)}
+            >
+                <SettingsModal
+                    closeModalDisplay={()=>setSettingsDisplay(false)}
+                />
+            </ModalLayout>
         </>
     )
 }

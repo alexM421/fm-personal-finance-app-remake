@@ -1,11 +1,14 @@
 //React
-import { useState } from "react"
+import { useEffect, useState } from "react"
 //Types
 import type { PersonnalSettings } from "../../types/DataTypes"
 import { useCurrencyContext } from "../../contexts/CurrencyContext"
+import { useDataContext } from "../../contexts/DataContext"
+import syncUserData from "../../utils/syncUserData"
 
-export default function useSettingsModalForm () {
+export default function useSettingsModalForm (closeModalDisplay: () => void) {
 
+    const { data: { personnalSettings }, data, setData} = useDataContext()
     const rates  = useCurrencyContext()
 
     const [formInputs, setFormInputs] = useState<PersonnalSettings>({
@@ -15,11 +18,28 @@ export default function useSettingsModalForm () {
     })
 
     
+    useEffect(() => {
+        setFormInputs({
+            budgetCycleDay: personnalSettings.budgetCycleDay,
+            preferredCurrency: personnalSettings.preferredCurrency,
+            originalBalance: personnalSettings.originalBalance
+        })
+    },[])
+
     const update = 
     (
         inputName: string,
         value: string | number,
     ) => setFormInputs(prevInputs => ({...prevInputs, [inputName]: value}))        
+    
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const updatedPersonnalSettings = {...personnalSettings, ...formInputs}
+        const updatedData = {...data, personnalSettings: updatedPersonnalSettings}
+        syncUserData(updatedData, setData)
+        closeModalDisplay()
+    }
+
     
     const monthDays = [
         "1","2","3","4","5","6","7","8","9","10",
@@ -35,6 +55,7 @@ export default function useSettingsModalForm () {
     return {
         formInputs,
         update,
+        submit,
         monthDays,
         currenciesArr,
     }
