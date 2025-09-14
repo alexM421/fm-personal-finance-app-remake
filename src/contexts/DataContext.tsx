@@ -29,6 +29,7 @@ export function DataProvider ({ children }: DataProviderProps) {
         personnalSettings: {
             budgetCycleDay: 1,
             preferredCurrency: "EUR",
+            originalBalance: 0,
         },
         balance: {
             current: 0,
