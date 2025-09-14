@@ -10,7 +10,7 @@
 
         &>p{
             transition: color ease 0.3s;
-            color: var(--grey-900);
+            color: var(--grey-500);
         }
     }
 
