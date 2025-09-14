@@ -1,8 +1,9 @@
 //CSS
+import type { JSX } from "react"
 import styles from "./Button.module.css"
 
 type ButtonProps = {
-    children: string,
+    children: string | JSX.Element
     onClick?: ((e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => void),
     variant?: string
 }   

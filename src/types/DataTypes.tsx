@@ -1,6 +1,7 @@
 export type PersonnalSettings = {
     budgetCycleDay: number,
     preferredCurrency: string,
+    originalBalance: number,
 }
 
 export type Balance = {

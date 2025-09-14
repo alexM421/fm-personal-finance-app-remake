@@ -22,7 +22,6 @@ export default function PeriodSelectBillModal ({ selected, setSelected, legend }
                     selected={selected}
                     setSelected={(e) => setSelected("period", e)}
                     hasSearch={false}
-                    
                 />
             </div>
         </div>

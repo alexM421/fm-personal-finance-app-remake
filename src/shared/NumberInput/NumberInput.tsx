@@ -9,10 +9,11 @@ type NumberInputProps = {
     setValue: (e: number) => void 
     legend: string,
     min?: number,
-    max?: number
+    max?: number,
+    prefCurrency?: string,
 }   
 
-export default function NumberInput ({ value, setValue, legend, min, max }: NumberInputProps) {
+export default function NumberInput ({ value, setValue, legend, min, max, prefCurrency }: NumberInputProps) {
 
     const { data: { personnalSettings: { preferredCurrency }}} = useDataContext()
 
@@ -33,7 +34,7 @@ export default function NumberInput ({ value, setValue, legend, min, max }: Numb
                 <p className="text-preset-5-bold">{legend}</p>
             </div>
             <label>
-                <p className="text-preset-4">{getSymbolFromCurrency(preferredCurrency) || preferredCurrency}</p>
+                <p className="text-preset-4">{getSymbolFromCurrency(prefCurrency ?? preferredCurrency) || preferredCurrency}</p>
                 <input 
                     type="number"
                     value={value}
