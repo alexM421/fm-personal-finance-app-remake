@@ -4,20 +4,15 @@ import styles from "./RecurringBills.module.css"
 import formatNumber from "../../utils/formatNumber"
 //contexts
 import { useDataContext } from "../../contexts/DataContext"
-import { useCurrencyContext, type Currency } from "../../contexts/CurrencyContext"
+import { useCurrencyContext } from "../../contexts/CurrencyContext"
+import getBillsAmount from "../../utils/getBillsAmount"
 
 export default function RecurringBillsTotal () {
 
     const { data: { bills }, data: { personnalSettings: { preferredCurrency}}} = useDataContext()
     const rates = useCurrencyContext()
     
-    const totalBillsAmount = bills.reduce((acc, bill) => {
-        if(rates){
-            return bill.amount*rates[bill.currency as Currency] + acc
-        }else{
-            return bill.amount + acc
-        }
-    }, 0)
+    const totalBillsAmount = getBillsAmount(bills, rates)
 
     return(
         <div className={styles["recurring-bills-total"]}>

@@ -1,5 +1,5 @@
 type Sortable = {
-    date: string,
+    date : string,
     name: string,
     amount: number,
 }
@@ -10,6 +10,7 @@ export default function getSortedTransactions<T extends Sortable>(transactions: 
 
         const transactionADate = new Date(transactionA.date)
         const transactionBDate = new Date(transactionB.date)
+        
 
         switch (sort) {
             case "Latest":
