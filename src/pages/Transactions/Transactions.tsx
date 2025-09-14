@@ -57,6 +57,7 @@ export default function Transactions () {
                                 <ToggleBtn
                                     setState={setShowCycleOnly}
                                     state={showCycleOnly}
+                                    id="transaction-table-toggle"
                                 />
                                 <p className="text-preset-4" style={{fontWeight: showCycleOnly? "700":"400"}}>Cycle</p>
                             </div>

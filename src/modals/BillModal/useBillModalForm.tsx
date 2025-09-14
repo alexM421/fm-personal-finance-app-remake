@@ -39,7 +39,7 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
     const update = 
         (
             inputName: string,
-            value: string | number | boolean | AvatarType | Partial<AvatarType>,
+            value: string | number | boolean | AvatarType | Partial<AvatarType> | React.SetStateAction<boolean>,
         ) => {
             setFormInputs(prevInputs => {
                 if(inputName === "avatar" && typeof(value)==="object"){
@@ -49,6 +49,15 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
                             ...prevInputs.avatar,
                             ...value,
                         }
+                    }
+                }else if(inputName==="status"){
+
+                    const currentStatus = formInputs.status === "Income"
+                    const newStatusBoolean = typeof(value)==="function"? value(currentStatus): value
+
+                    return{
+                        ...prevInputs,
+                        status: newStatusBoolean? "Income":"Bill" 
                     }
                 }else{
                     return({...prevInputs, [inputName]: value})

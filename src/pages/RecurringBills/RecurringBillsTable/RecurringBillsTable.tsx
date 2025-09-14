@@ -14,7 +14,7 @@ export default function RecurringBillsTable () {
         search, setSearch,
         selected, setSelected,
         incomeToggle, setIncomeToggle,
-        recurringBills
+        recurringBills, recurringIncomes
     } = useRecurringBillsTable()
 
     return(
@@ -31,6 +31,8 @@ export default function RecurringBillsTable () {
                 <RecurringBillsTableLegend/>
                 <RecurringBillsTableContent 
                     recurringBills={recurringBills}
+                    recurringIncomes={recurringIncomes}
+                    incomeToggle={incomeToggle}
                 />
             </div>
         </div>

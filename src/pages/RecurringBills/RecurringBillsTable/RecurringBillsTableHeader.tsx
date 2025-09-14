@@ -33,6 +33,7 @@ export default function RecurringBillsTableHeader ({ search, setSearch, selected
                 <ToggleBtn
                     setState={setIncomeToggle}
                     state={incomeToggle}
+                    id="recurring-bills-toggle"
                 />
                 <p 
                     className="text-preset-4"

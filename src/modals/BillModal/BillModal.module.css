@@ -53,6 +53,17 @@
                 outline: none;
             }
         }
+        
+        &>.add-bill-income{
+            display: flex;
+            gap: 8px;
+            align-items: center;
+
+            &>p{
+                color: var(--grey-500);
+                transition: font-weight 0.3s ease;
+            }
+        }
     }
 }
 
