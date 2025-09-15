@@ -15,7 +15,7 @@ export default function useSyncBill () {
     const { date } = useDateContext()
     const { preferredCurrency } = data.personnalSettings
     const todayDate = date?.datetime || Date.now()
-    
+
     //goal is on startup, to refresh dueDate for each bill, and if dueDate<Date, create Transaction and move due Date
     useEffect(() => {
 
@@ -26,13 +26,22 @@ export default function useSyncBill () {
 
         for(let bill of bills){
             
-            const { period, dueDate, id } = bill
+            const { period, dueDate, id, status, avatar, name, category } = bill
 
             //updates every transactions to match the bill category and name every time
             billsTransactions
                 .forEach((transaction, index, array) => {
+                    const { amount } = transaction
                     if(transaction.billId === id){
-                        array[index] = {...transaction, name: bill.name, category: bill.category, avatar: bill.avatar}
+                        array[index] = {
+                            ...transaction,
+                            name: name,
+                            category: category,
+                            avatar: avatar,
+                            amount: status==="Bill"
+                                ? amount>0? amount*(-1):amount
+                                : amount<0? amount*(-1):amount
+                        }
                         return
                     }else{
                         return 
@@ -50,7 +59,7 @@ export default function useSyncBill () {
                     name: bill.name,
                     category: bill.category,
                     date: dueDateLoop.slice(0,16),
-                    amount: bill.amount,
+                    amount: bill.status==="Bill"? bill.amount*-1:bill.amount,
                     recurring: true,
                     currency: bill.currency,
                     id: crypto.randomUUID(),
@@ -71,8 +80,8 @@ export default function useSyncBill () {
                 billsArr.splice(indexOfUpdatedBill,1,updatedBill)
             }
         }
-
-        const needUpdate = JSON.stringify(billsTransactions) !== JSON.stringify(billsTransactions)
+        
+        const needUpdate = JSON.stringify(billsTransactions) !== JSON.stringify(transactions.filter(transaction => transaction?.billId))
 
         if(newTransactionsArr.length>0 || billsChanged || needUpdate){
             
