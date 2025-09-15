@@ -19,8 +19,7 @@ export default function useRecurringBillsTable () {
 
     const filteredBills = bills.filter(bill => bill.name.toLowerCase().includes(search.toLowerCase()))
     const sortableBills = filteredBills.map(bill => ({...bill, date: bill.dueDate}))
-    
-    
+
     if(selected==="Latest" || selected==="Oldest"){
         
         const paidBills = sortableBills.filter(bill => {

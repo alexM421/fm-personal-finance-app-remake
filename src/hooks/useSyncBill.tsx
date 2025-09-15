@@ -15,7 +15,7 @@ export default function useSyncBill () {
     const { date } = useDateContext()
     const { preferredCurrency } = data.personnalSettings
     const todayDate = date?.datetime || Date.now()
-
+    
     //goal is on startup, to refresh dueDate for each bill, and if dueDate<Date, create Transaction and move due Date
     useEffect(() => {
 

@@ -18,17 +18,19 @@ export default function RecurringBillsSummary () {
     const rates = useCurrencyContext()
     const datetime = date?.datetime || new Date().toISOString().slice(0,16)
 
-    const paidBills = bills.filter(bill => {
+    const statusBills = bills.filter(bill => bill.status==="Bill")
+
+    const paidBills = statusBills.filter(bill => {
         const { isPaid } = getBillPaidStatus(datetime, bill.dueDate, bill.period)
         return isPaid
     })
 
-    const upcomingBills =  bills.filter(bill => {
+    const upcomingBills =  statusBills.filter(bill => {
         const { isPaid } = getBillPaidStatus(datetime, bill.dueDate, bill.period)
         return !isPaid
     })
 
-    const dueSoonBills = bills.filter(bill => {
+    const dueSoonBills = statusBills.filter(bill => {
         const { isDueSoon } = getBillPaidStatus(datetime, bill.dueDate, bill.period)
         return isDueSoon
     })

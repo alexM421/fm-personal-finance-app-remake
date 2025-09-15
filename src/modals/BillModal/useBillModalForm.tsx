@@ -12,7 +12,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
 
     const { data, setData } = useDataContext()
     const { transactions } = data
-    
 
     const [formInputs, setFormInputs] = useState<Bill>({
         id: crypto.randomUUID(),
@@ -35,6 +34,7 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
             setFormInputs(prevInputs => ({...prevInputs, ...billData}))
         }
     },[])
+
 
     const update = 
         (
