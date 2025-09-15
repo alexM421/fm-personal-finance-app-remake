@@ -51,7 +51,7 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
                 </div>
                 <p 
                     className="text-preset-4-bold"
-                    style={{color: isDueSoon? "var(--red)":"var(--grey-900)"}}
+                    style={{color: isDueSoon? bill.status==="Bill"?"var(--red)":"var(--green)":"var(--grey-900)"}}
                 >{formatNumber(amount, currency, false)}</p>
             </button>
             <ModalLayout
