@@ -2,7 +2,12 @@
 import type { Transaction } from "../types/DataTypes"
 import getUserCycleInfos from "./getUserCycleInfos"
 //types
-export default function filterTransactionsByCycle (transactions: Transaction[], year: number, month: number, datetime: string, budgetCycleDay: number) {
+export default function filterTransactionsByCycle (transactions: Transaction[], datetime: string, budgetCycleDay: number) {
+
+    const date = new Date(datetime)
+
+    const year = date.getFullYear()
+    const month =  date.getMonth()
 
     const userCycleData = getUserCycleInfos(year, month, datetime, budgetCycleDay)
 

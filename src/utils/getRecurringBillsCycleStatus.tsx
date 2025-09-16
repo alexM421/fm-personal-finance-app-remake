@@ -4,7 +4,7 @@ export default function getRecurringBillsCycleStatus (transactions: Transaction[
 
     const currentDate = new Date(datetime)
 
-    const recurringTransactions = currentCycleTransactions.filter(transaction => transaction.recurring)
+    const recurringTransactions = currentCycleTransactions.filter(transaction => transaction.recurring && transaction.amount<0)
     
     const paidBills = recurringTransactions.filter(transaction => {
 
