@@ -29,7 +29,7 @@ export default function AuthLogin () {
                 <h1 className="text-preset-1">Login</h1>
                 <p className="text-preset-3">{errors.loginErr? "Invalid Credentials":""}</p>
             </div>
-            <div>
+            <div className={styles["auth-form"]}>
                 <TextInput 
                     inputDetails={{
                         autoComplete: "email",
@@ -50,14 +50,17 @@ export default function AuthLogin () {
                         type: "password",
                         controlledInput: passwordInput,
                         setControlledInput: (e) => setPasswordInput(e.target.value),
-                        placeholder: "email@example.com"
+                        placeholder: "123SecurePassword"
                     }}
                     isPassword={true}
                     errorMessage={errors.passwordErr? "Please enter your password":""}
                 />
             </div>
             <Button>Login</Button>
-            <p className="text-preset-4">Need to create an account?<Link to="../signup">Sign Up</Link></p>
+            <div className={styles["auth-links"]}>
+                <p className="text-preset-4">Need to create an account?<Link to="../signup">Sign Up</Link></p>
+                <p className="text-preset-4">Forgot your password? <Link to="../reset">Reset</Link></p>
+            </div>
         </form>
     )
 }

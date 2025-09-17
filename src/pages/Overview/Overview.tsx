@@ -1,9 +1,7 @@
 //CSS
 import { useState } from "react"
 import IconSettings from "../../assets/IconSettings"
-import { useDataContext } from "../../contexts/DataContext"
 import Button from "../../shared/Button/Button"
-import formatNumber from "../../utils/formatNumber"
 import styles from "./Overview.module.css"
 import OverviewBudgets from "./OverviewBudgets"
 //Overview
@@ -13,17 +11,27 @@ import OverviewTransactions from "./OverviewTransactions"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import SettingsModal from "../../modals/SettingsModal/SettingsModal"
 import OverviewStats from "./OverviewStats"
+import IconExit from "../../assets/IconExit"
+import { supabase } from "../../supabaseClient"
 
 export default function Overview () {
      
     const [settingsDisplay, setSettingsDisplay] = useState(false)
+
+    const handleSignout = () => {
+        supabase.auth.signOut()
+        location.reload()
+    }
 
     return(
         <>
             <div className={styles.overview}>
                 <div className={styles["overview-header"]}>
                     <h1 className="text-preset-1">Overview</h1>
-                    <Button onClick={() => setSettingsDisplay(true)}><IconSettings/></Button>
+                    <div className={styles["overview-btns"]}>
+                        <Button onClick={handleSignout}><IconExit/></Button>
+                        <Button onClick={() => setSettingsDisplay(true)}><IconSettings/></Button>
+                    </div>
                 </div> 
                 <OverviewStats/>
                 <div className={styles["overview-main"]}>

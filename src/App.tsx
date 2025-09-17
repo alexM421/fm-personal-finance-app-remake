@@ -13,6 +13,8 @@ import Transactions from './pages/Transactions/Transactions'
 import Budgets from './pages/Budgets/Budgets'
 import Pots from './pages/Pots/Pots'
 import RecurringBills from './pages/RecurringBills/RecurringBills'
+import AuthReset from './pages/Auth/AuthReset'
+import AuthUpdate from './pages/Auth/AuthUpdate'
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
       <Route path="/auth" element={<AuthLayout/>}>
         <Route path="login" element={<AuthLogin/>}/>
         <Route path="signup" element={<AuthSignUp/>}/>
+        <Route path="reset" element={<AuthReset/>}/>
+        <Route path="update" element={<AuthUpdate/>}/>
       </Route>
       <Route path="/" element={<HomeLayout/>}>
         <Route path="overview" element={<Overview/>}/>
