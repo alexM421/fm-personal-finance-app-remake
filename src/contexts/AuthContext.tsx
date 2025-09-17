@@ -8,6 +8,7 @@ import type { Session } from "@supabase/supabase-js";
 type AuthContextValue = {
     auth: Session | null,
     loading: boolean,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -23,16 +24,19 @@ export function AuthProvider ({ children }: AuthContextProviderProps){
 
     useEffect(() => {
         const getLoggedIn = async () => {
-            const { data: { session } } = await supabase.auth.getSession()
-            setAuth(session || null)
-            setLoading(false)
+            if(loading){
+                const { data: { session } } = await supabase.auth.getSession()
+                setAuth(session || null)
+                setLoading(false)
+            }
         }
         getLoggedIn()
-    },[])
+    },[loading])
 
     const value={
         auth: auth,
         loading: loading,
+        setLoading: setLoading,
     }
 
     return (

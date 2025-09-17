@@ -9,10 +9,13 @@ import { Link, useNavigate } from "react-router"
 //auth
 import { AuthLoginSubmit } from "./AuthLoginSubmit"
 import type { errorsObj } from "./AuthLoginSubmit"
+import { useAuthContext } from "../../contexts/AuthContext"
 
 export default function AuthLogin () {
 
     const navigate = useNavigate()
+    
+    const { setLoading } = useAuthContext()
 
     const [emailInput, setEmailInput] = useState<string>("")
     const [passwordInput, setPasswordInput] = useState<string>("")
@@ -23,7 +26,7 @@ export default function AuthLogin () {
     })
 
     return(
-        <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors, navigate)} noValidate>
+        <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors, navigate, setLoading)} noValidate>
             
             <div className={`${styles["auth-headers"]} ${errors.loginErr? styles.error: ""}`}>
                 <h1 className="text-preset-1">Login</h1>

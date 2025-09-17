@@ -11,15 +11,20 @@ import OverviewTransactions from "./OverviewTransactions"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import SettingsModal from "../../modals/SettingsModal/SettingsModal"
 import OverviewStats from "./OverviewStats"
+//assets
 import IconExit from "../../assets/IconExit"
+//supabase
 import { supabase } from "../../supabaseClient"
 
 export default function Overview () {
      
     const [settingsDisplay, setSettingsDisplay] = useState(false)
 
-    const handleSignout = () => {
-        supabase.auth.signOut()
+    const handleSignout = async () => {
+        const { error } = await supabase.auth.signOut()
+        if(error){
+            throw new Error("Couldn't sign out", error)
+        }
         location.reload()
     }
 
