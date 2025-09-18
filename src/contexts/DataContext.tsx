@@ -52,7 +52,7 @@ export function DataProvider ({ children }: DataProviderProps) {
 
         const fetchUserData = async () => await supabase.from("appdata").select("*").eq("user_id", session?.user.id)
         const { data } = await fetchUserData()
-        
+
         if(data?.length === 0){
             const { error } = await supabase.from("appdata").insert({})
             const { data } = await fetchUserData()

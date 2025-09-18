@@ -2,6 +2,7 @@
 import type { SetStateAction } from "react"
 import { supabase } from "../../supabaseClient"
 import { useNavigate } from "react-router"
+import { useAuthContext } from "../../contexts/AuthContext"
 
 export type errorsObj = {
     emailErr : boolean,
@@ -15,9 +16,11 @@ export async function AuthLoginSubmit (
         e: React.FormEvent<HTMLFormElement>,
         setErrors: setStateErrorsObj,
         navigate: ReturnType<typeof useNavigate>, 
+        setLoading: React.Dispatch<SetStateAction<boolean>>
     ){
-
         e.preventDefault()
+       
+    
         
         const form = e.target as HTMLFormElement
         const formElements = form.elements
@@ -46,7 +49,9 @@ export async function AuthLoginSubmit (
         //error handling
         const isLoginValid = !error
         tempErrors.loginErr = !isLoginValid
+        console.log(isLoginValid)
         if(isLoginValid){
+                setLoading(true)
                 navigate("/overview")
             }
     }

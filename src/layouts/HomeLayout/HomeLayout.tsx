@@ -14,6 +14,7 @@ export default function HomeLayout () {
     const { loading, auth } = useAuthContext()
 
     if(!auth && !loading){
+        console.log("redirected to login")
         return(
             <Navigate to="/auth/login"/>
         )

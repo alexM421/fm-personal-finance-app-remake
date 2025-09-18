@@ -12,7 +12,6 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
 
     const { data, setData } = useDataContext()
     const { transactions } = data
-    
 
     const [formInputs, setFormInputs] = useState<Bill>({
         id: crypto.randomUUID(),
@@ -24,6 +23,7 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
         amount: 0,
         currency: "USD",
         isSuspended: false,
+        status: "Bill",
     })
     
     const [formError, setFormError] = useState<boolean>(false)
@@ -31,14 +31,15 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
     //If a transaction was passed on init, consider this is an edit and set data to transactionData
     useEffect(() => {
         if(billData){
-            setFormInputs(billData)
+            setFormInputs(prevInputs => ({...prevInputs, ...billData}))
         }
     },[])
+
 
     const update = 
         (
             inputName: string,
-            value: string | number | boolean | AvatarType | Partial<AvatarType>,
+            value: string | number | boolean | AvatarType | Partial<AvatarType> | React.SetStateAction<boolean>,
         ) => {
             setFormInputs(prevInputs => {
                 if(inputName === "avatar" && typeof(value)==="object"){
@@ -48,6 +49,15 @@ export default function useBillModalForm (billData: Bill | undefined, closeModal
                             ...prevInputs.avatar,
                             ...value,
                         }
+                    }
+                }else if(inputName==="status"){
+
+                    const currentStatus = formInputs.status === "Income"
+                    const newStatusBoolean = typeof(value)==="function"? value(currentStatus): value
+
+                    return{
+                        ...prevInputs,
+                        status: newStatusBoolean? "Income":"Bill" 
                     }
                 }else{
                     return({...prevInputs, [inputName]: value})

@@ -38,7 +38,6 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
 
     useEffect(() => {
         const getCurrencyData = async () => {
-
             const date = new Date().toISOString().split("T")[0]
             const { data, error } = await supabase.from("ratesdata").select("rates").eq("rates_date", date)
 
@@ -53,7 +52,9 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
             }
         }
 
-        getCurrencyData()
+        if(session){
+            getCurrencyData()
+        }
 
     },[session])
 

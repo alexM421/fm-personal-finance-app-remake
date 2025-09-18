@@ -37,7 +37,7 @@ export default function AuthSignUp ( ) {
         <>
             <form className={styles.auth} onSubmit={(e) => AuthSignUpSubmit(e, setErrors, navigate, setIsPopUpHidden)} noValidate>
                 <h1 className="text-preset-1">Sign Up</h1>
-                <div>
+                <div className={styles["auth-form"]}>
                     <TextInput
                         inputDetails={{
                             autoComplete: "user",
@@ -79,7 +79,10 @@ export default function AuthSignUp ( ) {
                     />
                 </div>
                 <Button>Create Account</Button>
-                <p className="text-preset-4">Already have an account?<Link to="../login">Login</Link></p>
+                <div className={styles["auth-links"]}>
+                    <p className="text-preset-4">Already have an account?<Link to="../login">Login</Link></p>
+                    <p className="text-preset-4">Forgot your password?<Link to="../reset">Reset</Link></p>
+                </div>
             </form>
             <AuthSignUpPopUp isPopUpHidden={isPopUpHidden}/>
         </>

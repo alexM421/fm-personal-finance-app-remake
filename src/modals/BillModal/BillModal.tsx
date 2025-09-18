@@ -16,6 +16,7 @@ import PeriodSelectBillModal from "./PeriodSelectBillModal"
 import useBillModalForm from "./useBillModalForm"
 //types
 import type { Bill } from "../../types/DataTypes"
+import ToggleBtn from "../../shared/ToggleBtn/ToggleBtn"
 
 
 type BillModalProps = {
@@ -96,6 +97,21 @@ export default function BillModal ({ closeModalDisplay, billData }: BillModalPro
                     legend="Bill Amount"
                     min={0}
                 />
+                <div className={styles["add-bill-income"]}>
+                    <p 
+                        className="text-preset-4"
+                        style={{fontWeight: formInputs.status==="Bill"? 700:400}}
+                    >Bill</p>
+                    <ToggleBtn
+                        setState={(valueOrSetter) => update("status", valueOrSetter)}
+                        state={formInputs.status==="Income"}
+                        id="add-bill-modal-toggle"
+                    />
+                    <p 
+                        className="text-preset-4"
+                        style={{fontWeight: formInputs.status==="Income"? 700:400}}
+                    >Income</p>
+                </div>
             </div>
             {
                 billData

@@ -56,11 +56,11 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
     useEffect(() => {
 
         if(date){
-            const { year, month, datetime } = date
+            const { datetime } = date
             const { transactions, budgets } = data
             const { budgetCycleDay } = data.personnalSettings
     
-            const currentCycleTransactions = filterTransactionsByCycle(transactions, year, month, datetime, budgetCycleDay )
+            const currentCycleTransactions = filterTransactionsByCycle(transactions, datetime, budgetCycleDay )
             
             const budgetedTransactions = currentCycleTransactions.filter(transaction => {
                 const isExpense = transaction.amount < 0

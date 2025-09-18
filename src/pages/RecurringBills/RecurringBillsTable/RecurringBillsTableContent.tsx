@@ -6,13 +6,17 @@ import RecurringBill from "./RecurringBill"
 
 type RecurringBillsTableContentProps = {
     recurringBills: Bill[],
+    recurringIncomes: Bill[],
+    incomeToggle: boolean,
 }
 
-export default function RecurringBillsTableContent ({ recurringBills }: RecurringBillsTableContentProps ) {
+export default function RecurringBillsTableContent ({ recurringBills, recurringIncomes, incomeToggle }: RecurringBillsTableContentProps ) {
+
+    const iteratingArr = incomeToggle? recurringIncomes:recurringBills
 
     return(
         <div className={styles["recurring-bills-table-content"]}>
-            {recurringBills.flatMap((bill,index) => {
+            {iteratingArr.flatMap((bill,index) => {
                 if (index===recurringBills.length-1) return (
                     <RecurringBill 
                         bill={bill} 

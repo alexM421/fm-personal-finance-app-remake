@@ -1,9 +1,7 @@
 //CSS
 import { useState } from "react"
 import IconSettings from "../../assets/IconSettings"
-import { useDataContext } from "../../contexts/DataContext"
 import Button from "../../shared/Button/Button"
-import formatNumber from "../../utils/formatNumber"
 import styles from "./Overview.module.css"
 import OverviewBudgets from "./OverviewBudgets"
 //Overview
@@ -12,36 +10,35 @@ import OverviewRecurringBills from "./OverviewRecurringBills"
 import OverviewTransactions from "./OverviewTransactions"
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import SettingsModal from "../../modals/SettingsModal/SettingsModal"
+import OverviewStats from "./OverviewStats"
+//assets
+import IconExit from "../../assets/IconExit"
+//supabase
+import { supabase } from "../../supabaseClient"
 
 export default function Overview () {
-
-    const { current, income, expenses } = useDataContext().data.balance
-
-    const { data: { personnalSettings: { preferredCurrency }}} = useDataContext()
      
     const [settingsDisplay, setSettingsDisplay] = useState(false)
+
+    const handleSignout = async () => {
+        const { error } = await supabase.auth.signOut()
+        if(error){
+            throw new Error("Couldn't sign out", error)
+        }
+        location.reload()
+    }
 
     return(
         <>
             <div className={styles.overview}>
                 <div className={styles["overview-header"]}>
                     <h1 className="text-preset-1">Overview</h1>
-                    <Button onClick={() => setSettingsDisplay(true)}><IconSettings/></Button>
+                    <div className={styles["overview-btns"]}>
+                        <Button onClick={handleSignout}><IconExit/></Button>
+                        <Button onClick={() => setSettingsDisplay(true)}><IconSettings/></Button>
+                    </div>
                 </div> 
-                <div className={styles["overview-stats"]}>
-                    <div>
-                        <p className="text-preset-4">Current Balance</p>
-                        <h2 className="text-preset-1">{formatNumber(current, preferredCurrency, false)}</h2>
-                    </div>
-                    <div>
-                        <p className="text-preset-4">Income</p>
-                        <h2 className="text-preset-1">{formatNumber(income, preferredCurrency, false)}</h2>
-                    </div>
-                    <div>
-                        <p className="text-preset-4">Expenses</p>
-                        <h2 className="text-preset-1">{formatNumber(expenses, preferredCurrency, false)}</h2>
-                    </div>
-                </div>
+                <OverviewStats/>
                 <div className={styles["overview-main"]}>
                     <div>
                         <OverviewPots/>

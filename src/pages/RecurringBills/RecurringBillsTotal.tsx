@@ -11,8 +11,11 @@ export default function RecurringBillsTotal () {
 
     const { data: { bills }, data: { personnalSettings: { preferredCurrency}}} = useDataContext()
     const rates = useCurrencyContext()
-    
-    const totalBillsAmount = getBillsAmount(bills, rates)
+
+    const onlyBills= bills.filter(bill => bill.status === "Bill")
+
+
+    const totalBillsAmount = getBillsAmount(onlyBills, rates)
 
     return(
         <div className={styles["recurring-bills-total"]}>

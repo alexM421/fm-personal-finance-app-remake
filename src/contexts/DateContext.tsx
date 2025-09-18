@@ -7,26 +7,51 @@ import { useAuthContext } from "./AuthContext";
 export type DateJson = {
   timezone: string,
   datetime: string,
-  date: string,
-  year: number,
-  month: number,
-  day: number,
-  hour: number,
-  minute: number,
-  second: number,
-  day_of_week: string,
+//   date: string,
+//   year: number,
+//   month: number,
+//   day: number,
+//   hour: number,
+//   minute: number,
+//   second: number,
+//   day_of_week: string,
 }
 
 const getDate = async (): Promise<DateJson> => {
     const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const res = await fetch(`https://api.api-ninjas.com/v1/worldtime?timezone=${clientTimeZone}`,{
-        method: "GET",
-        headers: {
-            "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY 
+    try{
+        const res = await fetch(`https://api.api-ninjas.com/v1/worldtime?timezone=${clientTimeZone}`,{
+            method: "GET",
+            headers: {
+                "X-Api-Key": import.meta.env.VITE_API_NINJA_KEY 
+            }
+        })
+
+        if(!res.ok){
+            throw new Error("Primary API failed")
         }
-    })
-    const json = await res.json()
-    return json
+
+        const json = await res.json()
+        return {
+            timezone: json.timezone,
+            datetime: json.datetime
+        }
+
+    }catch(err){
+
+        //Backup Api
+        const backupRes = await fetch(`https://worldtimeapi.org/api/timezone/${clientTimeZone}`)
+        
+        if(!backupRes.ok){
+            throw new Error("Both APIs failed")
+        }
+
+        const json = await backupRes.json()
+        return {
+            timezone: json.timezone,
+            datetime: json.datetime
+        }
+    }
 }
 
 
