@@ -1,10 +1,9 @@
 //CSS
-import { useDataContext } from "../../contexts/DataContext"
-import formatNumber from "../../utils/formatNumber"
 import styles from "./Overview.module.css"
+//utils
+import formatNumber from "../../utils/formatNumber"
 //context
 import { useDataContext } from "../../contexts/DataContext"
-import formatNumber from "../../utils/formatNumber"
 
 type OverviewRecurringBillsItemProps = {
     theme: string,
@@ -13,8 +12,6 @@ type OverviewRecurringBillsItemProps = {
 }
 
 export default function OverviewRecurringBillsItem ({theme, title, amount }: OverviewRecurringBillsItemProps) {
-
-    const { data: { personnalSettings: { preferredCurrency }}} = useDataContext()
 
     const { data: { personnalSettings: { preferredCurrency }}} = useDataContext()
 

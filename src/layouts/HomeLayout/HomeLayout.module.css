@@ -1,6 +1,6 @@
 .home-layout{
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
 
     &>div:last-of-type{
         flex: 1;
@@ -9,5 +9,6 @@
         flex-direction: column;
         gap: 32px;
         background-color: var(--beige-100);
+        overflow: auto;
     }
 }
