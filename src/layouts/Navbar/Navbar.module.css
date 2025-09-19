@@ -62,6 +62,15 @@
             color: var(--grey-100);
         }
     }
+
+    @media (max-width: 1000px) {
+        &{
+
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px 25px;
+        }
+    }
 }
 
 .active-navbar-item{
@@ -86,6 +95,15 @@
 
         &>p{
             color: var(--grey-900);
+        }
+    }
+
+    @media (max-width: 1000px) {
+        &{
+            flex-direction: column;
+            border-radius: 8px 8px 0px 0px;
+            border-left: none;
+            border-bottom: 4px solid var(--green);
         }
     }
 }
