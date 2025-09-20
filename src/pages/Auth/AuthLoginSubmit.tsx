@@ -2,7 +2,6 @@
 import type { SetStateAction } from "react"
 import { supabase } from "../../supabaseClient"
 import { useNavigate } from "react-router"
-import { useAuthContext } from "../../contexts/AuthContext"
 
 export type errorsObj = {
     emailErr : boolean,

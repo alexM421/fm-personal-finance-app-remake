@@ -39,11 +39,11 @@ export function CurrencyProvider ({ children }: CurrencyProviderProps) {
     useEffect(() => {
         const getCurrencyData = async () => {
             const date = new Date().toISOString().split("T")[0]
-            const { data, error } = await supabase.from("ratesdata").select("rates").eq("rates_date", date)
+            const { data } = await supabase.from("ratesdata").select("rates").eq("rates_date", date)
 
             if(!data || data.length === 0){
                 const todayRates = await fetchCurrencyData()
-                const { error } = await supabase.from("ratesdata").insert({"rates_date": date, "rates": todayRates.rates})
+                await supabase.from("ratesdata").insert({"rates_date": date, "rates": todayRates.rates})
                 getCurrencyData()
 
             }else{

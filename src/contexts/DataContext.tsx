@@ -54,7 +54,7 @@ export function DataProvider ({ children }: DataProviderProps) {
         const { data } = await fetchUserData()
 
         if(data?.length === 0){
-            const { error } = await supabase.from("appdata").insert({})
+            await supabase.from("appdata").insert({})
             const { data } = await fetchUserData()
             return data?.[0]
         }else{
