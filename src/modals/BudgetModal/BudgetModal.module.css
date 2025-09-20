@@ -1,0 +1,11 @@
+.budget-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &>.budget-modal-inputs{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}

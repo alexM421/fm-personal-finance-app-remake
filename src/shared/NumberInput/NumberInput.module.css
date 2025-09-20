@@ -1,0 +1,63 @@
+.number-input{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &>.input-header{
+        
+        display: flex;
+        justify-content: space-between;
+
+        &>p{
+            transition: color ease 0.3s;
+            color: var(--grey-500);
+        }
+    }
+
+    &>label{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 1px solid var(--beige-500);
+        border-radius: 8px;
+        transition: border-color ease 0.3s;
+        padding-inline: 20px;
+
+        &>p{
+            color: var(--grey-500);
+            transition: color 0.3s ease;
+        }
+
+        &>input{
+            padding-block: 12px;
+            border: none;
+            color: var(--grey-900);
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        &:has(input:focus){
+            border-color: var(--grey-500);
+
+            &>p{
+                color: var(--grey-900)
+            }
+        }
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}

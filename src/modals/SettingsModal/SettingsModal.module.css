@@ -1,0 +1,11 @@
+.settings-modal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &>.settings-modal-numbers-input{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+}
