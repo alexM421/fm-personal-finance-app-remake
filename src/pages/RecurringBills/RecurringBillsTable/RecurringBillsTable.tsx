@@ -1,5 +1,7 @@
 //CSS
 import styles from "../RecurringBills.module.css"
+//hooks
+import useMobileListener from "../../../hooks/useMobileListener"
 //RecurringBillsTable
 import RecurringBillsTableContent from "./RecurringBillsTableContent"
 import RecurringBillsTableHeader from "./RecurringBillsTableHeader"
@@ -8,7 +10,7 @@ import useRecurringBillsTable from "./useRecurringBillsTable"
 
 export default function RecurringBillsTable () {
 
-
+    const { isMobile } = useMobileListener(700)
 
     const {
         search, setSearch,
@@ -28,11 +30,12 @@ export default function RecurringBillsTable () {
                 setIncomeToggle={setIncomeToggle}
             />
             <div>
-                <RecurringBillsTableLegend/>
+                {!isMobile && <RecurringBillsTableLegend/>}
                 <RecurringBillsTableContent 
                     recurringBills={recurringBills}
                     recurringIncomes={recurringIncomes}
                     incomeToggle={incomeToggle}
+                    isMobile={isMobile}
                 />
             </div>
         </div>

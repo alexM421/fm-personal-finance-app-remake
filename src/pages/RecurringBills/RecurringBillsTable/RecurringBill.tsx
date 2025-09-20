@@ -13,10 +13,11 @@ import { useDateContext } from "../../../contexts/DateContext"
 import getBillPaidStatus from "./getBillPaidStatus"
 
 type RecurringBillProps = {
-    bill: Bill
+    bill: Bill,
+    isMobile: boolean,
 }
 
-export default function RecurringBill ({ bill }: RecurringBillProps) {
+export default function RecurringBill ({ bill, isMobile }: RecurringBillProps) {
 
     const { date } = useDateContext()
 
@@ -33,26 +34,54 @@ export default function RecurringBill ({ bill }: RecurringBillProps) {
     return(
         <>
             <button className={`${styles["recurring-bill"]} ${isSuspended? styles["recurring-bill-disabled"]:""}`} onClick={() => setModalDisplay(true)}>
-                <div className={styles["recurring-bill-profile"]}>
-                    <Avatar
-                        theme={theme}
-                        content={content}
-                        isContentImage={isContentImage}
-                    />
-                    <p className="text-preset-4-bold">{name}</p>
-                </div>
-                <div className={styles["recurring-bill-due"]}>
-                    <p 
-                        className="text-preset-5"
-                        style={{color: isPaid? "var(--green)":"var(--grey-500)"}}
-                    >{isSuspended? "Suspended":dueDateDisplay}</p>
-                    {!isNeutral && !isSuspended
-                    && <img src={`/assets/images/icon-bill-${isPaid? "paid":"due"}.svg`}/>}
-                </div>
-                <p 
-                    className="text-preset-4-bold"
-                    style={{color: isDueSoon? bill.status==="Bill"?"var(--red)":"var(--green)":"var(--grey-900)"}}
-                >{formatNumber(amount, currency, false)}</p>
+                {!isMobile
+                    ?<>
+                        <div className={styles["recurring-bill-profile"]}>
+                            <Avatar
+                                theme={theme}
+                                content={content}
+                                isContentImage={isContentImage}
+                            />
+                            <p className="text-preset-4-bold">{name}</p>
+                        </div>
+                        <div className={styles["recurring-bill-due"]}>
+                            <p 
+                                className="text-preset-5"
+                                style={{color: isPaid? "var(--green)":"var(--grey-500)"}}
+                            >{isSuspended? "Suspended":dueDateDisplay}</p>
+                            {!isNeutral && !isSuspended
+                            && <img src={`/assets/images/icon-bill-${isPaid? "paid":"due"}.svg`}/>}
+                        </div>
+                        <p 
+                            className="text-preset-4-bold"
+                            style={{color: isDueSoon? bill.status==="Bill"?"var(--red)":"var(--green)":"var(--grey-900)"}}
+                        >{formatNumber(amount, currency, false)}</p>
+                    </>
+                    :<div className={styles["recurring-bill-mobile"]}>
+                        <div className={styles["recurring-bill-profile"]}>
+                            <Avatar
+                                theme={theme}
+                                content={content}
+                                isContentImage={isContentImage}
+                            />
+                            <p className="text-preset-4-bold">{name}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <p 
+                                    className="text-preset-5"
+                                    style={{color: isPaid? "var(--green)":"var(--grey-500)"}}
+                                >{isSuspended? "Suspended":dueDateDisplay}</p>
+                                {!isNeutral && !isSuspended
+                                && <img src={`/assets/images/icon-bill-${isPaid? "paid":"due"}.svg`}/>}
+                            </div>
+                            <p 
+                                className="text-preset-4-bold"
+                                style={{color: isDueSoon? bill.status==="Bill"?"var(--red)":"var(--green)":"var(--grey-900)"}}
+                            >{formatNumber(amount, currency, false)}</p>
+                        </div>
+                    </div>
+                }    
             </button>
             <ModalLayout
                 modalTitle="Edit bill"
