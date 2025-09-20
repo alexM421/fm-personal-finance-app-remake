@@ -31,6 +31,18 @@
                 flex-direction: column;
                 justify-content: space-between;
             }
+
+            @media (max-width: 700px) {
+                flex-direction: column;
+
+                &>div:first-of-type{
+                    width: min-content;
+                }
+
+                &>.add-bill-profile-desc{
+                    gap: 16px
+                }
+            }
         }
 
         &>.add-bill-input{
@@ -81,6 +93,11 @@
     gap: 8px;
     opacity: 1;
     transition: opacity 0.3s ease;
+
+    @media (max-width: 700px) {
+        left: 0px;
+        top: calc(100% + 8px);
+    }
 
     &>.choose-picture-header{
         display: flex;
