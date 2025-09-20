@@ -9,6 +9,25 @@
         flex-direction: column;
         gap: 24px;
     }
+
+    @media (max-width: 1400px) {
+        &{
+            display: flex;
+            flex-direction: column;
+
+            &>.recurring-bills-infos{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
+
+    @media (max-width: 700px) {
+        &>.recurring-bills-infos{
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
 
 .recurring-bills-total{
@@ -77,6 +96,10 @@
     background-color: white;
     border-radius: 12px;
 
+    @media (max-width: 700px) {
+        gap: 4px;
+    }
+
     &>.recurring-bills-table-header{
         display: flex;
         align-items: center;
@@ -100,6 +123,22 @@
             &>p{
                 color: var(--grey-500);
                 transition: font-weight 0.3s ease;
+            }
+        }
+
+        @media (max-width: 700px) {
+            flex-wrap: wrap;
+            gap: 8px;
+
+            &>label:first-of-type{
+                width: 100%;
+            }
+            &>.recurring-bills-table-header-select>p{
+                display: none;
+            }
+
+            &>.recurring-bills-table-header-toggle>p{
+                display: none;
             }
         }
     }
@@ -132,7 +171,6 @@
     
             &>.recurring-bill{
                 padding-block: 20px;
-    
             }
         }
     }
@@ -149,7 +187,7 @@
     align-items: center;
     transition: background-color 0.3s ease;
     
-    &>.recurring-bill-profile{
+    .recurring-bill-profile{
         display: flex;
         gap: 16px;
         align-items: center;
@@ -180,5 +218,30 @@
 
     &.recurring-bill-disabled{
         opacity: 0.5;
+    }
+
+    @media (max-width: 700px) {
+        display: flex;
+        padding-inline: 0px;
+    }
+}
+
+.recurring-bill-mobile{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: start;
+    flex: 1;
+    
+    &>div:last-of-type{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    
+        &>div:first-of-type{
+            display: flex;
+            gap: 8px;
+        }
     }
 }

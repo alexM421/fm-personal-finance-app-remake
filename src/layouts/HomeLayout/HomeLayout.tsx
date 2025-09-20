@@ -6,7 +6,10 @@ import Navbar from "../Navbar/Navbar"
 import { Navigate, Outlet } from "react-router"
 //contexts
 import { useAuthContext } from "../../contexts/AuthContext"
+//hooks
 import useSyncBill from "../../hooks/useSyncBill"
+import useMobileListener from "../../hooks/useMobileListener"
+import MobileNavbar from "../Navbar/MobileNavbar/MobileNavbar"
 
 
 export default function HomeLayout () {
@@ -20,11 +23,13 @@ export default function HomeLayout () {
         )
     }
 
+    //effets
+    const { isMobile } = useMobileListener(1000)
     useSyncBill()
 
     return(
         <div className={styles["home-layout"]}>
-            <Navbar/>
+            {isMobile? <MobileNavbar/>:<Navbar/>}
             <Outlet/>
         </div>
     )

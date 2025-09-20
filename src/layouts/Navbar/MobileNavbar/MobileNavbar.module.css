@@ -1,0 +1,16 @@
+.mobile-navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 40px 0px 40px;
+    background-color: var(--grey-900);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    @media (max-width: 700px) {
+        &{
+            height: 52px;
+            padding: 8px 16px 0px 16px;
+        }
+    }
+}

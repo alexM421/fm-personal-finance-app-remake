@@ -8,9 +8,10 @@ type RecurringBillsTableContentProps = {
     recurringBills: Bill[],
     recurringIncomes: Bill[],
     incomeToggle: boolean,
+    isMobile: boolean,
 }
 
-export default function RecurringBillsTableContent ({ recurringBills, recurringIncomes, incomeToggle }: RecurringBillsTableContentProps ) {
+export default function RecurringBillsTableContent ({ recurringBills, recurringIncomes, incomeToggle, isMobile }: RecurringBillsTableContentProps ) {
 
     const iteratingArr = incomeToggle? recurringIncomes:recurringBills
 
@@ -20,12 +21,17 @@ export default function RecurringBillsTableContent ({ recurringBills, recurringI
                 if (index===recurringBills.length-1) return (
                     <RecurringBill 
                         bill={bill} 
+                        isMobile={isMobile}
                         key={`bill-item-${bill.id}`}
                     />
                 )
                 
                 return [
-                    <RecurringBill bill={bill} key={`bill-item-${bill.id}`}/>,
+                    <RecurringBill 
+                        bill={bill} 
+                        isMobile={isMobile} 
+                        key={`bill-item-${bill.id}`}
+                    />,
                     <GapSeparation key={`bill-item-gap-${bill.id}`}/>
                 ]  
             })}

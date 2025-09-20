@@ -39,7 +39,7 @@
     }
     
     &>svg{
-        width: 24px;
+
         flex-shrink: 0;
         color: var(--grey-300);
     }
@@ -56,10 +56,28 @@
 
         &>svg{
             color: var(--grey-100);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         &>p{
             color: var(--grey-100);
+        }
+    }
+
+    @media (max-width: 1000px) {
+        &{
+
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px 20px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        &>p{
+            display: none;
         }
     }
 }
@@ -86,6 +104,16 @@
 
         &>p{
             color: var(--grey-900);
+        }
+    }
+
+    @media (max-width: 1000px) {
+        &{
+            flex-direction: column;
+            border-radius: 8px 8px 0px 0px;
+            border-left: none;
+            border-bottom: 4px solid var(--green);
+            transition: background-color 0.1s ease;
         }
     }
 }

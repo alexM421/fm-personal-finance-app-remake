@@ -7,12 +7,16 @@ import PageHeader from "../../components/PageHeader/PageHeader"
 import RecurringBillsTotal from "./RecurringBillsTotal"
 import RecurringBillsSummary from "./RecurringBillsSummary"
 import RecurringBillsTable from "./RecurringBillsTable/RecurringBillsTable"
+//modals
 import ModalLayout from "../../modals/ModalLayout/ModalLayout"
 import BillModal from "../../modals/BillModal/BillModal"
+
 
 export default function RecurringBills () {
 
     const [showModal, setShowModal] = useState<boolean>(false)
+
+    
 
     return(
         <>
