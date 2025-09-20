@@ -10,9 +10,16 @@
         gap: 32px;
         background-color: var(--beige-100);
         overflow: auto;
+        
+        @media (max-width: 700px) {
+            &{
+                padding: 24px 16px;
+            }
+        }
     }
 
     @media (max-width: 1000px) {
         flex-direction: column-reverse;
     }
+
 }

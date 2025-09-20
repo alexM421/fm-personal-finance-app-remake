@@ -8,7 +8,7 @@ import { Navigate, Outlet } from "react-router"
 import { useAuthContext } from "../../contexts/AuthContext"
 //hooks
 import useSyncBill from "../../hooks/useSyncBill"
-import useMobileListener from "./useMobileListener"
+import useMobileListener from "../../hooks/useMobileListener"
 import MobileNavbar from "../Navbar/MobileNavbar/MobileNavbar"
 
 
@@ -24,7 +24,7 @@ export default function HomeLayout () {
     }
 
     //effets
-    const { isMobile } = useMobileListener()
+    const { isMobile } = useMobileListener(1000)
     useSyncBill()
 
     return(

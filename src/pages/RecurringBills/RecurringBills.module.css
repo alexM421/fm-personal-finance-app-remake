@@ -9,6 +9,18 @@
         flex-direction: column;
         gap: 24px;
     }
+
+    @media (max-width: 1400px) {
+        &{
+            display: flex;
+            flex-direction: column;
+
+            &>.recurring-bills-infos{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
 }
 
 .recurring-bills-total{

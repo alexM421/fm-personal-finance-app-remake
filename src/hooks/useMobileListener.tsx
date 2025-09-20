@@ -1,14 +1,14 @@
 //react
 import { useEffect, useState } from "react"
 
-export default function useMobileListener () {
+export default function useMobileListener (width: number) {
     
     const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         const handleResize = () => {
             const windowWidth = window.innerWidth
-            setIsMobile(windowWidth <= 1000)
+            setIsMobile(windowWidth <= width)
         }
         handleResize()
         window.addEventListener("resize", handleResize)
