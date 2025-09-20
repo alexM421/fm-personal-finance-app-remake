@@ -1,6 +1,11 @@
 .budgets-main{
     display: flex;
     gap: 24px;
+
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
 }
 
 .budgets-infographic{
@@ -29,12 +34,31 @@
             gap: 16px;
         }
     }
+
+    @media (max-width: 1200px) {
+        max-width: none;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        justify-content: baseline;
+        align-items: normal;
+        
+        &>div:first-of-type{
+            margin: auto;
+            width: 100%;
+        }
+    }
 }
 
 .budget-spending{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
 
     &>div{
         display: flex;
