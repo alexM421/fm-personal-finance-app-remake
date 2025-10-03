@@ -24,14 +24,19 @@ export function AuthProvider ({ children }: AuthContextProviderProps){
 
     useEffect(() => {
         const getLoggedIn = async () => {
-            if(loading){
-                const { data: { session } } = await supabase.auth.getSession()
-                setAuth(session || null)
-                setLoading(false)
-            }
+            const { data: { session } } = await supabase.auth.getSession()
+            setAuth(session || null)
+            setLoading(false)
         }
         getLoggedIn()
-    },[loading])
+
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+            setAuth(session ?? null)
+        })
+
+        return () => data.subscription.unsubscribe()
+        
+    },[])
 
     const value={
         auth: auth,
