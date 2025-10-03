@@ -16,6 +16,7 @@ export default function AuthUpdate () {
      const { loading, auth } = useAuthContext()
 
     if(!auth && !loading){
+        console.log(auth, loading)
         return(
             <Navigate to="/auth/login"/>
         )

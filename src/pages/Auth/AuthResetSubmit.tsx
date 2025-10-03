@@ -25,7 +25,7 @@ export async function AuthResetSubmit (
         tempErrors = !isEmailValid
 
         if(isEmailValid){
-            const supabaseData = await supabase.auth.resetPasswordForEmail(emailInput.value,{redirectTo: "http://localhost:5173/auth/update"})
+            const supabaseData = await supabase.auth.resetPasswordForEmail(emailInput.value,{redirectTo: "https://dreamy-cocada-535ced.netlify.app/auth/update"})
             const { error } = supabaseData
             if(error){
                 console.log("Couldn't send email.")

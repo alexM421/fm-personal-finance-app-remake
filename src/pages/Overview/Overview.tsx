@@ -25,7 +25,6 @@ export default function Overview () {
         if(error){
             throw new Error("Couldn't sign out", error)
         }
-        location.reload()
     }
 
     return(
