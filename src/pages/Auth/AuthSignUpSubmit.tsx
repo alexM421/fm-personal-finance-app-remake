@@ -39,8 +39,6 @@ export async function AuthSignUpSubmit (
     const isEmailValid = emailInput.validity.valid
     const isPasswordValid = passwordInput.validity.valid
 
-    console.log(isNameInputValid)
-
     tempErrors.nameErr =  !isNameInputValid
     tempErrors.emailErr = !isEmailValid
     tempErrors.passwordErr = !isPasswordValid
@@ -66,7 +64,5 @@ export async function AuthSignUpSubmit (
         setIsPopUpHidden(false)
         setTimeout(() => navigate("/auth/login"),  10000)
     }
-
-
 }
 
