@@ -26,13 +26,20 @@ export function AuthProvider ({ children }: AuthContextProviderProps){
         const getLoggedIn = async () => {
             const { data: { session } } = await supabase.auth.getSession()
             setAuth(session || null)
-            setLoading(false)
+            if(session){
+                setLoading(false)
+            }
         }
         getLoggedIn()
 
         const { data } = supabase.auth.onAuthStateChange((_event, session) => {
             setAuth(session ?? null)
+            setLoading(false)
         })
+
+        setTimeout(() => {
+            setLoading(false)
+        },300)
 
         return () => data.subscription.unsubscribe()
         
