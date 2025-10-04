@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router"
 import { AuthLoginSubmit } from "./AuthLoginSubmit"
 import type { errorsObj } from "./AuthLoginSubmit"
 import { useAuthContext } from "../../contexts/AuthContext"
+import { supabase } from "../../supabaseClient"
 
 export default function AuthLogin () {
 
@@ -24,6 +25,14 @@ export default function AuthLogin () {
         passwordErr: false,
         loginErr: false,
     })
+
+    const handleGuest = () => {
+        setLoading(true)
+        supabase.auth.signInWithPassword({
+                email: "guest@example.com",
+                password: "12345678",
+        })
+    }
 
     return(
         <form className={styles.auth} onSubmit={(e) => AuthLoginSubmit(e, setErrors, navigate, setLoading)} noValidate>
@@ -61,6 +70,7 @@ export default function AuthLogin () {
             </div>
             <Button>Login</Button>
             <div className={styles["auth-links"]}>
+                <p className="text-preset-4">Guest <Link to="/" onClick={handleGuest}>Sign In</Link></p>
                 <p className="text-preset-4">Need to create an account?<Link to="../signup">Sign Up</Link></p>
                 <p className="text-preset-4">Forgot your password? <Link to="../reset">Reset</Link></p>
             </div>
