@@ -14,6 +14,10 @@ import useMobileListener from "../../hooks/useMobileListener"
 
 export default function HomeLayout () {
     
+    //effets
+    const { isMobile } = useMobileListener(1000)
+    useSyncBill()
+    
     const { pathname } = useLocation()
     const { loading, auth } = useAuthContext()
 
@@ -29,9 +33,6 @@ export default function HomeLayout () {
         )
     }
 
-    //effets
-    const { isMobile } = useMobileListener(1000)
-    useSyncBill()
 
     return(
         <div className={styles["home-layout"]}>
