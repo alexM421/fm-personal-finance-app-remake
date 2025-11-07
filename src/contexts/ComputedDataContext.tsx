@@ -62,6 +62,8 @@ export function ComputedDataProvider ({ children }:ComputedDataProviderProps) {
     
             const currentCycleTransactions = filterTransactionsByCycle(transactions, datetime, budgetCycleDay )
             
+         
+
             const budgetedTransactions = currentCycleTransactions.filter(transaction => {
                 const isExpense = transaction.amount < 0
                 const isBudget = budgets.some(budget => budget.category === transaction.category)
