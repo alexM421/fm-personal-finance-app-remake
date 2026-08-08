@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# Personal Finance App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal finance dashboard for tracking balances, transactions, budgets, savings pots, and recurring bills. Built as a remake of the [Frontend Mentor Personal Finance App](https://www.frontendmentor.io/) challenge, with auth, cloud sync, and multi-currency support.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Overview** — balance, income, expenses, and summaries for budgets, pots, transactions, and bills
+- **Transactions** — add, edit, filter, and paginate income and spending
+- **Budgets** — category spending limits with cycle-based tracking
+- **Pots** — savings goals with add/withdraw flows
+- **Recurring bills** — bill and income schedules with due-date status
+- **Auth** — sign up, log in, password reset, and guest sign-in
+- **Settings** — preferred currency, budget cycle day, and starting balance
+- **Multi-currency** — amounts converted via Open Exchange Rates
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19 + TypeScript
+- Vite
+- React Router
+- Supabase (auth + data)
+- Open Exchange Rates API
+- API Ninjas (holiday / date data)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+
+- A [Supabase](https://supabase.com/) project
+- API keys for Open Exchange Rates and API Ninjas
+
+### Install
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the project root:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_SUPABASE_KEY=your_supabase_anon_key
+VITE_API_OPEN_EXCHANGE_ID=your_open_exchange_rates_app_id
+VITE_API_NINJA_KEY=your_api_ninjas_key
 ```
+
+### Run
+
+```bash
+npm run dev
+```
+
+### Scripts
+
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start the dev server     |
+| `npm run build`   | Typecheck and build      |
+| `npm run preview` | Preview the production build |
+| `npm run lint`    | Run ESLint               |
+
+## App routes
+
+| Path                 | Page            |
+| -------------------- | --------------- |
+| `/auth/login`        | Log in          |
+| `/auth/signup`       | Sign up         |
+| `/auth/reset`        | Password reset  |
+| `/auth/update`       | Update password |
+| `/overview`          | Dashboard       |
+| `/transactions`      | Transactions    |
+| `/budgets`           | Budgets         |
+| `/pots`              | Savings pots    |
+| `/recurring-bills`   | Recurring bills |
+
+Guest sign-in is available from the login page for quick exploration without creating an account.
